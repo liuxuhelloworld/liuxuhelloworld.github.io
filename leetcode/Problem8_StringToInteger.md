@@ -5,7 +5,7 @@ https://leetcode-cn.com/problems/string-to-integer-atoi/
 # 解法1
 思路很简答， 就是遍历字符串。注意，累加数值时要及时退出循环，防止溢出。
 
-执行用时超过50%的java提交记录。
+执行用时3ms，超过50%的java提交记录。
 
 ```java
     public int myAtoi(String s) {
@@ -51,7 +51,7 @@ https://leetcode-cn.com/problems/string-to-integer-atoi/
 
 借鉴state pattern重写了下，似乎是高级了一点。。。
 
-然而，执行用时还增加了，只超过了29%的Java提交。
+然而，执行用时还增加了，4ms，只超过了29%的Java提交。
 
 ```java
     public int myAtoiV2(String s) {
@@ -197,6 +197,90 @@ https://leetcode-cn.com/problems/string-to-integer-atoi/
         @Override
         public void transfer(char ch) {
             ss.setState(ss.getEndState());
+        }
+    }
+```
+
+# 解法3
+
+参考官方题解写的状态机，执行用户进一步增加，6ms，。。。
+
+```java
+    private enum StateEnum {
+        SPACE, SIGN, NUMBER, END
+    }
+
+    public int myAtoiV3(String s) {
+        AtoiAutomaton atoiAutomaton = new AtoiAutomaton(s);
+        return atoiAutomaton.atoi();
+    }
+
+    private class AtoiAutomaton {
+        private String s;
+
+        private StateEnum state = StateEnum.SPACE;
+        private boolean negative = false;
+        private long ret = 0;
+
+        private Map<StateEnum, StateEnum[]> transfer = new HashMap<StateEnum, StateEnum[]>() {{
+            put(StateEnum.SPACE,
+                new StateEnum[] {StateEnum.SPACE, StateEnum.SIGN, StateEnum.NUMBER, StateEnum.END});
+            put(StateEnum.SIGN,
+                new StateEnum[] {StateEnum.END, StateEnum.END, StateEnum.NUMBER, StateEnum.END});
+            put(StateEnum.NUMBER,
+                new StateEnum[] {StateEnum.END, StateEnum.END, StateEnum.NUMBER, StateEnum.END});
+            put(StateEnum.END,
+                new StateEnum[] {StateEnum.END, StateEnum.END, StateEnum.END, StateEnum.END});
+        }};
+
+        public AtoiAutomaton(String s) {
+            this.s = s;
+        }
+
+        public int atoi() {
+            for (char ch : s.toCharArray()) {
+                transfer(ch);
+
+                if (state.equals(StateEnum.SIGN)) {
+                    negative = ch == '-' ? true : false;
+                } else if (state.equals(StateEnum.NUMBER)) {
+                    ret = ret * 10 + (ch - '0');
+                    if (ret > Integer.MAX_VALUE) {
+                        break;
+                    }
+                } else if (state.equals(StateEnum.END)) {
+                    break;
+                }
+            }
+            ret = ret * (negative ? -1 : 1);
+
+            if (ret > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            } else if (ret < Integer.MIN_VALUE) {
+                return Integer.MIN_VALUE;
+            } else {
+                return (int)ret;
+            }
+        }
+
+        private void transfer(char ch) {
+            int index = computeIndex(ch);
+            state = transfer.get(state)[index];
+        }
+
+        private int computeIndex(char ch) {
+            int index;
+            if (Character.isSpaceChar(ch)) {
+                index = 0;
+            } else if (ch == '+' || ch == '-') {
+                index = 1;
+            } else if (Character.isDigit(ch)) {
+                index = 2;
+            } else {
+                index = 3;
+            }
+
+            return index;
         }
     }
 ```
