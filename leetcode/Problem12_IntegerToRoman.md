@@ -1,0 +1,34 @@
+# 题目链接
+
+https://leetcode-cn.com/problems/integer-to-roman/
+
+# 解法1
+题目中限制入参在1到3999之间，romanSymbol是个十百千各位上0-9对应的罗马符号，然后从高位到低位循环处理入参即可。
+
+```java
+	private static String[][] romanSymbol = {
+		{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"},
+		{"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"},
+		{"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"},
+		{"", "M", "MM", "MMM"}
+	};
+
+	public String intToRoman(int num) {
+		StringBuilder builder = new StringBuilder();
+
+		int op = 1000;
+		while (num != 0) {
+			int quotient = num / op;
+			int remainder = num % op;
+
+			if (quotient != 0) {
+				builder.append(romanSymbol[(int)Math.log10(op)][quotient]);
+			}
+
+			op = op / 10;
+			num = remainder;
+		}
+
+		return builder.toString();
+	}
+```
