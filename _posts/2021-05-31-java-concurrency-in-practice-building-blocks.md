@@ -130,3 +130,28 @@ public class FileCrawlerAndIndexerTest {
 	}
 }
 ```
+
+## serial thread confinement
+For mutable object, producer-consumer designs and blocking queues facilitate *serial thread confinement* for handling off ownership of objects from producers to consumers. A thread-confined object is owned exclusively by a single thread, but that ownership can be transferred by publishing it safely where only one other thread will gain access to it and ensuring that the publishing thread does not access it after the handoff.
+
+Object pools exploit serial thread confinement, lending an object to a requesting thread. As long as the pool contains sufficient internal synchronization to publish the pooled object safely, and as long as the clients do not themselves publish the pooled object or use it after returning it to the pool, ownership can be transferred safely thread to thread.
+
+## deques and work stealing
+A **Deque** is a double-ended queue that allows efficient insertion and removal from both the head and the tail.
+
+Just as blocking queues lend themselves to the producer-consumer pattern, deques lend themselves to a related pattern called *work stealing*. A producer-consumer design has one shared work queue for all consumers; in a work stealing design, every consumer has its own deque. If a consumer exhausts the work in its own deque, it can steal work from the tail of someone else's deque.
+
+Work stealing can be more scalable than a traditional producer-consumer design because workers don't contend for a shared work queue; most of the time they access only their own deque, reducing contention. When a worker has to access another's queue, it does so from their tail rather than the head, further reducing contention.
+
+Work stealing is well suited to problems in which consumers are also producers, when performing a unit of work is likely to result in the identification of more wok. For example, processing a page in a web crawler usually results in the identification of new pages to be crawled. Similarly, mamy graph-exploring algorithms, such as marking the hap during garbage collection, can be efficiently parallelized using work stealing. When a work identifies a new unit of work, it places it at the end of its own deque; when its deque is empty, it looks for work at the end of someone else's deque, ensuring that each worker stays busy.
+
+# Blocking and interruptible methods
+Threads may block for several reasons: waiting for I/O completion, waiting to acquire a lock, waiting to wake up from **Thread.sleep**, or waiting for the result of a computation in another thread. When a thread blocks, it is usually suspended and placed in one of the blocked thread states (BLOCKED, WAITING, or TIMED_WAITING).
+
+When a method can throw **InterruptedException**, it is telling you that it is a blocking method, and further if it is interrupted, it will make an effort to stop blocking early.
+
+Interruption is a cooperative mechanism. One thread cannot force another to stop what it is doing and do something else; when thread A interrupts thread B, A is merely requesting that B stop what it is doing when it gets to a convenient stoping point, if it feels like it. One of the most sensible use for interruption is to cacel an activity. Blocking methods that are responsive to interruption make it easier to cancel long-running activities on a timely basis.
+
+When your code calls a method that throws **InterruptedException**, then your method is a blocking method too, and must have a plan for responding to interruption. For library code, there are basically two choices:
+- propagate the **InterruptedException**: this is often the most sensible policy if you can get away with it, just propagate the **InterruptedException** to your caller. This could involve not catching **InterruptedException**, or catching it and throwing it again after performing some brief activity-specific cleanup
+- restore the interrupt: sometimes you cannot throw **InterruptedException**, for instance when your code is part of a **Runnable**. In these situations, you must catch **InterruptedException** and restore the interrupted status by calling **interrupt** on the current thread, so the caller higher up the call stack can see that an interrupt was issued
