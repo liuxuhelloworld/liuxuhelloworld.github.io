@@ -154,4 +154,133 @@ Interruption is a cooperative mechanism. One thread cannot force another to stop
 
 When your code calls a method that throws **InterruptedException**, then your method is a blocking method too, and must have a plan for responding to interruption. For library code, there are basically two choices:
 - propagate the **InterruptedException**: this is often the most sensible policy if you can get away with it, just propagate the **InterruptedException** to your caller. This could involve not catching **InterruptedException**, or catching it and throwing it again after performing some brief activity-specific cleanup
-- restore the interrupt: sometimes you cannot throw **InterruptedException**, for instance when your code is part of a **Runnable**. In these situations, you must catch **InterruptedException** and restore the interrupted status by calling **interrupt** on the current thread, so the caller higher up the call stack can see that an interrupt was issued
+- restore the interrupt: sometimes you cannot throw **InterruptedException**, for instance when your code is part of a **Runnable**. In these situations, you must catch **InterruptedException** and restore the interrupted status by calling **interrupt** on the current thread, so the caller higher up the call stack can see that an interrupt was issued.
+
+# Synchronizers
+A *synchronizer* is any object that coordinates the control flow of threads based on its state.
+
+Blocking queues can act as synchronizers; other types of synchronizers include semaphores, barriers, and latches.
+
+## latch
+A *latch* is a synchronizer that can delay the progress of threads until it reaches its terminal state. A latch acts as a gate: until the latch reaches the terminal state the gate is closed and no thread can pass, and in the terminal state the gate opens, allowing all threads to pass.
+
+**CountDownLatch** is a flexible latch implementation; it allows one or more threads to wait for a set of events to occur. The latch state consists of a counter initialized to a positive number, representing the number of events to wait for. The **countDown** method decrements the counter, indicating that an event has occured, and the **await** method wait for the counter to reach zero, which happens when all the events have occurred.
+
+```java
+public class CountDownLatchExample {
+	public long timeTasks(int nThreads, final Runnable task) throws InterruptedException {
+		final CountDownLatch startGate = new CountDownLatch(1);
+		final CountDownLatch endGate = new CountDownLatch(nThreads);
+
+		for (int i = 0; i < nThreads; i++) {
+			Thread t = new Thread() {
+				public void run() {
+					try {
+						startGate.await();
+						try {
+							task.run();
+						} finally {
+							endGate.countDown();
+						}
+					} catch (InterruptedException e) {
+
+					}
+				}
+			};
+			t.start();
+		}
+
+		long start = System.nanoTime();
+		startGate.countDown();
+		endGate.await();
+		long end = System.nanoTime();
+
+		return end - start;
+	}
+}
+```
+
+## FutureTask
+**FutureTask** implements **Future**, which describes an abstract result-bearing computation. 
+
+A computation represented by a **FutureTask** is implemented with a **Callable** and can be in one of three states: waiting to run, running, or completed. Completion subsumes all the ways a computation can complete, including normal completion, cancellation, and exception. Once a **FutureTask** enters the completed state, it stays in that state forever.
+
+The behavior of **Future.get** depends on the state of the task. If it is completed, **get** returns the result immediately, and otherwise blocks until the task transitions to the completed state and then returns the result or throws an exception. **FutureTask** conceys the result from the thread executing the computation to the thread retrieving the result; the specification of **FutureTask** guarantees that this transfer constitutes a safe publication of the result.
+
+**FutureTask** is used by the **Executor** framework to represent asynchronous tasks, and can also be used to represent any potentially lenghy computation that can be started before the results are needed.
+
+```java
+public class FutureTaskExample {
+	private final FutureTask<Resource> futureTask = new FutureTask<>(new Callable<Resource>() {
+		@Override
+		public Resource call() throws Exception {
+			return new Resource();
+		}
+	});
+
+	private final Thread thread = new Thread(futureTask);
+
+	public void start() {
+		thread.start();
+	}
+
+	public Resource get() {
+		try {
+			futureTask.get();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+}
+```
+
+## semaphores
+Counting semaphores are used to control the number of activities that can access a certain resource or perform a given action at the same time. Counting semaphores can be used to implement resource pools or to impose a bound on a collection.
+
+A **Semaphore** manages a set of virtual *permits*; the initial number of permits is passed to the **Semaphore** constructor. Activities can acquire permits as long as some remain and release permits when they are done with them. If no permit is avaiable, **acquire** blocks until one is (or until interrupted or the operation times out). The **release** method returns a permit to the semaphore.
+
+A binary semaphore can be used as a *mutex* with nonreentrant locking semantics; whoever holds the sole permit holds the mutex.
+
+Semaphores are useful for implementing resource pools such as database connection pools. If you initialize a **Semaphore** to the pool size, **acquire** a permit before trying to fetch a resource from the pool, and **release** the permit after putting a resource back in the pool, **acquire** blocks until the pool becomes nonempty.
+
+Similarly, you can use a **Semaphore** to turn any collection into a blocking bounded collection.
+
+```java
+public class BlockingBoundedHashSet<E> {
+	private final Set<E> set;
+	private final Semaphore semaphore;
+
+	public BlockingBoundedHashSet(int bound) {
+		set = Collections.synchronizedSet(new HashSet<>());
+		semaphore = new Semaphore(bound);
+	}
+
+	public boolean add(E o) throws InterruptedException {
+		semaphore.acquire();
+		boolean added = false;
+		try {
+			added = set.add(o);
+			return added;
+		} finally {
+			if (!added) {
+				semaphore.release();
+			}
+		}
+	}
+
+	public boolean remove(Object o) {
+		boolean removed = set.remove(o);
+		if (removed) {
+			semaphore.release();
+		}
+
+		return removed;
+	}
+}
+```
+
+The semaphore is initialized to the desired maximum size of the collection. The **add** operation acquires a permit before adding the item into the underlying collection. If the underlying **add** operation does not actually add anything, it releases the permit immediately. Similarly, a succussful **remove** operation releases a permit, enabling more elements to be added.
