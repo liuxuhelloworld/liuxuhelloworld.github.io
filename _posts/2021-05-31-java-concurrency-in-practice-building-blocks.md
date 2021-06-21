@@ -164,6 +164,8 @@ Blocking queues can act as synchronizers; other types of synchronizers include s
 ## latch
 A *latch* is a synchronizer that can delay the progress of threads until it reaches its terminal state. A latch acts as a gate: until the latch reaches the terminal state the gate is closed and no thread can pass, and in the terminal state the gate opens, allowing all threads to pass.
 
+Latches are single-use objects; once a latch enters the terminal state, it cannot be reset.
+
 **CountDownLatch** is a flexible latch implementation; it allows one or more threads to wait for a set of events to occur. The latch state consists of a counter initialized to a positive number, representing the number of events to wait for. The **countDown** method decrements the counter, indicating that an event has occured, and the **await** method wait for the counter to reach zero, which happens when all the events have occurred.
 
 ```java
@@ -284,3 +286,75 @@ public class BlockingBoundedHashSet<E> {
 ```
 
 The semaphore is initialized to the desired maximum size of the collection. The **add** operation acquires a permit before adding the item into the underlying collection. If the underlying **add** operation does not actually add anything, it releases the permit immediately. Similarly, a succussful **remove** operation releases a permit, enabling more elements to be added.
+
+## barriers
+Barriers are similar to latches in that they block a group of threads until some event has occurred. The key difference is that with a barrier, all the threads must come together at a barrier point at the same time in order to proceed. Latches are for waiting for events, barriers are for waiting for other threads.
+
+**CyclicBarrier** allows a fixed number of parties to rendezvous repeatedly at a *barrier point* and is useful in parallel iterative algorithms that break down a problem into a fixed number of independent subproblems. Threads call **await** when they reach the barrier point, and **await** blocks until all the threads have reached the barrier point. If all threads meet at the barrier point, the barrier has been successfully passed, in which case all threads are released and the barrier is reset so it can be used again. If the barrier is successfully passed, **await** returns a unique arrival index for each thread, which can be used to elect a leader that takes some special action in the next iteration. **CyclicBarrier** also lets you pass a *barrier action* to the constructor; this is a **Runnable** that is executed when the barrier is successfully passed but before the blocked threads are released.
+
+Barriers are often used in simulations, where the work to calculate one step can be done in parallel but all the work associated with a given step must complete before advancing to the next step.
+
+```java
+public class CyclicBarrierExample {
+	private final List<Integer> box;
+	private final CyclicBarrier barrier;
+	private final Worker[] workers;
+
+	public CyclicBarrierExample(List<Integer> box) {
+		this.box = box;
+
+		int count = Runtime.getRuntime().availableProcessors();
+
+		this.barrier = new CyclicBarrier(count, new Runnable() {
+			@Override
+			public void run() {
+				System.out.println(box);
+				box.clear();
+			}
+		});
+
+		this.workers = new Worker[count];
+		for (int i = 0; i < count; i++) {
+			workers[i] = new Worker(box);
+		}
+	}
+
+	public void start() {
+		for (int i = 0; i < workers.length; i++) {
+			new Thread(workers[i]).start();
+		}
+	}
+
+	public static void main(String[] args) {
+		List<Integer> box = new ArrayList<>();
+		CyclicBarrierExample cyclicBarrierExample = new CyclicBarrierExample(box);
+		cyclicBarrierExample.start();
+	}
+
+	private class Worker implements Runnable {
+		private final List<Integer> box;
+
+		public Worker(List<Integer> box) {
+			this.box = box;
+		}
+
+		@Override
+		public void run() {
+			int val = 1;
+			while (val < 10) {
+				box.add(val * val);
+				try {
+					barrier.await();
+				} catch (InterruptedException e) {
+					return;
+				} catch (BrokenBarrierException e) {
+					return;
+				}
+				val++;
+			}
+		}
+	}
+}
+```
+
+Another form of barrier is **Exchanger**, a two-party barrier in which the parties exchange data at the barrier point. Exchangers are useful when the parties perform asymmetric activities, for example when one thread fills a buffer with data and the other thread consumes the data from the buffer; these threads could use an **Exchanger** to meet and exchange a full buffer for an empty one.
