@@ -7,7 +7,7 @@
 - [Problem96-Unique Binary Search Trees](_posts/2021-06-15-leetcode-problem-96.md)
 - [Problem97-Interleaving String](_posts/2021-06-29-leetcode-problem-97.md)
 
-# 读书笔记
+# 学习笔记
 ## Java Concurrency in Practice
 - [Building Blocks](_posts/2021-05-31-java-concurrency-in-practice-building-blocks.md)
 - [Task Execution](_posts/2021-06-09-java-concurrency-in-practice-task-execution.md)
@@ -19,6 +19,9 @@
 - [Spring Boot](_posts/2021-06-08-spring-boot.md)
 - [Spring JDBC](_posts/2021-07-02-spring-jdbc.md)
 - [Spring Data](_posts/2021-07-05-spring-data.md)
+
+## MySQL
+- [MySQL Architecture](_posts/2021-07-05-mysql-architecture.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
