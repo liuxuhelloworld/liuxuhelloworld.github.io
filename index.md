@@ -17,6 +17,8 @@
 - [Spring Configuration](_posts/2021-06-08-spring-configuration.md)
 - [Spring MVC](_posts/2021-06-08-spring-mvc.md)
 - [Spring Boot](_posts/2021-06-08-spring-boot.md)
+- [Spring JDBC](_posts/2021-07-02-spring-jdbc.md)
+- [Spring Data](_posts/2021-07-05-spring-data.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
