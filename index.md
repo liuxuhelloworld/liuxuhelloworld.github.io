@@ -20,6 +20,7 @@
 - [Spring Boot](_posts/2021-06-08-spring-boot.md)
 - [Spring JDBC](_posts/2021-07-02-spring-jdbc.md)
 - [Spring Data](_posts/2021-07-05-spring-data.md)
+- [Spring Security](_posts/2021-07-05-spring-security.md)
 
 ## MySQL
 - [MySQL Architecture](_posts/2021-07-05-mysql-architecture.md)
