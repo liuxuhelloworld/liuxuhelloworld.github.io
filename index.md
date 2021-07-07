@@ -25,6 +25,7 @@
 ## MySQL
 - [MySQL Architecture](_posts/2021-07-05-mysql-architecture.md)
 - [MySQL Log](_posts/2021-07-06-mysql-log.md)
+- [MySQL Transaction](_posts/2021-07-07-mysql-transaction.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
