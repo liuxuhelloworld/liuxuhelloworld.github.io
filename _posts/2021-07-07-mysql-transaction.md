@@ -23,6 +23,11 @@ show variables like 'transaction_isolation';
 show variables like 'autocommit';
 ```
 
+单个语句最长执行时间：
+```sql
+show variables like 'max_execution_time';
+```
+
 查询长事务：
 ```sql
 
