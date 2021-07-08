@@ -39,6 +39,9 @@ Spring支持Java's Bean Validation API (也称为JSR-303)，所以我们只需�
 # WebMvcConfigurer
 **WebMvcConfigurer** defines several methods for configuring Spring MVC.
 
+# @RestController
+The @RestController tells Spring that all handler methods in the controller should have their return value written directly to the body of the response, rather than being carried in the model to a view for rendering.
+
 # Spring MVC test
 ```java
 @RunWith(SpringRunner.class)
