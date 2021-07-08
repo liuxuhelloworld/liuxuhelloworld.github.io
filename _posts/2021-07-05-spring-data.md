@@ -291,3 +291,30 @@ public class SingerServiceImpl implements SingerService {
 	}
 }
 ```
+
+# Spring Data REST
+Spring Data REST is one member of the Spring Data family that automatically creates REST APIs for repositories created by Spring Data. 也就是说，如果你使用Spring Data，那么就可以通过Spring Data REST来自动创建REST APIs. Spring Data REST is great at creating endpoints for performing CRUD operations against Spring Data repositories. The REST endpoints that Spring Data REST creates are at least as good as the one you created yourself, and possibly even better. 
+
+## 如何使用Spring Data REST?
+1. 添加Spring Data REST dependency
+```properties
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-rest</artifactId>
+</dependency>
+```
+添加了这个dependency后，the application gets auto-configuration that enables automatic creation of a REST API for any repositories that were created by Spring Data.
+
+2. 设置一个base path，这样就不会和你自己创建的endpoints冲突了
+```properties
+spring.data.rest.base-path=/api
+```
+
+3. 如何知道Spring Data  REST都创建了哪些endpoints呢？
+请求你配置的base path就可以，比如，localhost:8080/api
+
+4. Spring Data REST创建endpoints时是如何确定path的呢？
+通过将entity class的名字复数化，比如，Ingredient对应的path是ingredients，Order对应的path是orders. 这种复数化的方式某些情况下可能有问题，比如，Taco复数化的path是tacoes，而你可能期待的是tacos. 为了避免这种出入，你可以通过@RestResource来修饰的对应的entity，明确定义你期望的path名称，比如，@RestResource(rel="tacos", path="tacos")
+
+5. paging and sorting
+如果你使用的repository是PagingAndSortingRepository，那么Spring Data REST创建的endpoints也会支持paging和sorting. 比如，localhost:8080/api/tacos?sort=createdAt,desc&size=5
