@@ -6,7 +6,8 @@
 - [Problem95-Unique Binary Search Trees](_posts/2021-06-18-leetcode-problem-95.md)
 - [Problem96-Unique Binary Search Trees](_posts/2021-06-15-leetcode-problem-96.md)
 - [Problem97-Interleaving String](_posts/2021-06-29-leetcode-problem-97.md)
-- [Problem98-ValidateBinarySearchTree](_posts/2021-07-06-leetcode-problem-98.md)
+- [Problem98-Validate Binary Search Tree](_posts/2021-07-06-leetcode-problem-98.md)
+- [Problem99-Recover Binary Search Tree](_posts/2021-07-08-leetcode-problem-99.md)
 
 # 学习笔记
 ## Java Concurrency in Practice
