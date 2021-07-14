@@ -42,6 +42,11 @@ Spring支持Java's Bean Validation API (也称为JSR-303)，所以我们只需�
 # @RestController
 The @RestController tells Spring that all handler methods in the controller should have their return value written directly to the body of the response, rather than being carried in the model to a view for rendering.
 
+# RestTemplate
+如何使用一个REST接口呢？如果不使用RestTemplate，那么你需要working with low-level HTTP libraries, the client needs to create a client instance and a request object, execute the request, interpret the response, map the response to domain objects, and handle any exceptions that may be thrown along the way.
+
+Clients can use RestTemplate to make HTTP requests against REST APIs.
+
 # Spring MVC test
 ```java
 @RunWith(SpringRunner.class)

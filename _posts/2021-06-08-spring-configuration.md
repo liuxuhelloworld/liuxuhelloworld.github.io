@@ -142,3 +142,9 @@ logging.file=xxx
 ```
 
 如果你需要full control over the logging，你可以在src/main/resources下写一个logback.xml.
+
+# 未分类配置项
+```properties
+spring.main.web-application-type=none
+```
+The **spring.main.web-application-type** property can be set to either *servlet*, *reactive*, or *none*. When Spring MVC is in the classpath, autoconfiguration sets its value to *servlet*. If you set it to *none*, then Spring MVC and Tomcat won't be autoconfigured.

@@ -24,6 +24,8 @@
 - [Spring JDBC](_posts/2021-07-02-spring-jdbc.md)
 - [Spring Data](_posts/2021-07-05-spring-data.md)
 - [Spring Security](_posts/2021-07-05-spring-security.md)
+- [Spring Messaging](_posts/2021-07-08-spring-messaging.md)
+- [Spring Integration](_posts/2021-07-12-spring-integration.md)
 
 ## MySQL
 - [MySQL Architecture](_posts/2021-07-05-mysql-architecture.md)
