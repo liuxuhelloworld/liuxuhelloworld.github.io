@@ -34,6 +34,7 @@
 - [MySQL Lock](_posts/2021-07-12-mysql-lock.md)
 - [MySQL Transaction](_posts/2021-07-07-mysql-transaction.md)
 - [MySQL Index](_posts/2021-07-08-mysql-index.md)
+- [MySQL DDL&DML](_posts/2021-07-20-mysql-ddl-dml.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
