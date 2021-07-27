@@ -40,6 +40,10 @@
 - [MySQL Index](_posts/2021-07-08-mysql-index.md)
 - [MySQL DDL&DML](_posts/2021-07-20-mysql-ddl-dml.md)
 
+## 高并发系统设计
+- [通用原则](_posts/2021-07-16-high-concrrent-system-design-general-principles.md)
+- [分层设计](2021-07-27-high-concurrent-system-design-hierarchical-design.md)
+
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
 
