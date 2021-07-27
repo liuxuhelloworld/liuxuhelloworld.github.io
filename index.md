@@ -14,6 +14,7 @@
 - [Problem106-Construct Binary Tree from Inorder and Postorder Traversal](_posts/2021-07-20-leetcode-problem-106.md)
 - [Problem107-Binary Tree Level Order Traversal](_posts/2021-07-22-leetcode-problem-107.md)
 - [Problem704-Binary Search](_posts/2021-07-26-leetcode-problem-704.md)
+- [Problem278-First Bad Version](_posts/2021-07-27-leetcode-problem-278.md)
 
 # 学习笔记
 ## Java Concurrency in Practice
