@@ -1,4 +1,5 @@
 # leetcode
+- [Problem35-Search Insert Position](_posts/2021-07-28-leetcode-problem-35.md)
 - [Problem89-Gray Code](_posts/2021-05-25-leetcode-problem-89.md)
 - [Problem91-Decode Ways](_posts/2021-06-01-leetcode-problem-91.md)
 - [Problem92-Reverse Linked List](_posts/2021-06-04-leetcode-problem-92.md)
@@ -13,8 +14,8 @@
 - [Problem105-Construct Binary Tree from Preorder and Inorder Traversal](_posts/2021-07-15-leetcode-problem-105.md)
 - [Problem106-Construct Binary Tree from Inorder and Postorder Traversal](_posts/2021-07-20-leetcode-problem-106.md)
 - [Problem107-Binary Tree Level Order Traversal](_posts/2021-07-22-leetcode-problem-107.md)
-- [Problem704-Binary Search](_posts/2021-07-26-leetcode-problem-704.md)
 - [Problem278-First Bad Version](_posts/2021-07-27-leetcode-problem-278.md)
+- [Problem704-Binary Search](_posts/2021-07-26-leetcode-problem-704.md)
 
 # 学习笔记
 ## Java Concurrency in Practice
@@ -41,7 +42,7 @@
 - [MySQL DDL&DML](_posts/2021-07-20-mysql-ddl-dml.md)
 
 ## 高并发系统设计
-- [通用原则](_posts/2021-07-16-high-concrrent-system-design-general-principles.md)
+- [通用原则](_posts/2021-07-16-high-concurrent-system-design-general-principles.md)
 - [分层设计](2021-07-27-high-concurrent-system-design-hierarchical-design.md)
 
 ## Others
