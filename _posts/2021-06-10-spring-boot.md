@@ -11,7 +11,43 @@ Template cache是默认的，这样templates don't need to be reparsed with ever
 http://localhost:8080/h2-console
 jdbc:h2:mem:testdb
 
+# Spring Boot Actuator
+Spring Boot Actuator offers production-ready features such as monitoring and metrics to Spring Boot applications.
 
+Actuator's features are provided by way of several endpoints, which are made available over HTTP as well as through JMX MBeans. Using endpoints exposed by Actuator, we can ask things about the internal state of a running Spring Boot application.
 
+## 如何使用Actuator?
+1. To enable Actuator in a Spring Boot application, you simply need to add Actuator's starter dependency to your build
+```properties
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
 
+2. configurations
+```properties
+management.endpoints.web.base-path=xxx
+management.endpoints.web.exposure.include=xxx,xxx,xxx
+management.endpoints.web.exposure.exclude=xxx,xxx,xxx
+management.endpoint.health.show-details=always
+```
+
+3. consuming endpoints
+- localhost:xxx/actuator
+- localhost:xxx/actuator/info
+- localhost:xxx/actuator/health
+- localhost:xxx/actuator/beans
+- localhost:xxx/actuator/conditions
+- localhost:xxx/actuator/env
+- localhost:xxx/actuator/mappings
+- localhost:xxx/actuator/loggers
+- localhost:xxx/actuator/httptrace
+- localhost:xxx/actuator/threaddump
+- localhost:xxx/actuator/heapdump
+- localhost:xxx/actuator/metrics
+- localhost:xxx/actuator/metrics/xxx
+
+4. customizing Actuator
+A few of the endpoints themselves allow for customization. Moreover, Actuator itself allows you to create custom endpoints.
 
