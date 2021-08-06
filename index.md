@@ -49,6 +49,7 @@
 - [通用原则](_posts/2021-07-16-high-concurrent-system-design-general-principles.md)
 - [分层设计](2021-07-27-high-concurrent-system-design-hierarchical-design.md)
 - [设计目标](2021-07-29-high-concurrent-system-design-design-objectives.md)
+- [池化技术](2021-08-06-high-concurrent-system-design-pooling-technology.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
