@@ -46,6 +46,7 @@
 - [MySQL Transaction](_posts/2021-07-07-mysql-transaction.md)
 - [MySQL Index](_posts/2021-07-08-mysql-index.md)
 - [MySQL DDL&DML](_posts/2021-07-20-mysql-ddl-dml.md)
+- [MySQL Replication](_posts/2021-08-10-mysql-replication.md)
 
 ## 高并发系统设计
 - [通用原则](_posts/2021-07-16-high-concurrent-system-design-general-principles.md)
