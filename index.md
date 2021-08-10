@@ -55,6 +55,7 @@
 - [设计目标](_posts/2021-07-29-high-concurrent-system-design-design-objectives.md)
 - [池化技术](_posts/2021-08-06-high-concurrent-system-design-pooling-technology.md)
 - [读写分离](_posts/2021-08-09-high-concurrent-system-design-read-write-separation.md)
+- [数据分片](_posts/2021-08-10-high-concurrent-system-design-data-sharding.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
