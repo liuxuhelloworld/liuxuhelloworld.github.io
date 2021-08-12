@@ -19,6 +19,12 @@ show slave status;
 - 备库机器性能差
 - 备库承接了大量读请求
 - 大事务，比如一次删除太多数据
+- 单线程复制，MySQL 5.6版本前，只支持单线程处理relay log，当主库并发高时可能出现严重的主备延迟
+
+## 并行复制
+![并行复制示意图](https://static001.geekbang.org/resource/image/bc/45/bcf75aa3b0f496699fd7885426bc6245.png)
+
+从MySQL 5.6开始，MySQL开始支持并行复制，已经迭代了多种并行复制策略，具体暂略。
 
 # 主备切换
 ## 可靠性优先策略
