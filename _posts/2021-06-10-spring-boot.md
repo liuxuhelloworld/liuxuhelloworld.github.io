@@ -51,3 +51,12 @@ management.endpoint.health.show-details=always
 4. customizing Actuator
 A few of the endpoints themselves allow for customization. Moreover, Actuator itself allows you to create custom endpoints.
 
+## JMX
+Java Management Extensions (JMX) has been the standard means of monitoring and managing Java applications. By exposing managed components known as MBeans (managed beans), an external JMX client can manage an application by invoking operations, inspecting properties, and monitoring events from MBeans.
+
+JMX is automatically enabled by default in a Spring Boot application. As a result, all of the Actuator endpoints are exposed as MBeans.
+
+Spring makes it easy to expose any bean you want as a JMX MBean. All you must do is annotate the bean class with **@ManagedResource** and then annodate any methods or properties with **@ManagedOperation** or **@ManagedAttribute**. Spring will take care of the rest.
+
+MBeans can push notifications to interested JMX clients with Spring's **NotificationPublisher**. **NotificationPublisher** has a single **sendNotification()** method that, when given a **Notification** object, publishes the notification to any JMX clients that have subscribed to the MBean.
+
