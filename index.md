@@ -31,6 +31,8 @@
 - [Problem977-Squares of Sorted Array](_posts/2021-07-29-leetcode-problem-977.md)
 
 # 学习笔记
+- [Java packaging](_posts/2021-08-12-java-packaging.md)
+
 ## Java Concurrency in Practice
 - [Building Blocks](_posts/2021-05-31-java-concurrency-in-practice-building-blocks.md)
 - [Task Execution](_posts/2021-06-09-java-concurrency-in-practice-task-execution.md)
