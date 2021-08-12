@@ -1,4 +1,11 @@
 # leetcode
+## List
+- [Problem19-Remove Nth Node From End of List](_posts/2021-08-12-leetcode-problem-19.md)
+
+## Two Pointers
+- [Problem876-Middle of Linked List](_posts/2021-08-11-leetcode-problem-876.md)
+
+## 未归类
 - [Problem35-Search Insert Position](_posts/2021-07-28-leetcode-problem-35.md)
 - [Problem89-Gray Code](_posts/2021-05-25-leetcode-problem-89.md)
 - [Problem91-Decode Ways](_posts/2021-06-01-leetcode-problem-91.md)
@@ -21,7 +28,6 @@
 - [Problem344-Reverse String](_posts/2021-08-09-leetcode-problem-344.md)
 - [Problem557-Reverse Words In String](_posts/2021-08-10-leetcode-problem-557.md)
 - [Problem704-Binary Search](_posts/2021-07-26-leetcode-problem-704.md)
-- [Problem876-Middle of Linked List](_posts/2021-08-11-leetcode-problem-876.md)
 - [Problem977-Squares of Sorted Array](_posts/2021-07-29-leetcode-problem-977.md)
 
 # 学习笔记
@@ -32,8 +38,8 @@
 ## Spring
 - [What is Spring](_posts/2021-06-08-spring-what-is-spring.md)
 - [Spring Configuration](_posts/2021-06-08-spring-configuration.md)
-- [Spring MVC](_posts/2021-06-08-spring-mvc.md)
-- [Spring Boot](_posts/2021-06-08-spring-boot.md)
+- [Spring MVC](_posts/2021-06-09-spring-mvc.md)
+- [Spring Boot](_posts/2021-06-10-spring-boot.md)
 - [Spring JDBC](_posts/2021-07-02-spring-jdbc.md)
 - [Spring Data](_posts/2021-07-05-spring-data.md)
 - [Spring Security](_posts/2021-07-05-spring-security.md)
