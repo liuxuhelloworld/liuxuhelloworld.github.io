@@ -46,3 +46,6 @@ show slave status;
 
 ## 可靠性 vs 可用性
 一般的，数据的可靠性是优先于可用性的，应当在可靠性的基础上，通过降低主备延迟来提高可用性。
+
+# 一主一备多从
+![一主一备多从示意图](https://static001.geekbang.org/resource/image/aa/79/aadb3b956d1ffc13ac46515a7d619e79.png)
