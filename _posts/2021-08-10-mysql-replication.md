@@ -47,5 +47,14 @@ show slave status;
 ## 可靠性 vs 可用性
 一般的，数据的可靠性是优先于可用性的，应当在可靠性的基础上，通过降低主备延迟来提高可用性。
 
-# 一主一备多从
-![一主一备多从示意图](https://static001.geekbang.org/resource/image/aa/79/aadb3b956d1ffc13ac46515a7d619e79.png)
+# 读写分离
+## 直连
+![读写分离示意图](https://static001.geekbang.org/resource/image/aa/79/aadb3b956d1ffc13ac46515a7d619e79.png)
+
+## proxy
+![读写分离示意图](https://static001.geekbang.org/resource/image/1b/45/1b1ea74a48e1a16409e9b4d02172b945.jpg)
+
+## 主从延迟
+- 强制走主库
+
+专栏里介绍的其他几种方式，有的不可靠，有的我觉得太复杂，如果有专门的中间件团队研发维护可能还好，这里就暂略了。
