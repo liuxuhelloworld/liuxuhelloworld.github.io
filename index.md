@@ -75,6 +75,7 @@
 - [发号器](_posts/2021-08-11-high-concurrent-system-design-distributed-id-generator.md)
 - [NoSQL](_posts/2021-08-12-high-concurrent-system-design-nosql.md)
 - [缓存](_posts/2021-08-13-high-concurrent-system-design-caching.md)
+- [CDN](_posts/2021-08-18-high-concurrent-system-design-cdn.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
