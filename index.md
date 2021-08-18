@@ -54,7 +54,7 @@
 - [Spring Messaging](_posts/2021-07-08-spring-messaging.md)
 - [Spring Integration](_posts/2021-07-12-spring-integration.md)
 - [Spring Microservices](_posts/2021-07-13-spring-microservices.md)
-- [Spring Reactive Programming](_posts/2021-08-13-spring-reactive-programming.md)
+- [Spring WebFlux](_posts/2021-08-13-spring-webflux.md)
 
 ## MySQL
 - [MySQL Architecture](_posts/2021-07-05-mysql-architecture.md)
