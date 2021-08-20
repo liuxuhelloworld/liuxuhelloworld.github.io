@@ -76,6 +76,7 @@
 - [NoSQL](_posts/2021-08-12-high-concurrent-system-design-nosql.md)
 - [缓存](_posts/2021-08-13-high-concurrent-system-design-caching.md)
 - [CDN](_posts/2021-08-18-high-concurrent-system-design-cdn.md)
+- [数据迁移](_posts/2021-08-19-high-concurrent-system-design-data-migration.md)
 
 ## Others
 - [Thymeleaf](_posts/2021-06-21-thymeleaf.md)
