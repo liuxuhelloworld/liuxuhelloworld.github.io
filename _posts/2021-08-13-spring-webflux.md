@@ -225,3 +225,12 @@ public class TacoController {
 	}
 }
 ```
+
+## Spring WebFlux functional programming model
+As an alternative to WebFlux, Spring 5 has introduced a new functional programming model for defining reactive APIs.
+
+Writing an API using Spring's functional programming model involves four primary type:
+- **RequestPreficate**, declares the kind of requests that will be handled
+- **RouterFunction**, declares how a matching request should be routed to handler code
+- **ServerRequest**, represents an HTTP request, including access to header and body information
+- **ServerResponse**, represents an HTTP response, including header and body information
