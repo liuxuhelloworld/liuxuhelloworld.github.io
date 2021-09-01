@@ -12,6 +12,7 @@
 ## DFS
 - [Problem733-Flood Fill](_posts/2021-08-25-leetcode-problem-733.md)
 - [Problem695-Max Area of Island](_posts/2021-08-30-leetcode-problem-695.md)
+- [Problem617-Merge Two Binary Trees](_posts/2021-09-01-leetcode-problem-617.md)
 
 ## BFS
 - [Problem733-Flood Fill](_posts/2021-08-25-leetcode-problem-733.md)
