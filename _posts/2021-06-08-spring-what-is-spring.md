@@ -1,3 +1,5 @@
+Typically, Spring is described as a lightweight framework for building Java applications.
+
 # Spring container
 Spring container，也称为Spring application context，是Spring的核心，它负责创建和管理application components.
 
