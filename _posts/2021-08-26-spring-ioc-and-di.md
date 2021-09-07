@@ -82,7 +82,7 @@ public interface NewsletterSender {
 # IoC and DI in Spring
 In a Spring-based application, it is always preferable to use dependency injection. Wherever it is possible to use dependency injection with Spring, you should do so; otherwise, you can fall back on the dependency lookup capabilities.
 
-## BeanFactory
+# BeanFactory
 The core of Spring's dependency injection container is the **BeanFactory** interface. **BeanFactory** is responsible for managing components, including their dependencies as well as their life cycles.
 
 If you application needs only DI support, you can interact with the Spring DI container via the **BeanFactory** interface. In this case, your application must create an instance of a class that implements the **BeanFactory** interface and configures it with bean and dependency information. After this is complete, your application can access the beans via **BeanFactory** and get on with its processing.
@@ -104,26 +104,19 @@ So, you can identify your beans within **BeanFactory**; each bean can be assigne
     }
 ```
 
-## ApplicationContext
+# ApplicationContext
 The **ApplicationContext** interface is an extension to **BeanFactory**. In developing Spring-based applications, it's recommended that you interact with Spring via the **ApplicationContext** interface. Spring supports the bootstrapping of **ApplicationContext** by manual coding (instantiate it manually and loads the appropriate configuration) or in a web container environment via **ContextLoaderListener**. 
 
-# 配置ApplicationContext
-## XML vs annotations
-配置ApplicationContext有两种方式，XML或annotaions，哪一种更好呢？其实是各有利弊。
+## XML bean definition
+```xml
+<bean id="provider" 
+		class="com.apress.prospring5.ch2.decoupled.HelloWorldMessageProvider"/>
 
-一种常用的策略是对于基础组件，比如data source, transaction manager, JMS connection factory等，使用XML配置；对于DI配置，比如beans的定义和依赖管理，使用annotations配置。
-
-## bean定义
-### XML
-
+<bean id="renderer" 
+		class="com.apress.prospring5.ch2.decoupled.StandardOutMessageRenderer" 
+		p:messageProvider-ref="provider"/>
 ```
-<bean id="provider"
-class="com.apress.prospring5.ch2.decoupled.HelloWorldMessageProvider"/>
-<bean id="renderer"
-class="com.apress.prospring5.ch2.decoupled.StandardOutMessageRenderer"
-p:messageProvider-ref="provider"/>
-```
-### annotation
+## annotation bean definition
 to create bean definitions using annotations, the bean classes must be annotated with the appropriate stereotype annotation, and the methods or constructors must be annotated with @Autowired to tell the Spring IoC container to look for a bean of that type and use it as an argument when calling that method.
 
 @Service, @Repository这些为什么称为stereotype annotation呢？因为它们在org.springframework.stereotype这个包里，this package groups together all annotations used to define beans.
