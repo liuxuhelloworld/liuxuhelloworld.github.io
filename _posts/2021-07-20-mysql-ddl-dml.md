@@ -1,4 +1,5 @@
 # DDL
+## ALTER
 ```sql
 ALTER TABLE xxx ENGINE=InnoDB;
 ```
