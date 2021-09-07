@@ -27,3 +27,15 @@ RPC框架封装了网络调用的细节，让你像调用本地服务一样调�
 - 是否支持跨语言、跨平台
 
 如果对于性能要求不高，可以使用JSON；如果对于性能要求较高，可以使用Thrift或Protobuf.
+
+# 注册中心
+![注册中心示意图](https://static001.geekbang.org/resource/image/3e/13/3ee52d302f77bf5e61b244094d754d13.jpg)
+
+有了注册中心之后，服务节点的变更对客户端就是透明的，方便我们动态地变更服务节点，实现graceful shutdown等功能。
+
+服务节点探活有两种方式：
+- 注册中心主动探测
+- 服务节点心跳机制
+
+主动探测不方便、成本高，一般的，我们使用心跳机制。
+![心跳机制示意图](https://static001.geekbang.org/resource/image/76/99/768494782e63e9dcddd464cb6bdd7e99.jpg)
