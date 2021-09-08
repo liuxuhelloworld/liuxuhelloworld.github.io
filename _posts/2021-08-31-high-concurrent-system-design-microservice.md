@@ -39,3 +39,14 @@ RPC框架封装了网络调用的细节，让你像调用本地服务一样调�
 
 主动探测不方便、成本高，一般的，我们使用心跳机制。
 ![心跳机制示意图](https://static001.geekbang.org/resource/image/76/99/768494782e63e9dcddd464cb6bdd7e99.jpg)
+
+# 分布式追踪
+分布式追踪用于问题排查、性能优化、调用链展示、服务依赖分析等。
+
+一般的，注意以下技术点的使用：
+- traceId + spanId
+- 切面编程
+- 日志采样
+- ElasticSearch
+
+![traceId+spanId示意图](https://static001.geekbang.org/resource/image/ba/10/ba9e63bbcccd910df41b75b925ad5910.jpg)
