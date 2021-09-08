@@ -107,21 +107,16 @@ So, you can identify your beans within **BeanFactory**; each bean can be assigne
 # ApplicationContext
 The **ApplicationContext** interface is an extension to **BeanFactory**. In developing Spring-based applications, it's recommended that you interact with Spring via the **ApplicationContext** interface. Spring supports the bootstrapping of **ApplicationContext** by manual coding (instantiate it manually and loads the appropriate configuration) or in a web container environment via **ContextLoaderListener**. 
 
-## XML bean definition
+## bean definition example 1
 ```xml
-<bean id="provider" 
-		class="com.apress.prospring5.ch2.decoupled.HelloWorldMessageProvider"/>
+<bean id="provider" class="HelloWorldMessageProvider"/>
 
-<bean id="renderer" 
-		class="com.apress.prospring5.ch2.decoupled.StandardOutMessageRenderer" 
-		p:messageProvider-ref="provider"/>
+<bean id="renderer" class="StandardOutMessageRenderer" p:messageProvider-ref="provider"/>
 ```
-## annotation bean definition
-to create bean definitions using annotations, the bean classes must be annotated with the appropriate stereotype annotation, and the methods or constructors must be annotated with @Autowired to tell the Spring IoC container to look for a bean of that type and use it as an argument when calling that method.
+## bean definition example 2
+To create bean definitions using annotations, the bean classes must be annotated with the appropriate stereotype annotation, and the methods or constructors must be annotated with **@Autowired** to tell the Spring IoC container to look for a bean of that type and use it as an argument when calling that method.
 
-@Service, @Repository这些为什么称为stereotype annotation呢？因为它们在org.springframework.stereotype这个包里，this package groups together all annotations used to define beans.
-
-```
+```java
 @Component("provider")
 public class HelloWorldMessageProvider implements MessageProvider {
     @Override
@@ -156,8 +151,13 @@ public class StandardOutMessageRenderer implements MessageRenderer {
 }
 ```
 
-另外一种通过annotation定义beans的方式是使用@Configuration和@Bean:
+```xml
+<context:component-scan base-package="xxx"/>
 ```
+The \<context:component-scan\> tag tells Spring to scan the code for injectable beans under the package specified.
+
+## bean definition example 3
+```java
 @Configuration
 public class HelloWorldConfig {
 
@@ -174,6 +174,50 @@ public class HelloWorldConfig {
     }
 }
 ```
+
+## bean definition example 4
+```java
+@Component("provider")
+public class HelloWorldMessageProvider implements MessageProvider {
+    @Override
+    public String getMessage() {
+        return "Hello, World";
+    }
+}
+
+@Service("renderer")
+public class StandardOutMessageRenderer implements MessageRenderer {
+
+    private MessageProvider messageProvider;
+
+    @Override
+    public void render() {
+        if (messageProvider == null) {
+            throw new RuntimeException("messageProvider is null");
+        }
+        System.out.println(messageProvider.getMessage());
+    }
+
+    @Override
+    @Autowired
+    public void setMessageProvider(MessageProvider messageProvider) {
+        this.messageProvider = messageProvider;
+    }
+
+    @Override
+    public MessageProvider getMessageProvider() {
+        return messageProvider;
+    }
+}
+```
+
+```java
+@ComponentScan(basePackages = {"xxx"})
+@Configuration
+public class HelloWorldConfiguration {
+}
+```
+To be able to look for bean definitions inside Java classes, component scanning has to be enabled. This is done by annotating the configuration class with **@ComponentScanning** that is the equivalent of the \<context:component-scanning\> element.
 
 ## @Autowired vs @Resource vs @Inject
 @Resource是JSR-250定义的annotation，@Inject是JSR-299定义的annotation，它们的作用和@Autowired类似。
