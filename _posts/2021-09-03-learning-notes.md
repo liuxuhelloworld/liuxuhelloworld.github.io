@@ -20,6 +20,10 @@
 - [Spring Microservices](_posts/2021-07-13-spring-microservices.md)
 - [Spring WebFlux](_posts/2021-08-13-spring-webflux.md)
 
+# Design Patterns
+- [Design Principles](_posts/2021-09-08-design-patterns-design-principles.md)
+- [Strategy Pattern](_posts/2021-09-08-design-patterns-strategy-pattern.md)
+
 # MySQL
 - [MySQL Architecture](_posts/2021-07-05-mysql-architecture.md)
 - [MySQL Log](_posts/2021-07-06-mysql-log.md)
