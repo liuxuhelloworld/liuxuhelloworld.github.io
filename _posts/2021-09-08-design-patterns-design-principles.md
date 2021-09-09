@@ -7,3 +7,6 @@ Take the parts that vary and encapsulate them, so that later you can alter or ex
 3. **Favor composition over inheritance**
 相比inheritance，composition更灵活，not only does it let you encapsulate a family of algorithms into their own set of classes, but it also lets you change behavior at runtime as long as the object you're composing with implements the correct behavior interface.
 
+4. **Strive for loosely coupled designs between objects that interact**
+Loosely coupled designs allow us to build flexible OO systems that can handle change because they minimize the interdependency between objects.
+
