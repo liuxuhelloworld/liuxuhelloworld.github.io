@@ -10,3 +10,8 @@ Take the parts that vary and encapsulate them, so that later you can alter or ex
 4. **Strive for loosely coupled designs between objects that interact**
 Loosely coupled designs allow us to build flexible OO systems that can handle change because they minimize the interdependency between objects.
 
+5. **Classes should be open for extension, but closed for modification**
+Open for extension: feel free to extend our classes with any new behavior you like
+Closed for modification: we spent a lot of time getting this code correct and bug free, so we can't let you alter the existing code
+Our goal is to allow classes to be easily extended to incorporate new behavior without modifying existing code.
+
