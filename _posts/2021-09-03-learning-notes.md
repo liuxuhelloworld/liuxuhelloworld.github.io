@@ -24,6 +24,7 @@
 - [Design Principles](2021-09-08-design-patterns-design-principles.md)
 - [Strategy Pattern](2021-09-08-design-patterns-strategy-pattern.md)
 - [Observer Pattern](2021-09-09-design-patterns-observer-pattern.md)
+- [Decorator Pattern](2021-09-10-design-patterns-decorator-pattern.md)
 
 # MySQL
 - [MySQL Architecture](2021-07-05-mysql-architecture.md)
