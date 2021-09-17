@@ -15,3 +15,8 @@
 一般的，我们会通过消息队列承接监控数据。监控数据一方面会写入ElasticSearch，另一方面会通过流计算中间件来解析、聚合运算，然后写入时间序列数据库并形成报表对外展示。常见的报表包括：访问趋势报表（用来展示服务的整体运行情况）、性能报表（用来分析资源或者依赖的服务是否出现问题）、资源报表（用来追查资源问题的根本原因）。
 
 ![监控系统架构示意图](https://static001.geekbang.org/resource/image/88/62/88a8d8c2461297fed4e95214f4325e62.jpg)
+
+# 应用性能管理
+应用性能管理（Application Performance Management, APM）指的是对应用各个层面做全方位的监测，核心关注点是终端用户的使用体验，即端到端整体链路上的性能情况。
+
+![APM系统示意图](https://static001.geekbang.org/resource/image/50/5b/50fe40212d09940e1c5c1b860163a15b.jpg)
