@@ -50,6 +50,7 @@
 - [消息](2021-08-23-high-concurrent-system-design-messaging.md)
 - [微服务](2021-08-31-high-concurrent-system-design-microservice.md)
 - [监控系统](2021-09-15-high-concurrent-system-design-monitoring-system.md)
+- [压力测试](2021-09-18-high-concurrent-system-design-stress-test.md)
 
 # API
 - [Web API Design](2021-08-25-web-api-design.md)
