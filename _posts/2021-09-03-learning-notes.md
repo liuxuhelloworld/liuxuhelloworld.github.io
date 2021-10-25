@@ -5,6 +5,10 @@
 - [Building Blocks](2021-05-31-java-concurrency-in-practice-building-blocks.md)
 - [Task Execution](2021-06-09-java-concurrency-in-practice-task-execution.md)
 
+## JVM
+- [Introduction](2021-10-20-java-jvm-introduction.md)
+- [The Structure of JVM](2021-10-25-java-jvm-structure.md)
+
 # Spring
 - [What is Spring](2021-06-08-spring-what-is-spring.md)
 - [Spring Modules](2021-08-26-spring-modules.md)

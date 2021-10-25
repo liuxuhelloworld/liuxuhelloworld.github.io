@@ -1,0 +1,7 @@
+The Java Virtual Machine is an abstract computing machine. Like a real computing machine, it has an instruction set and manipulates various memory areas at run time.
+
+The Java Virtual Machine does not assume any particular implementation technology, host hardware, or host operating system. It is not inherently interpreted, but can just as well be implemented by compiling its instruction set to that of a silicon CPU. It may also be implemented in microcode or directly in silicon.
+
+The Java Virtual Machine knows nothing of the Java programming language, only of a particular binary format, the **class** file format. A **class** file contains Java Virtual Machine instructions (or bytecodes) and a symbol table, as well as other ancillary information.
+
+For the sake of security, the Java Virtual Machine imposes strong syntactic and structural constraints on the code in a **class** file. However, any language with functionality that can be expressed in terms of a valid **class** file can be hosted by the Java Virtual Machine. Attracted by a generally available, machine-independent platform, implementors of other languages can turn to the Java Virtual Machine as a delivery vehicle for their languages.
