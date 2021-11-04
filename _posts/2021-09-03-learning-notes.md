@@ -16,6 +16,7 @@
 - [What is Spring](2021-06-08-spring-what-is-spring.md)
 - [Spring Modules](2021-08-26-spring-modules.md)
 - [Spring IoC and DI](2021-08-26-spring-ioc-and-di.md)
+- [Spring Bean Life Cycle Management](2021-10-13-spring-bean-life-cycle-management.md)
 - [Spring Configuration](2021-06-08-spring-configuration.md)
 - [Spring MVC](2021-06-09-spring-mvc.md)
 - [Spring Boot](2021-06-10-spring-boot.md)
