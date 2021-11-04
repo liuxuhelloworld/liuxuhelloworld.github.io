@@ -111,7 +111,9 @@ The **ApplicationContext** interface is an extension to **BeanFactory**. In deve
 ```xml
 <bean id="provider" class="HelloWorldMessageProvider"/>
 
-<bean id="renderer" class="StandardOutMessageRenderer" p:messageProvider-ref="provider"/>
+<bean id="renderer" class="StandardOutMessageRenderer">
+		<property name="messageProvider" ref="provider"/>
+</bean>
 ```
 ## bean definition example 2
 To create bean definitions using annotations, the bean classes must be annotated with the appropriate stereotype annotation, and the methods or constructors must be annotated with **@Autowired** to tell the Spring IoC container to look for a bean of that type and use it as an argument when calling that method.
@@ -219,11 +221,8 @@ public class HelloWorldConfiguration {
 ```
 To be able to look for bean definitions inside Java classes, component scanning has to be enabled. This is done by annotating the configuration class with **@ComponentScanning** that is the equivalent of the \<context:component-scanning\> element.
 
-## @Autowired vs @Resource vs @Inject
-@Resource是JSR-250定义的annotation，@Inject是JSR-299定义的annotation，它们的作用和@Autowired类似。
-
-## 注入simple values
-```
+## injecting simple values
+```xml
 <bean id="injectSimple" class="InjectSimple">
     <property name="name" value="John Mayer" />
     <property name="age" value="39" />
@@ -233,7 +232,7 @@ To be able to look for bean definitions inside Java classes, component scanning 
 </bean>
 ```
 
-```
+```java
 @Service("injectSimple")
 public class InjectSimple {
     @Value("John Mayer")
@@ -255,8 +254,8 @@ public class InjectSimple {
 }
 ```
 
-## 注入SpEL Values
-```
+## injecting values by using SpEL
+```xml
 <bean id="injectSimpleConfig" class="InjectSimpleConfig" />
 
 <bean id="injectSimple" class="InjectSimple">
@@ -268,7 +267,7 @@ public class InjectSimple {
 </bean>
 ```
 
-```
+```java
 @Service("injectSimple")
 public class InjectSimple {
     @Value("#{injectSimpleConfig.name}")
@@ -289,122 +288,269 @@ public class InjectSimple {
     ......
 }
 ```
-## 嵌套ApplicationContext
-Spring支持嵌套ApplicationContext，child context可以reference parent context的beans.
 
-## ApplicationContextAware
-如果某个bean需要access ApplicationContext，那么让这个bean实现ApplicationContextAware接口就可以了。
+## injecting collection values
+```xml
+    <bean id="collectionInjection" class="CollectionInjection">
+        <property name="map">
+            <map>
+                <entry key="someValue">
+                    <value>It's a Friday, we finally made it</value>
+                </entry>
+                <entry key="someBean">
+                    <ref bean="lyricHolder"/>
+                </entry>
+            </map>
+        </property>
+        <property name="set">
+            <set>
+                <value>I can't believe I get to see your face</value>
+                <ref bean="lyricHolder"/>
+            </set>
+        </property>
+        <property name="list">
+            <list>
+                <value>You've been working and I've been waiting</value>
+                <ref bean="lyricHolder"/>
+            </list>
+        </property>
+        <property name="props">
+            <props>
+                <prop key="firstName">John</prop>
+                <prop key="secondName">Mayer</prop>
+            </props>
+        </property>
+    </bean>
+```
 
-This is a Spring-specific interface that forces an implementation of a setter for an ApplicationContext
-object. It is automatically detected by the Spring IoC container, and the ApplicationContext that the bean
-is created in is injected into it.
+```java
+@Service("collectionInjection")
+public class CollectionInjection {
+    // all beans of type Map<String, Object> will be injected
+    @Autowired
+    private Map<String, Object> map;
 
-注意ApplicationContext的注入发生在调用constructor后面，所以不能在constructor内使用ApplicationContex.
+    @Resource(name = "set")
+    private Set set;
 
-## Method Injection
-### Lookup Method Injection
-Lookup Method Injection主要用来解决不同生命周期的beans间的依赖问题，比如，a singleton依赖a nonsingleton，in this situation, both setter and constructor injection result in the singleton maintaining a single instance of what should be a nonsingleton bean. In some cases, you will want to have the singleton bean obtain a new instance of the nonsingleton every time it requires the bean in question.
+    @Resource(name = "list")
+    private List list;
 
-Lookup Method Injection works by having your singleton declare a method, the lookup method, which returns an instance of the nonsingleton bean. When you obtain a reference to the singleton in your application, you are acutally receiving a reference to a dynamically created subclass on which Spring has implemented the lookup method.
+    @Resource(name = "props")
+    private Properties props;
+}
+```
 
-一般的，我们将lookup method和singleton都定义为abstract.
+```xml
+    <util:map id="map" map-class="java.util.HashMap">
+        <entry key="someValue">
+            <value>It's a Friday, we finally made it</value>
+        </entry>
+        <entry key="someBean">
+            <ref bean="lyricHolder"/>
+        </entry>
+    </util:map>
 
-不要使用不必要的Lookup Method Injection，Consider a situation in which you have three singletons that share a dependency in common. You want each singleton to have its own instance of the dependency, so you create the dependency as a nonsingleton, but you are happy with each singleton using the same instance of the collaborator throughout its life. In this case, setter injection is the ideal solution; Lookup Method Injection just adds unnecessary overhead.
+    <util:set id="set" set-class="java.util.HashSet">
+        <value>I can't believe I get to see your face</value>
+        <ref bean="lyricHolder"/>
+    </util:set>
 
-### Method Replacement
+    <util:list id="list" list-class="java.util.ArrayList">
+        <value>I can't believe I get to see your face</value>
+        <ref bean="lyricHolder"/>
+    </util:list>
+
+    <util:properties id="props">
+        <prop key="firstName">John</prop>
+        <prop key="secondName">Mayer</prop>
+    </util:properties>
+```
+
+## lookup method injection
+*Lookup Method Injection* was used to overcome the problems encountered when a bean depends on another bean with a different life cycle, specifically, when a singleton depends on a nonsingleton. In this situation, both setter and constructor injection result in the singleton maintaining a single instance of what should be a nonsingleton bean. In some cases, you will want to have the singleton bean obtain a new instance of the nonsingleton every time it requires the bean in question.
+
+Lookup Method Injection works by having your singleton declare a method, the lookup method, which returns an instance of the nonsingleton bean. When you obtain a reference to the singleton in your application, you are acutally receiving a reference to a dynamically created subclass on which Spring has implemented the lookup method. 
+
+```java
+@Component("singer")
+@Scope("prototype")
+public class Singer {
+    private String lyric = "I played a quick game of chess with the salt and pepper shaker";
+
+    public void sing() {
+    }
+}
+
+@Component("abstractLookupBean")
+public class AbstractLookupDemoBean implements DemoBean {
+    @Lookup("singer")
+    public Singer getMySinger() {
+        return null;
+    }
+
+    @Override
+    public void doSomething() {
+        getMySinger().sing();
+    }
+}
+```
+
+## method replacement
 Using method replacement, you can replace the implementation of any method on any beans arbitrarily without having to change the source of the bean you are modifying.
 
-Internally, you achieve this by creating a subclass of the bean class dynamically. You use CGLIB and redirect calls to the method you want to replace to another bean that implements the MethodReplacer interface.
+Internally, you achieve this by creating a subclass of the bean class dynamically. You use CGLIB and redirect calls to the method you want to replace to another bean that implements the **MethodReplacer** interface.
 
-## Bean Naming
-Spring有一套复杂的、灵活的bean命名机制。
+The **MethodReplacer** interface has a single method, **reimplement()**, that you must implement. Three arguments are passed to **reimplement()**: the bean on which the original method was invoked, a **Method** instance that represents the method that is being overriden, and the array of arguments passed to the method.
 
-Every bean must have at least one name that is unique within the containing ApplicationContext.
+```java
+public class ReplacementTarget {
+    public String formatMessage(String message) {
+        return "<h1>" + message + "</h1>";
+    }
 
-Spring如何确定bean的name呢？以XML配置为例，如果你设置了id attribute，那么id就是bean name；如果没有设置id attribute，那么就取name attribute的第一个值；如果都没有设置，那么就取bean的class name作为bean name.
+    public String formatMessage(Object message) {
+        return "<h1>" + message + "</h1>";
+    }
+}
 
+public class FormatMessageReplacer implements MethodReplacer {
+    @Override
+    public Object reimplement(Object obj, Method method, Object[] args) throws Throwable {
+        if (isFormatMessageMethod(method)) {
+            String msg = (String) args[0];
+            return "<h2>" + msg + "</h2>";
+        } else {
+            throw new IllegalArgumentException("Unable to reimplement method " + method.getName());
+        }
+    }
+}
 ```
+
+```xml
+    <bean id="methodReplacer" class="FormatMessageReplacer" />
+
+    <bean id="replacementTarget" class="ReplacementTarget">
+        <replaced-method name="formatMessage" replacer="methodReplacer">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="standardTarget" class="ReplacementTarget" />
+```
+
+## ApplicationContext nesting
+Spring supports a hierarchical structure for **ApplicationContext** so that one context (and hence the associating **BeanFactory**) is considered the parent of another. By allowing **ApplicationContext**s to be nested, Spring allows you to split your configuration into different files, which is a godsend on larger projects with lots of beans.
+
+When nesting **ApplicationContext** instances, Spring allows beans in what is considered the child context to reference beans in the parent context.
+
+## bean naming
+Spring supports quite a complex bean-naming structure that allows you the flexibility to handle many situations. Every bean must have at least one name that is unique within the containing **ApplicationContext**.
+
+If you give the \<bean\> tag an **id** attribute, the value of that attribute is used as the name. If no **id** attribute is specified, Spring looks for a **name** attribute, and if one is defined, it uses the first name defined in the **name** attribute. If neither the **id** nor the **name** attribute is specified, Spring uses the bean's class name as the name, provided, of course, that no other bean is using the same class name. If multiple beans of the same type without an ID or name are declared, Spring will throw an exception on injection during **ApplicationContext** initialization.
+
+```xml
 <bean id="string1" class="java.lang.String" />
-
 <bean name="string2" class="java.lang.String" />
-
 <bean class="java.lang.String" />
 ```
 
-一般的，我们通过id attribute设置唯一的bean name，然后可以通过name aliasing关联多个names.
+As a general practice, you should give your bean a name by using the **id** attribute and then associate the bean with other names by using name aliasing.
 
-### Bean Name Aliasing
-Spring允许一个bean有多个别名，比如：
-```
-<bean id="john" name="john johnny,jonathan;jim" class="java.lang.String" />
+Spring allows a bean to have more than one name. You can achieve this by specifying a space-, comma-, or semicolon-separated list of names in the **name** attribute of the bean's \<bean\> tag. Besides using the **name** attribute, you can use the \<alias\> tag for defining aliases for Spring bean names.
+
+```xml
+<bean id="john" name="jon johnny,jonathan;jim" class="java.lang.String" />
 <alias name="john" alias="ion" />
 ```
-什么时候使用别名呢？
 
-## Bean Instantiation Mode
-默认的，所有Spring beans都是singletons，this means Spring maintains a single instance of the bean, all dependent objects use the same instance, and all calls to ApplicationContext.getBean() return the same instance.
+```java
+    @Configuration
+    public static class AliasBeanConfig {
+        @Bean(name = {"johnMayer", "john", "jonathan", "johnny"})
+        public Singer singer() {
+            return new Singer();
+        }
+    }
+```
 
-Spring有哪些instantiation mode呢？
-- singleton: the default scope. Only one object will be created per Spring IoC container
-- prototype: a new instance will be created by Spring when requested by the application
-- request: for web application use. When using Spring MVC for web applications, beans with *request* scope will be instantiated for every HTTP request and then be destroyed when the request is completed
-- session: for web application use. When using Spring MVC for web applications, beans with *session* scope will be instantiated for every HTTP session and then be destroyed when the session is over
-- global session: for portlet-bases web applications. The *global* session scope beans can be shared among all portlets within the same Spring MVC-powered portal application
-- therad: a new bean instance will be created by Spring when requested by a new thread, while for the same thread, the same bean instance will be returned. Note that this scope is not registered by default
-- custom: custom bean scope that can be created by implementing the interface org.springframework.beans.factory.config.Scope and registering the custom scope in Spring's configuration
+## bean instantiation mode
+By default, all beans in Spring are singletons. This means Spring maintains a single instance of the bean, all dependent objects use the same instance, and all calls to **ApplicationContext.getBean()** return the same instance.
 
+The main positve your gain from Spring's instantiation management is that your applications can immediately benefit from the lower memory usage associated with singletons, with very little effort on your part. Then, if you find that singleton mode does not meet the needs of your application, it is a trivial task to modify your configuration to use non-singleton mode.
+
+Spring instantiation modes:
+- **singleton**: the default scope. Only one object will be created per Spring IoC container
+- **prototype**: a new instance will be created by Spring when requested by the application
+- **request**: for web application use. When using Spring MVC for web applications, beans with request scope will be instantiated for every HTTP request and then be destroyed when the request is completed
+- **session**: for web application use. When using Spring MVC for web applications, beans with session scope will be instantiated for every HTTP session and then be destroyed when the session is over
+- **global session**: for portlet-bases web applications. The global session scope beans can be shared among all portlets within the same Spring MVC-powered portal application
+- **therad**: a new bean instance will be created by Spring when requested by a new thread, while for the same thread, the same bean instance will be returned. Note that this scope is not registered by default
+- **custom**: custom bean scope that can be created by implementing the interface **org.springframework.beans.factory.config.Scope** and registering the custom scope in Spring's configuration
 
 ### singleton instantiation mode
-The term singleton is used interchangeably in Java to refer to two distinct concepts: an object that has a single instance within the application and the Singleton design pattern. The problem arises when people confuse the need for singleton instances with the need to apply the Singleton pattern.
+In general, singletons should be used in the following scenarios:
+- **shared object with no state**: you have an object that maintains no state and has many dependent objects. Because you do not need synchronization if there is no state, you do not need to create a new instance of the bean each time a dependent object needs to use it for some processing
+- **shared object with read-only state**
+- **shared object with shared state**: if you have a bean that has state that must be shared, singleton is the ideal choice. In this case, ensure that your synchronization for state writes is as granular as possible
+- **high-throughput objects with writable states**: if you have a bean that is used a great deal in your application, you may find that keeping a singleton and synchronizing all write access to the bean state allows for better performance than constantly creating hundreds of instances of the bean. You will find that this approach is particularly useful when your application creates a large number of instances over a long period of time, when your shared object has only a small amount of writable states, or when the instantiation of a new instance is expensive
 
-singleton instantiation mode适用于以下场景：
-- shared object with no state: you have an object that maintains no state and has many dependent objects. Because you do not need synchronization if there is no state, you do not need to create a new instance of the bean each time a dependent object needs to use it for some processing
-- shared object with read-only state: 与no state类似，不需要synchronization
-- shared object with shared state: if you have a bean that has state that must be shared, singleton is the ideal choice. In this case, ensure that your synchronization for state writes is as granular as possible
-- high-throughput objects with writable states: if you have a bean that is used a great deal in your application, you may find that keeping a singleton and synchronizing all write access to the bean state allows for better performance than constantly creating hundreds of instances of the bean. You will find that this approach is particularly useful when your application creates a large number of instances over a long period of time, when your shared object has only a small amount of writable states, or when the instantiation of a new instance is expensive
-
-以下场景就不适合使用singleton instantiation mode:
-- objects with large number of writable states: if you have a bean that has a lot of writable states, you may find that the cost of synchronization is greater than the cost of creating a new instance to handle each request from a dependent object
-- objects with private state: some dependent objects need a bean that has private state so that they can conduct their processing separately from other objects that depend on that bean
+You can consider using nonsingletons in the following scenarios:
+- **objects with large number of writable states**: if you have a bean that has a lot of writable states, you may find that the cost of synchronization is greater than the cost of creating a new instance to handle each request from a dependent object
+- **objects with private state**: some dependent objects need a bean that has private state so that they can conduct their processing separately from other objects that depend on that bean
 
 ### prototype instantiation mode
-the prototype scope instructs Spring to instantiate a new instance of the bean every time a bean instance is required by the application.
+The prototype scope instructs Spring to instantiate a new instance of the bean every time a bean instance is required by the application.
 
-# 依赖解析
-一般的，Spring根据xml或annotation的配置就可以完成依赖解析，以正确的顺序创建并配置beans.
-
-# Autowiring Bean Properties
-Spring支持以下几种bean properties autowiring：
-- no, 默认不使用autowiring
-- byName, Spring attempts to wire each property to a bean of the same name in ApplicationContext
-- byType, Spring attempts to wire each of the properties on the target bean by automatically using a bean of the same type in ApplicationContext
-- constructor, 与byType类似，区别是byType使用的是setters
-- default, Spring自动在byType和constructor之间选择
-
-当基于annotation做配置时，默认的autowiring是byType.
-
-一般的，不要依赖bean properties的autowiring，对于小工程，autowiring可能为你节省了一些工作，但是对于稍大的工程，还是显式地自己维护依赖关系更简洁清楚。
-
-# Spring Aware
-## BeanNameAware
+```xml
+    <bean id="nonSingleton" class="Singer" scope="prototype">
+        <constructor-arg>
+            <value>John Mayer</value>
+        </constructor-arg>
+    </bean>
 ```
-public class Singer implements BeanNameAware {
-    private String name;
 
-    @Override
-    public void setBeanName(String name) {
+```java
+@Component("nonSingleton")
+@Scope("prototype")
+public class Singer {
+    private String name = "unknown";
+
+    public Singer(@Value("John Mayer") String name) {
         this.name = name;
     }
 }
 ```
-## ApplicationContextAware
-```
-public class ShutdownHookBean implements ApplicationContextAware {
-    @Override
-    public void setApplicationContext(ApplicationContext ctx) throws BeansException {
-        if (ctx instanceof GenericApplicationContext) {
-            ((GenericApplicationContext)ctx).registerShutdownHook();
-        }
-    }
-}
+
+## resolving dependencies
+During normal operation, Spring is able to resolve dependencies by simply looking at your configuration file or annotations in your classes. In this way, Spring can ensure that each bean is configured in the correct order so that each bean has its dependencies correctly configured.
+
+Unfortunately, Spring is not aware of any dependencies that exist between beans in your code that are not specified in the configuration. You can provide Spring with additional information about your bean dependencies using the **depends-on** attribute of the \<bean\> tag or **@DependsOn**.
+
+## autowiring
+Spring supports five modes for autowaring:
+- **no**: this is the default
+- **byName**: Spring attempts to wire each property to a bean of the same name
+- **byType**: Spring attempts to wire each of the properties on the target bean by automatically using a bean of the same type
+- **constructor**: this functions just like byType wiring, except that is uses constructors rather than setters to perform the injection
+- **default**: Spring will choose between constructor and byType modes automatically. If your bean has a default constructor, Spring uses byType; otherwise, it uses constructor
+
+When autowiring by type, things get complicated when bean types are related, and exceptions are thrown when you have more classes that implement the same interface and the property requiring to be autowired specifies the interface as the type, because Spring does not know which bean to inject.
+
+The default autowiring when using configuration via annotation is byType.
+
+In most cases, the answer to the question of whether you should use autowiring is definitely not. Autowiring can save you time in small applications, but in many cases, it leads to bad practices and is inflexible in large applications.
+
+## bean inheritance
+Spring allows you to provide a \<bean\> definition that inherits its property settings from another bean in the same **ApplicationContext** instance. You can override the values of any properties on the child bean as required, which allows you to have full control, but the parent bean can provide each of your beans with a base configuration.
+
+```xml
+    <bean id="parent" class="Singer">
+        <property name="name" value="John Mayer" />
+        <property name="age" value="39" />
+    </bean>
+
+    <bean id="child" class="Singer" parent="parent">
+        <property name="age" value="0" />
+    </bean>
 ```
