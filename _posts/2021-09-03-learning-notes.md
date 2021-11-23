@@ -3,6 +3,7 @@
 
 ## Java Network Programming
 - [Introduction](2021-10-29-java-network-programming-introduction.md)
+- [Streams](2021-11-04-java-network-programming-streams.md)
 
 ## Java Concurrency in Practice
 - [Building Blocks](2021-05-31-java-concurrency-in-practice-building-blocks.md)
