@@ -11,14 +11,14 @@ Rewrite the INSERTION-SORT procedure to sort into nonincreasing instead of nonde
 
 ```
 NON-INCREASING-INSERTION-SORT(A)
-	for j = 2 to A.length
-		key = A[j]
-		// insert A[j] into the reversed sorted sequence A[1..j-1]
-		i = j - 1
-		while i > 0 and A[i] < key
-			A[i+1] = A[i]
-			i = i - 1
-		A[i+1] = key
+  for j = 2 to A.length
+    key = A[j]
+    // insert A[j] into the reversed sorted sequence A[1..j-1]
+    i = j - 1
+    while i > 0 and A[i] < key
+      A[i+1] = A[i]
+      i = i - 1
+    A[i+1] = key
 ```
 
 # 2.1-3
@@ -31,10 +31,10 @@ Write pseudocode for linear search, which scans through the sequence, looking fo
 
 ```
 LINEAR-SEARCH(A, v)
-		for i = 1 to A.length
-				if A[i] == v
-						return i
-		return NIL
+  for i = 1 to A.length
+    if A[i] == v
+      return i
+  return NIL
 ```
 
 loop invariant: 每次循环时，A[1..i-1]中不包含v

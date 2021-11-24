@@ -5,3 +5,5 @@
 -[Problem 1-1](2021-11-16-clrs-solutions-problem-1-1.md)
 
 -[Exercises 2.1](2021-11-16-clrs-solutions-exercises-2.1.md)
+
+-[Exercises 2.2](2021-11-24-clrs-solutions-exercises-2.2.md)
