@@ -55,6 +55,9 @@
 - [Redis Data Types](2021-11-22-redis-data-types.md)
 - [Redis Persistence](2021-11-24-redis-persistence.md)
 
+# Kafka
+- [Kafka Introduction](2021-11-25-kafka-introduction.md)
+
 # 高并发系统设计
 - [通用原则](2021-07-16-high-concurrent-system-design-general-principles.md)
 - [分层设计](2021-07-27-high-concurrent-system-design-hierarchical-design.md)
