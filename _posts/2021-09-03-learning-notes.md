@@ -48,6 +48,13 @@
 - [MySQL DDL&DML](2021-07-20-mysql-ddl-dml.md)
 - [MySQL Replication](2021-08-10-mysql-replication.md)
 
+# Redis
+- [Redis Introduction](2021-11-18-redis-introduction.md)
+- [Redis Admin](2021-11-19-redis-admin.md)
+- [Redis Commands](2021-11-22-redis-commands.md)
+- [Redis Data Types](2021-11-22-redis-data-types.md)
+- [Redis Persistence](2021-11-24-redis-persistence.md)
+
 # 高并发系统设计
 - [通用原则](2021-07-16-high-concurrent-system-design-general-principles.md)
 - [分层设计](2021-07-27-high-concurrent-system-design-hierarchical-design.md)
