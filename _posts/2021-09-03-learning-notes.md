@@ -54,6 +54,7 @@
 - [Redis Commands](2021-11-22-redis-commands.md)
 - [Redis Data Types](2021-11-22-redis-data-types.md)
 - [Redis Persistence](2021-11-24-redis-persistence.md)
+- [Redis Cluster](2021-12-02-redis-cluster.md)
 
 # Kafka
 - [Kafka Introduction](2021-11-25-kafka-introduction.md)

@@ -13,6 +13,13 @@ blpop mylist 5
 brpop mylist 5
 ```
 
+- config get
+```
+config get *
+```
+
+- config set
+
 - del
 ```
 del mykey
