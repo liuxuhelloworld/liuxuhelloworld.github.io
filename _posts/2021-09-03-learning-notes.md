@@ -57,6 +57,7 @@
 
 # Kafka
 - [Kafka Introduction](2021-11-25-kafka-introduction.md)
+- [Kafka Admin](2021-11-29-kafka-admin.md)
 
 # 高并发系统设计
 - [通用原则](2021-07-16-high-concurrent-system-design-general-principles.md)

@@ -4,7 +4,7 @@ Technically speaking, event streaming is the practice of capturing data in real-
 Event streaming ensures a continuous flow and interpretation of data so that the right information is at the right place, at the right time.
 
 # What is Kafka?
-Kafka is an event streaming platform.
+Kafka is a distributed event streaming platform that lets you read, write, store, and process events across many machines.
 
 Kafka combines three key capabilities so you can implement your use cases for event streaming end-to-end with a single battle-tested solution:
 - to publish and subscribe to streams of events, including continuous import/export of your data from other systems
