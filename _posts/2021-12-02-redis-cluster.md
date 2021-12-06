@@ -17,6 +17,9 @@ There are 16384 hash slots in Redis Cluster, and to compute what is the hash slo
 
 Every node in a Redis Cluster is responsible for a subset of the hash slots. This allows to add and remove nodes in the cluster easily. Because moving hash slots from a node to another does not require to stop operations, adding and removing nodes, or changing the percentage of hash slots hold by nodes, does not require any downtime.
 
+## resharding
+Resharding basically means to move hash slots from a set of nodes to another set of nodes, and like cluster creation it is accomplished using the redis-cli utility.
+
 # Redis Cluster master-replica model
 In order to remain available when a subset of cluster nodes are failing or are not able to communicate with the majority of nodes, Redis Cluster uses a master-replica model.
 
@@ -41,4 +44,13 @@ Note that the minimal cluster requires to contain as least three master nodes.
 redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1
 
 redis-cli -c -p 7000
+
+# nodes info
+redis-cli -p 7004 cluster nodes
+
+# reshard
+redis-cli --cluster reshard 127.0.0.1:7000
+
+# check
+redis-cli --cluster check 127.0.0.1:7000
 ```
