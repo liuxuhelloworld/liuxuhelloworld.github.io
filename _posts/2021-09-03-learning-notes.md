@@ -5,6 +5,7 @@
 - [Introduction](2021-10-29-java-network-programming-introduction.md)
 - [Streams](2021-11-04-java-network-programming-streams.md)
 - [Threads](2021-11-24-java-network-programming-threads.md)
+- [Internet Addresses](2021-12-15-java-network-programming-internet-addresses.md)
 
 ## Java Concurrency in Practice
 - [Building Blocks](2021-05-31-java-concurrency-in-practice-building-blocks.md)
