@@ -1,0 +1,1 @@
+If an application needs thousands of simultaneous long-lived connections, it is time to start thinking about asynchronous I/O instead of threads.
