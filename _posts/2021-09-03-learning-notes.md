@@ -1,21 +1,28 @@
-# Java
+# Java Programming Language
 - [Java Primitive Types](2021-09-26-java-primitive-types.md)
 - [Java Packaging](2021-08-12-java-packaging.md)
 
-## Java Network Programming
+# Java Network Programming
 - [Introduction](2021-10-29-java-network-programming-introduction.md)
 - [Streams](2021-11-04-java-network-programming-streams.md)
 - [Threads](2021-11-24-java-network-programming-threads.md)
 - [Internet Addresses](2021-12-15-java-network-programming-internet-addresses.md)
 - [Nonblocking I/O](2021-11-24-java-network-programming-nonblocking-io.md)
 
-## Java Concurrency in Practice
+# Java Concurrency in Practice
 - [Building Blocks](2021-05-31-java-concurrency-in-practice-building-blocks.md)
 - [Task Execution](2021-06-09-java-concurrency-in-practice-task-execution.md)
 
-## JVM
+# JVM
 - [Introduction](2021-10-20-java-jvm-introduction.md)
 - [The Structure of JVM](2021-10-25-java-jvm-structure.md)
+
+# Design Patterns
+- [Design Principles](2021-09-08-design-patterns-design-principles.md)
+- [Strategy Pattern](2021-09-08-design-patterns-strategy-pattern.md)
+- [Observer Pattern](2021-09-09-design-patterns-observer-pattern.md)
+- [Decorator Pattern](2021-09-10-design-patterns-decorator-pattern.md)
+- [Factory Pattern](2021-09-13-design-patterns-factory-pattern.md)
 
 # Spring
 - [What is Spring](2021-06-08-spring-what-is-spring.md)
@@ -37,13 +44,6 @@
 - [Spring Integration](2021-07-12-spring-integration.md)
 - [Spring Microservices](2021-07-13-spring-microservices.md)
 - [Spring WebFlux](2021-08-13-spring-webflux.md)
-
-# Design Patterns
-- [Design Principles](2021-09-08-design-patterns-design-principles.md)
-- [Strategy Pattern](2021-09-08-design-patterns-strategy-pattern.md)
-- [Observer Pattern](2021-09-09-design-patterns-observer-pattern.md)
-- [Decorator Pattern](2021-09-10-design-patterns-decorator-pattern.md)
-- [Factory Pattern](2021-09-13-design-patterns-factory-pattern.md)
 
 # MySQL
 - [MySQL Architecture](2021-07-05-mysql-architecture.md)
@@ -86,7 +86,7 @@
 - [压力测试](2021-09-18-high-concurrent-system-design-stress-test.md)
 - [限流&熔断&降级](2021-10-12-high-concurrent-system-design-rate-limit-downgrade-circuit-breaker.md)
 
-# API
+# System Design
 - [Web API Design](2021-08-25-web-api-design.md)
 
 # System Admin

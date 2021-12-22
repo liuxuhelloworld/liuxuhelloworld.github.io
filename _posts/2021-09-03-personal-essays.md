@@ -1,1 +1,1 @@
-- [ForKobe](2020-02-01-For-Kobe.md)
+- [ForKobe](2020-02-01-for-kobe.md)
