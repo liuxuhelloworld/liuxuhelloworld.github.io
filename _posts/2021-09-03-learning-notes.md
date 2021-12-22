@@ -26,6 +26,7 @@
 - [Spring PropertyEditor](2021-10-19-spring-property-editor.md)
 - [Spring SpEL](2021-09-09-spring-spel.md)
 - [Spring Configuration](2021-06-08-spring-configuration.md)
+- [Spring AOP](2021-11-04-spring-aop.md)
 - [Spring MVC](2021-06-09-spring-mvc.md)
 - [Spring Boot](2021-06-10-spring-boot.md)
 - [Spring JDBC](2021-07-02-spring-jdbc.md)
