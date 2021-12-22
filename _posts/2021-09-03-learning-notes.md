@@ -1,5 +1,6 @@
 # Java
-- [Java packaging](2021-08-12-java-packaging.md)
+- [Java Primitive Types](2021-09-26-java-primitive-types.md)
+- [Java Packaging](2021-08-12-java-packaging.md)
 
 ## Java Network Programming
 - [Introduction](2021-10-29-java-network-programming-introduction.md)
