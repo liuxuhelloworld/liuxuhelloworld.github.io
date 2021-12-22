@@ -190,14 +190,14 @@ Typical Servlet-based web framework, such as Spring MVC, are blocking and multit
 
 Asynchronous web frameworks, in contrast, achieve higher scalability with fewer threads, generally one per CPU core. By applying a technique known as *event looping*, these frameworks are able to handle many requests per thread, making the per-connection cost more economical.
 
-![event_looping_of_asynchronous_web_framework](../images/event_looping_of_asynchronous_web_framework.png)
+![event_looping_of_asynchronous_web_framework](../images/spring/event_looping_of_asynchronous_web_framework.png)
 
 In an event loop, everything is handled as an event, including requests and callbacks from intensive operations like database and network operations. When a costly operation is needed, the event loop registers a callback for that operation to be performed in parallel, while it moves on to handle other events. When the operation is complete, it is treated as an event by the event loop, the same as requests. As a result, asynchronous web frameworks are able to scale better under heavy request volume with fewer threads, resulting in reduced overhead for thread management.
 
 Spring 5 has introduced Spring WebFlux, a non-blocking, asynchronous web framework based largely on Project Reactor.
 
 ## Spring MVC vs Spring WebFlux
-![mvc_vs_webflux](../images/spring_web_mvc_vs_spring_web_flux.png)
+![mvc_vs_webflux](../images/spring/spring_web_mvc_vs_spring_web_flux.png)
 
 Spring MVC sits atop the Java Servlet API, which requires a servlet container (such as Tomcat) to execute on.
 
