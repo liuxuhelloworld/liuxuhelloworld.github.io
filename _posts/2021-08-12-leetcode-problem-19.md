@@ -2,7 +2,8 @@
 https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
 
 # 解答过程
-我觉得这个题就简单的计算总长度，然后定位并删除就可以了：
+这个题目是挺久以前写的了。先遍历计数，后遍历到待删除节点的前一节点后进行删除，我觉得这样就可以了。官方题解的栈解法和双指针解法，有一定启发性，但对这个题目而言，感觉完全没必要，纯属简单问题复杂化。
+
 ```java
 	public ListNode removeNthFromEnd(ListNode head, int n) {
 		if (head == null || n <= 0) {
@@ -34,5 +35,3 @@ https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
 		return size;
 	}
 ```
-
-看了下官方题解的双指针解法，这里用所谓双指针在效率上没差吧，反而不好理解，容易写错。至于官方题解还有个用栈的解法，呵呵，你开心就好。
