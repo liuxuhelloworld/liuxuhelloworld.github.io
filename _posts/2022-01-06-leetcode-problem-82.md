@@ -2,7 +2,7 @@
 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
 
 # 解答过程
-这个题目和Problem83相似，但这里要求删除所有重复值节点，比Problem83处理起来就麻烦一些。每次循环处理时，要先计数当前节点值，如果是重复值节点，直接跳过即可；如果不是重复值节点，追加到维护的新链表的最后一个节点上。
+这个题目和Problem83相似，但这里要求删除所有重复值节点，比Problem83处理起来就麻烦一些。每次循环处理时，要先计数当前节点值，如果是重复值节点，直接跳过即可；如果不是重复值节点，追加到slow节点后即可。
 
 ```java
 	public ListNode deleteDuplicates(ListNode head) {
