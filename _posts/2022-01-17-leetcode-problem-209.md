@@ -2,35 +2,26 @@
 https://leetcode-cn.com/problems/minimum-size-subarray-sum/
 
 # 解答过程
-想到的方法就是双循环遍历，外层循环作为左指针，内层循环作为右指针，每次循环找到以当前左指针为起点的满足子数组之和大于等于目标值的最小子数组，然后判断是否更新min。内层循环增加限制条件只处理最多min个元素，因为再多已经没有意义了。如果left为0时的内循环后flag为false，说明所有元素之和都已经不满足题目要求，直接跳出循环即可。
+滑动窗口的解法是参考官方题解写的，之前自己写了一个比较难看的双指针解法。滑动窗口的解法理解起来也比较简单，循环不变量是，每次循环先右指针向右扩大窗口，持续扩大直到当前窗口内元素之和大于等于target。然后开始左指针向右缩小窗口，持续缩小直到当前窗口内元素之和小于target。在这个过程中，及时更新满足条件的最小子数组长度。
 
 ```java
 	public int minSubArrayLen(int target, int[] nums) {
-		int len = nums.length;
+		int min = Integer.MAX_VALUE;
+		int left = 0, right = 0;
+		int sum = 0;
 
-		int min = len;
-		boolean flag = false;
+		while (right < nums.length) {
+			sum += nums[right];
 
-		for (int left = 0; left < len; left++) {
-			int sum = 0;
-			for (int right = left; right < len && right < left + min; right++) {
-				sum += nums[right];
-				if (sum >= target) {
-					if (right - left + 1 <= min) {
-						min = right - left + 1;
-						flag = true;
-						break;
-					}
-				}
+			while (sum >= target) {
+				min = Math.min(min, right - left + 1);
+				sum -= nums[left];
+				left++;
 			}
 
-			if (!flag) {
-				break;
-			}
+			right++;
 		}
 
-		return flag ? min : 0;
+		return min == Integer.MAX_VALUE ? 0 : min;
 	}
 ```
-
-坦白讲，这个代码看着就不漂亮，提交以后结果是通过了，但效率较差。看了下官方题解，官方题解的2有点意思，前缀和这个概念之前没有接触过；官方题解的3看起来就比较漂亮了，这个题目主要考察点应该就是滑动窗口。有时间再写下官方题解的2和3吧。
