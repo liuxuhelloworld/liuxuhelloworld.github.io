@@ -2,8 +2,7 @@
 https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/
 
 # 解答过程
-## BFS
-这个题目其实就可以理解成二叉树层级遍历的变种，就是每一层从左到右维护成一个链表嘛，在层级遍历的基础上稍做修改即可：
+这个题目其实就可以理解成二叉树层级遍历的变种，就是每一层从左到右维护成一个链表嘛，在层级遍历的基础上稍做修改即可。
 
 ```java
 	public Node connect(Node root) {
