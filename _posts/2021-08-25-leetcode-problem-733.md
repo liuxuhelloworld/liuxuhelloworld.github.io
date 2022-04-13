@@ -2,9 +2,9 @@
 https://leetcode-cn.com/problems/flood-fill/
 
 # 解答过程
-## DFS
-对DFS的理解和掌握始终差点意思，这个题是看了官方题解后写的，看了官方题解又觉得很自然的处理逻辑，但总是对DFS代码缺少直觉。
+额，这个题目和Problem130、Problem200、Problem695是类似的，而且还更简单些，只需要从一个点开始做一次遍历，遍历的逻辑是一致的，不赘述。
 
+## DFS
 ```java
 	int[] dx = new int[] {0, -1, 0, 1};
 	int[] dy = new int[] {1, 0, -1, 0};
@@ -37,7 +37,6 @@ https://leetcode-cn.com/problems/flood-fill/
 ```
 
 ## BFS
-再写一个BFS版本加深下理解：
 ```java
 	int[] dx = new int[] {0, -1, 0, 1};
 	int[] dy = new int[] {1, 0, -1, 0};
