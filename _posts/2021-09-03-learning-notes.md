@@ -1,20 +1,20 @@
-# Java Programming Language
+# Java
 - [Java Primitive Types](2021-09-26-java-primitive-types.md)
 - [Java Packaging](2021-08-12-java-packaging.md)
 
-# Java Concurrency in Practice
-- [Introduction](2021-12-29-java-concurrency-in-practice-introduction.md)
-- [Building Blocks](2021-05-31-java-concurrency-in-practice-building-blocks.md)
-- [Task Execution](2021-06-09-java-concurrency-in-practice-task-execution.md)
+## Concurrency
+- [Introduction](2021-12-29-java-concurrency-introduction.md)
+- [Building Blocks](2021-05-31-java-concurrency-building-blocks.md)
+- [Task Execution](2021-06-09-java-concurrency-task-execution.md)
 
-# Java Network Programming
+## Network Programming
 - [Introduction](2021-10-29-java-network-programming-introduction.md)
 - [Streams](2021-11-04-java-network-programming-streams.md)
 - [Threads](2021-11-24-java-network-programming-threads.md)
 - [Internet Addresses](2021-12-15-java-network-programming-internet-addresses.md)
 - [Nonblocking I/O](2021-11-24-java-network-programming-nonblocking-io.md)
 
-# JVM
+## JVM
 - [Introduction](2021-10-20-java-jvm-introduction.md)
 - [The Structure of JVM](2021-10-25-java-jvm-structure.md)
 
