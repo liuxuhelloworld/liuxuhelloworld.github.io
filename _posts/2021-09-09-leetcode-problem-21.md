@@ -2,7 +2,8 @@
 https://leetcode-cn.com/problems/merge-two-sorted-lists/
 
 # 解答过程
-合并两个有序链表，和mergeSort里合并两个有序数组类似，双指针循环就可以了。
+合并两个有序链表，和mergeSort里合并两个有序数组类似，双指针循环就可以了。瞅了一眼官方题解，递归的写法也很简洁。
+
 ```java
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		if (l1 == null && l2 == null) {
@@ -35,5 +36,3 @@ https://leetcode-cn.com/problems/merge-two-sorted-lists/
 		return dummy.next;
 	}
 ```
-
-瞅了一眼官方题解，递归的写法也很简洁。
