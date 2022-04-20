@@ -2,10 +2,8 @@
 https://leetcode-cn.com/problems/generate-parentheses/
 
 # 解答过程
-这道题目也是以前写的了，但是很惭愧，乍一看还是没思路。。。印象中当时应该也是参考官方题解写的。
-
-## 解法1
-动态规划的写法，从代码来看，还是挺好理解的，但是我觉得，如果没有相关经验，想出状态转移方程并不容易，子问题的解双循环，把其中一个套起来，再和另一个拼接，额，我觉得是有点费劲。关键这种解法，我觉得背下来都不容易。。。
+## 动态规划
+这个题目从动态规划的角度来考虑，我觉得不容易。从代码来看，还是挺好理解的，但是我觉得，如果没有相关经验，并不容易想出状态转移方程。每一个合法的括号序列可以表示为**(a)b**，递归的a和b都是合法的括号序列（可以为空）。
 
 ```java
 	public List<String> generateParenthesis(int n) {
@@ -40,19 +38,19 @@ https://leetcode-cn.com/problems/generate-parentheses/
 	}
 ```
 
-## 解法2
-相反的，我觉得深度优先遍历的写法反而容易背下来。思路虽然有一点讨巧，但是不难理解，很容易给人一种，“对哦，就是这样”的感觉。
+## 回溯法
+这个题目从回溯法的角度来考虑，从代码来看，倒是简洁很多。思路有一点讨巧，但是很好理解，很好的体现了回溯的思想。
 
 ```java
 	public List<String> generateParenthesis(int n) {
 		List<String> res = new ArrayList<>();
 
-		dfs(res, n, n, new String());
+		backtrack(res, n, n, new String());
 
 		return res;
 	}
 
-	private void dfs(List<String> res, int openLeft, int closeLeft, String s) {
+	private void backtrack(List<String> res, int openLeft, int closeLeft, String s) {
 		if (openLeft == 0 && closeLeft == 0) {
 			res.add(s);
 			return;
@@ -63,11 +61,11 @@ https://leetcode-cn.com/problems/generate-parentheses/
 		}
 
 		if (openLeft > 0) {
-			dfs(res, openLeft-1, closeLeft, s + "(");
+			backtrack(res, openLeft-1, closeLeft, s + "(");
 		}
 
 		if (closeLeft > 0) {
-			dfs(res, openLeft, closeLeft-1, s + ")");
+			backtrack(res, openLeft, closeLeft-1, s + ")");
 		}
 	}
 ```
