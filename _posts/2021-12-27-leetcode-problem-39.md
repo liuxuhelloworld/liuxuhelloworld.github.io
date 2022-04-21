@@ -2,7 +2,7 @@
 https://leetcode-cn.com/problems/combination-sum/
 
 # 解答过程
-这个题目应该是比较经典的DFS题目了，我觉得应该全文背诵-_-
+这个题目应该是比较经典的回溯法题目了，从代码来看，还是容易理解的，甚至于背下来也不难。
 
 ```java
   public List<List<Integer>> combinationSum(int[] candidates, int target) {
@@ -10,13 +10,16 @@ https://leetcode-cn.com/problems/combination-sum/
     List<Integer> combination = new ArrayList<>();
 
     candidates = Arrays.stream(candidates).sorted().toArray();
-    dfs(result, combination, candidates, 0,  target);
+    backtrack(result, combination, candidates, 0,  target);
 
     return result;
   }
 
-  private void dfs(List<List<Integer>> result, List<Integer> combination, int[] candidates,
-      int curIdx, int target) {
+  private void backtrack(List<List<Integer>> result,
+                         List<Integer> combination,
+                         int[] candidates,
+                         int curIdx,
+                         int target) {
 
     if (curIdx == candidates.length) {
       return;
@@ -33,11 +36,11 @@ https://leetcode-cn.com/problems/combination-sum/
     }
 
     // curIdx excluded
-    dfs(result, combination, candidates, curIdx+1, target);
+    backtrack(result, combination, candidates, curIdx+1, target);
 
     // curIdx included
     combination.add(curVal);
-    dfs(result, combination, candidates, curIdx, target-curVal);
+    backtrack(result, combination, candidates, curIdx, target-curVal);
     combination.remove(combination.size()-1);
   }
 ```
