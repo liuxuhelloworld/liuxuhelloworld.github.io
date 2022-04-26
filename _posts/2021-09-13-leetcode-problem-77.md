@@ -2,7 +2,7 @@
 https://leetcode-cn.com/problems/combinations/
 
 # 解答过程
-这个题目是以前写的了，印象中当时也是参考官方题解写的。有了一些回溯的代码经验后，还是比较容易理解和掌握的。
+这个题目和Problem39、Problem40、Problem46、Problem47多有相似之处，解法背后的回溯思想是相通的，值得比较并体会。
 
 ```java
 	public List<List<Integer>> combine(int n, int k) {
