@@ -42,7 +42,7 @@ https://leetcode-cn.com/problems/longest-palindromic-substring/
     }
 ```
 
-## 中心扩展
+## 暴力解法
 我觉得这个所谓中心扩展解法就是暴力解法。。。，先以每个元素自身为中心左右扩展，再以相邻元素相等的组合为中心左右扩展。
 
 ```java
