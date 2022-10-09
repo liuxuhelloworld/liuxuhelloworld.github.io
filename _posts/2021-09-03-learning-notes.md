@@ -18,6 +18,9 @@
 - [Introduction](2021-10-20-java-jvm-introduction.md)
 - [The Structure of JVM](2021-10-25-java-jvm-structure.md)
 
+# Effective Java
+- [Synchronize access to shared mutable data](2022-10-08-effective-java-synchronize-access-to-shared-mutable-data.md)
+
 # Design Patterns
 - [Design Principles](2021-09-08-design-patterns-design-principles.md)
 - [Strategy Pattern](2021-09-08-design-patterns-strategy-pattern.md)
@@ -26,7 +29,7 @@
 - [Factory Pattern](2021-09-13-design-patterns-factory-pattern.md)
 
 # Spring
-- [What is Spring](2021-06-08-spring-what-is-spring.md)
+- [Introduction](2021-06-08-spring-introduction.md)
 - [Spring Modules](2021-08-26-spring-modules.md)
 - [Spring IoC and DI](2021-08-26-spring-ioc-and-di.md)
 - [Spring Bean Life Cycle Management](2021-10-13-spring-bean-life-cycle-management.md)
