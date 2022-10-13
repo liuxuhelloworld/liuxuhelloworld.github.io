@@ -83,3 +83,28 @@ The serial collector makes sense when running CPU-bounded applications on a mach
 One other point about the serial collector: an application with a very small heap (say, 100MB) may still perform better with the serial collector regardless of the number of cores that are available.
 
 The throughput collector makes sense on multi-CPU machines running jobs that are CPU-bound. Even for jobs that are not CPU-bound, the throughput collector can be the better choice if it does relatively few full GCs or if the old generation is generally full.
+
+# Basic GC Tuning
+
+For many applications, the only tuning required is to select the appropriate GC algorithm and, if needed, to increase the heap size of the application. Adaptive sizing will then allow the JVM to autotune its behavior to provide good performance using the given heap.
+
+## sizing the heap
+
+```
+-Xms*N*
+-Xmx*N*
+```
+
+**-Xms** specifies the initial heap size, and **-Xmx** specifies the maximum heap size.
+
+The defaults vary depending on the operating system, the amount of system RAM, and the JVM in use. The goal of the JVM is to find a reasonable default initial value for the heap based on the system resources available to it, and to grow the heap up to a reasonable maximum if the application needs more memory (based on how much time it spends performing GC).
+
+Like most performance issues, choosing a heap size is a matter of balance. The first rule in sizing a heap is to never to specify a heap that is larger than the amount of physical memory on the machine, and if multiple JVMs are running, that applies to the sum of all their heaps. You also need to leave some room for the native memory of the JVM, as well as some memory for other applications: typically, at least 1 GB of space for common OS profiles. A good rule of thumb is to size the heap so that it is 30% occupied after a full GC.
+
+Having an initial and maximum size of the heap allows the JVM to tune its behavior depending on the workload. If the JVM sees that it is doing too much GC with the initial heap size, it will continually increase the heap until the JVM is doing the correct amount of GC, or until the heap hits its maximum size.
+
+Be aware that automatic sizing of the heap occurs even if you explicitly set the maximum size: the heap will start at its default initial size, and the JVM will grow the heap in order to meet the performance goals of the GC algorithm. There isn't necessarily a memory penalty for specifying a larger heap than is needed: it will grow only enough to meet the GC performance goals.
+
+If you know exactly what size heap the application needs, you may as well set both the initial and maximum values of the heap to that value (e.g., -Xms4096m, -Xmm4096m). That makes GC slightly more efficient, because it never needs to figure out whether the heap should be resized.
+
+For applications that don't need a large heap, the heap size doesn't need to be set at all. Instead, you specify the performance goals for the GC algorithm: the pause time you are willing to tolerate, the percentage of time you want to spend in GC, and so on. Unless the application needs a larger heap than the default, consider tuning the performance goals of a GC algorithm rather than fine-tuning the heap size.
