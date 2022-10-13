@@ -26,9 +26,9 @@ As objects are moved to the old generation, eventually it too will fill up, and 
 
 # Serial Garbage Collector
 
-```
--XX:+UseSerialGC
-```
+>
+> -XX:+UseSerialGC
+>
 
 The *serial garbage collector* is the simplest of the collectors. 
 
@@ -36,10 +36,11 @@ The serial collector uses a single thread to process the heap. It will stop all 
 
 # Throughput Garbage Collector
 
-```
--XX:+UseParallelGC
--XX:+UseParallelOldGC (obsolete)
-```
+>
+> -XX:+UseParallelGC
+> 
+> -XX:+UseParallelOldGC (obsolete)
+> 
 
 In JDK 8, the *throughput collector* is the default collector for any 64-bit machine with two or more CPUs.
 
@@ -47,9 +48,9 @@ The throughput collector uses multiple threads to collect the young generation, 
 
 # G1 (Garbage First) Garbage Collector
 
-```
--XX:+UseG1GC
-```
+>
+> -XX:+UseG1GC
+>
 
 The *G1 garbage collector* uses a concurrent collection strategy to collect the heap with minimal pauses. It is the default collector in JDK 11 and later for 64-bit JVMs on machines with two or more CPUs. It is functional in JDK 8 as well, particularly in later builds of JDK 8.
 
@@ -61,10 +62,11 @@ The trade-off for avoiding the full GC cycles is CPU time: the (multiple) backgr
 
 # CMS (Concurrent Mark Sweep) Garbage Collector
 
-```
--XX:+UseConcMarkSweepGC
--XX:+UseParNewGC (obsolete)
-```
+>
+> -XX:+UseConcMarkSweepGC
+> 
+> -XX:+UseParNewGC (obsolete)
+>
 
 The *CMS garbage collector* was the first concurrent collector. Like other algorithms, CMS stops all application threads during a minor GC, which it performs with multiple threads.
 
@@ -90,10 +92,12 @@ For many applications, the only tuning required is to select the appropriate GC 
 
 ## sizing the heap
 
-```
--Xms*N*
--Xmx*N*
-```
+>
+> -Xms*N*
+> 
+> -Xmx*N*
+>
+
 
 **-Xms** specifies the initial heap size, and **-Xmx** specifies the maximum heap size.
 
