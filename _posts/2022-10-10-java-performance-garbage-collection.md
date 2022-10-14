@@ -112,3 +112,64 @@ Be aware that automatic sizing of the heap occurs even if you explicitly set the
 If you know exactly what size heap the application needs, you may as well set both the initial and maximum values of the heap to that value (e.g., -Xms4096m, -Xmm4096m). That makes GC slightly more efficient, because it never needs to figure out whether the heap should be resized.
 
 For applications that don't need a large heap, the heap size doesn't need to be set at all. Instead, you specify the performance goals for the GC algorithm: the pause time you are willing to tolerate, the percentage of time you want to spend in GC, and so on. Unless the application needs a larger heap than the default, consider tuning the performance goals of a GC algorithm rather than fine-tuning the heap size.
+
+## sizing the generations
+
+>
+> -XX:NewRatio=*N*
+>
+> -XX:NewSize=*N*
+>
+> -XX:MaxNewSize=*N*
+>
+> -Xmn*N*
+> 
+> -XX:-UseAdaptiveSizePolicy
+>
+> -XX:+PrintAdaptiveSizePolicy
+
+**-XX:NewRatio** sets the ratio of the old generation to the young generation, which has a default value of 2. It means the young generation starts out at 33% of the initial heap size.
+
+**-XX:NewSize** sets the initial size of the young generation, it takes precedence over the value calculated from the **NewRatio**.
+
+**-XX:MaxNewSize** sets the maximum size of the young generation. By default, the maximum is set using the **NewRatio** value, though it is based on the maximum heap size.
+
+**-Xmn** is a shorthand for setting both **-XX:NewSize** and **-XX:MaxNewSize** to the same value.
+
+**-XX:-UseAdaptiveSizePolicy** turns off the adaptive sizing.
+
+**-XX:+PrintAdaptiveSizePolicy** sets the JVM to print the information of how the various generations were resized during a collection.
+
+Once the heap size has been determined, the JVM must decide how much of the heap to allocate to the young generation and how much to allocate to the old generation. The JVM usually does this automatically and usually does a good job in determining the optimal ratio between young and old generations.
+
+The performance implication of different generation sizes should be clear: if there is a relatively larger young generation, young GC pause times will increase, but the young generation will be collected less often, and fewer objects will be promoted into the old generation. But on the other hand, because the old generation is relatively smaller, it will fill up more frequently and do more full GCs.
+
+The sizes of the heap, the generations, and the survivor spaces can vary during execution as the JVM attempts to find the optimal performance according to its policies and tunings. Adaptive sizeing should generally be kept enabled, since adjusting those generation sizes is how GC algorithms attempt to meet their pause-time goals. For finely tuned heaps, adaptive sizing can be disabled for a small performance boost.
+
+## sizing metaspace
+
+>
+> -XX:MetaspaceSize=*N*
+>
+> -XX:MaxMetaspaceSize=*N*
+> 
+
+When the JVM loads classes, it must keep track of certain metadata about those classes. This occupies a separate heap space called the *metaspace*. Information in the metaspace is used only by the compiler and JVM runtime, and the data it holds is referred to as *class metadata*.
+
+There isn't a good way to calculate in advance the amount of space a particular program needs for its metaspace. The size will be proportional to the number of classes it uses, so bigger applications will need bigger areas.
+
+The metaspace behaves similarly to a separate instance of the regular heap. It is sized dynamically based on a initial size and will increase as needed to a maximum size.
+
+Resizing the metaspace requires a full GC, so it is an expensive operation. If there are a lot of full GCs during the startup of a program (as it is loading classes), it is often because metaspace is being resized, so increasing the initial size is a good idea to improve startup in that case. Servers, for example, typically specify an initial metaspace size of 128 MB, 192 MB, or more.
+
+Java classes can be eligible for GC just like anything else. This is a common occurrence in an application server, which creates new classloaders every time an application is deployed (or redeployed). The old classloaders are then unreferenced and eligible for GC, as are any classes that they defined. Meanwhile, the new classes of the application will have new metadata, and so there must be room in the metaspace for that. This often causes a full GC because the metaspace needs to grow (or discard old metadata).
+
+## controlling parallelism
+
+>
+> -XX:ParallelGCThreads=*N*
+>
+
+Because many GC operations stop all application threads from executing, the JVM attempts to use as many CPU resources as it can in order to minimize the pause time. By default, the JVM will run one thread for each CPU on machine, up to eight. Once that threshold has been reached, the JVM adds a new thread for only every 1.6 CPUs.
+
+If more than one JVM is running on the machine, it is a good idea to limit the total number of GC threads among all JVMs.
