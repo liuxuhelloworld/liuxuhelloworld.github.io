@@ -173,3 +173,42 @@ Java classes can be eligible for GC just like anything else. This is a common oc
 Because many GC operations stop all application threads from executing, the JVM attempts to use as many CPU resources as it can in order to minimize the pause time. By default, the JVM will run one thread for each CPU on machine, up to eight. Once that threshold has been reached, the JVM adds a new thread for only every 1.6 CPUs.
 
 If more than one JVM is running on the machine, it is a good idea to limit the total number of GC threads among all JVMs.
+
+# GC Log
+
+The best way to see the effect that GC has on the performance of an application is to become familiar with the GC log, which is a record of every GC operation during the program's execution.
+
+## GC logging in JDK 8
+
+>
+> -Xloggc:*filename*
+> 
+> -verbose:gc
+> 
+> -XX:+PrintGC
+> 
+> -XX:+PrintGCDetails
+> 
+> -XX:+PrintGCTimeStamps
+> 
+> -XX:+PrintGCDateStamps
+> 
+> -XX:+UseGCLogFileRotation
+> 
+> -XX:NumberOfGCLogFiles=*N*
+> 
+> -XX:GCLogFileSize=*N*
+> 
+
+# GC Tools
+
+For real-time monitoring of the heap, use **jvisualvm** or **jconsole**.
+
+For a scriptable solution, **jstat** is the tool of choice. **jstat** provides nine options to print different information about the heap. One useful option is **-gcutil**, which displays the time spent in GC as well as the percentage of each GC area that is currently filled.
+
+```bash
+jstat -gcutil 20527 1000
+```
+
+
+
