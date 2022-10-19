@@ -20,3 +20,6 @@ https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
 		return new int[] {left+1, right+1};
 	}
 ```
+
+# 相似题目
+- [Problem1-Two Sum](2022-10-12-leetcode-problem-1.md)
