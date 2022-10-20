@@ -178,6 +178,8 @@ If more than one JVM is running on the machine, it is a good idea to limit the t
 
 The best way to see the effect that GC has on the performance of an application is to become familiar with the GC log, which is a record of every GC operation during the program's execution.
 
+The key information needed to tune an individual collector is the data from the GC log when that collector is enabled.
+
 ## GC logging in JDK 8
 
 >
@@ -210,5 +212,12 @@ For a scriptable solution, **jstat** is the tool of choice. **jstat** provides n
 jstat -gcutil 20527 1000
 ```
 
+# Throughput Garbage Collector Details
 
+![throughput-young-gc.png](../images/Java/java-performance-throughput-young-GC.png)
 
+A young collection occurs when eden has filled up. The young collection moves all objects out of eden: some are moved to one of the survivor spaces, and some are moved to the old generation. Of course, many objects are discarded because they are no longer referenced.
+
+![throughput-full-gc.png](../images/Java/java-performance-throughput-full-GC.png)
+
+The old collection frees everything out of the young generation. The only objects that remain in the old generation are those that have active references, and all of those objects have been compacted so that the beginning of the old generation is occupied, and the remainder is free.
