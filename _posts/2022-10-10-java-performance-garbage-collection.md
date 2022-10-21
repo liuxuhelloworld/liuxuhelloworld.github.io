@@ -221,3 +221,17 @@ A young collection occurs when eden has filled up. The young collection moves al
 ![throughput-full-gc.png](../images/Java/java-performance-throughput-full-GC.png)
 
 The old collection frees everything out of the young generation. The only objects that remain in the old generation are those that have active references, and all of those objects have been compacted so that the beginning of the old generation is occupied, and the remainder is free.
+
+Tuning the throughput collector is all about pause times and striking a balance between the overall heap size and the sizes of the old and young generations. It is possible to run experiments on any application and determine the best sizes for the heap and for the generations, but it is often easier to let the JVM make those decisions, which is what usually happens, since adaptive sizing is enabled by default.
+
+>
+> -XX:MaxGCPauseMillis=*N*
+> 
+> -XX:GCTimeRatio=*N*
+> 
+
+The **MaxGCPauseMillis** flag specifies the maximum pause time that the application is willing to tolerate. If a very small value is used, the application will end up with a very small old generation. That will cause the JVM to perform very, very frequent full GCs, and performance will be dismal. So be realistic: set the value to something that can be achieved. By default, this flag is not set.
+
+The **GCTimeRatio** flag specifies the amount of time you are willing for the application to spend in GC (compared to the amount of time its application-level threads should run). The default value for *GCTimeRatio* is 99, which means the goal is 1% time in GC. If you want 5% time in GC, set *GCTimeRatio* to 19.
+
+The JVM uses these two flags to set the size of the heap with the boundaries established by the initial and maximum heap sizes. The **MaxGCPauseMillis** flag takes precedence: if it is set, the sizes of the young and old generations are adjusted until the pause-time goal is met. Once that happens, the overall size of the heap is increased until the time-ratio goal is met. Once both goals are met, the JVM will attempt to reduce the size of the heap so that it ends up with the smallest possible heap that meets these two goals.
