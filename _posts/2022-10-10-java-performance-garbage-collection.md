@@ -244,11 +244,11 @@ CMS has three basic operations:
 *   running a concurrent cycle to clean data out of the old generation
 *   performing a full GC to compact the old generation, if necessary
 
-![cms-young-gc.png](../images/java/java-performance-CMS-young-GC.png)
+![cms-young-gc.png](../images/Java/java-performance-CMS-young-GC.png)
 
 A CMS young collection is similar to a throughput young collection: data is moved from eden into the survivor space (and into the old generation if the survivor space fills up).
 
-![cms-concurrent-cycle.png](../images/java/java-performance-CMS-concurrent-cycle.png)
+![cms-concurrent-cycle.png](../images/Java/java-performance-CMS-concurrent-cycle.png)
 
 CMS starts a concurrent cycle based on the occupancy of the heap. When it is sufficiently full, the background threads that cycle through the heap and remove objects are started. Notice that the old generation is not compacted: there are areas where objects are allocated, and free areas. When a young collection moves objects from the eden into the old generation, the JVM will attempt to use those free areas to hold the objects. Often these objects won't fit into one of the free areas, which is why after the CMS cycle, the high-water mark of the heap is larger.
 
