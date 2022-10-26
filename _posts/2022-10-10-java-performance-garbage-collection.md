@@ -235,3 +235,34 @@ The **MaxGCPauseMillis** flag specifies the maximum pause time that the applicat
 The **GCTimeRatio** flag specifies the amount of time you are willing for the application to spend in GC (compared to the amount of time its application-level threads should run). The default value for *GCTimeRatio* is 99, which means the goal is 1% time in GC. If you want 5% time in GC, set *GCTimeRatio* to 19.
 
 The JVM uses these two flags to set the size of the heap with the boundaries established by the initial and maximum heap sizes. The **MaxGCPauseMillis** flag takes precedence: if it is set, the sizes of the young and old generations are adjusted until the pause-time goal is met. Once that happens, the overall size of the heap is increased until the time-ratio goal is met. Once both goals are met, the JVM will attempt to reduce the size of the heap so that it ends up with the smallest possible heap that meets these two goals.
+
+# CMS Garbage Collector Details
+
+CMS has three basic operations:
+
+*   collecting the young generation (stopping all application threads)
+*   running a concurrent cycle to clean data out of the old generation
+*   performing a full GC to compact the old generation, if necessary
+
+![cms-young-gc.png](../images/java/java-performance-CMS-young-GC.png)
+
+A CMS young collection is similar to a throughput young collection: data is moved from eden into the survivor space (and into the old generation if the survivor space fills up).
+
+![cms-concurrent-cycle.png](../images/java/java-performance-CMS-concurrent-cycle.png)
+
+CMS starts a concurrent cycle based on the occupancy of the heap. When it is sufficiently full, the background threads that cycle through the heap and remove objects are started. Notice that the old generation is not compacted: there are areas where objects are allocated, and free areas. When a young collection moves objects from the eden into the old generation, the JVM will attempt to use those free areas to hold the objects. Often these objects won't fit into one of the free areas, which is why after the CMS cycle, the high-water mark of the heap is larger.
+
+In the GC log, the concurrent cycle appears as a number of phases. Alghough a majority of the concurrent cycle uses background threads, some phases introduce short pauses where all application threads are stopped.
+
+## concurrent mode failure
+
+When a young collection occurs and there isn't enough room in the old generation to hold all the objects that are expected to be promoted, CMS executes what is essentially a full GC. All application threads are stopped, and the old generation is cleaned of any dead objects. This operation is single-threaded, and it takes long time. The concurrent mode failure is a major reason CMS is deprecated.
+
+## promotion failure
+
+When there is enough room in the old generation to hold the promoted objects but the free space is fragmented and so the promotion fails. As a result, in the middle of the young collection (when all threads were already stopped), CMS collected and compacted the entire heap. The time is much longer than when CMS had a concurrent mode failure because the entire heap was compacted; the concurrent mode failure simply free objects in the old generation.
+
+## full GC without concurrent cycle
+
+This occurs when the metaspace has filled up and needs to be collected. CMS does not collect the metaspace, so if it fills up, a full GC is needed to discard any unreferenced classes.
+
