@@ -266,3 +266,25 @@ When there is enough room in the old generation to hold the promoted objects but
 
 This occurs when the metaspace has filled up and needs to be collected. CMS does not collect the metaspace, so if it fills up, a full GC is needed to discard any unreferenced classes.
 
+## tuning CMS GC
+
+The primary concern when tuning CMS is to make sure that no concurrent mode or promotion failures occur.
+
+We can attempt to avoid this failure in multiple ways:
+*   the simplest way to avoid those failures (when possible) is to increase the size of the heap
+*   otherwise, the next step is to start the concurrent background threads sooner
+*   tuning the number of background threads can also help
+
+> 
+> -XX:CMSInitiatingOccupancyFraction=*N*
+> 
+> -XX:+UseCMSInitiatingOccupancyOnly
+> 
+
+By default, the **UseCMSInitiatingOccupanceOnly** flag is false, and CMS uses a more complex algorithm to determine when to start the background threads. The default value for **CMSInitiatingOccupanceFraction** is 70. The temptation is to set the value to 0 or another small number so that the background CMS cycle runs all the time. That is usually discouraged, but as long as you are aware of the trade-offs being made, it may work out fine. 
+
+>
+> -XX:ConcGCThreads=*N*
+> 
+
+If an application experiences a concurrent mode failure and extra CPU cycles are avaiable, the number of those background threads can be increased by setting the **ConcGCThreads** flag.
