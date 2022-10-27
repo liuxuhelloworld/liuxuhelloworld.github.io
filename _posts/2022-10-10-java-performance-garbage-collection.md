@@ -288,3 +288,61 @@ By default, the **UseCMSInitiatingOccupanceOnly** flag is false, and CMS uses a 
 > 
 
 If an application experiences a concurrent mode failure and extra CPU cycles are avaiable, the number of those background threads can be increased by setting the **ConcGCThreads** flag.
+
+# G1 Garbage Collector Details
+
+G1 GC operates on discrete regions within the heap. Each region (there are by default around 2048) can belong to either the young or old generation, and the generational regions need not be contiguous. The idea behind having regions in the old generation is that when the concurrent background threads look for unreferenced objects, some regions will contain more garbage than other regions. The actual collection of a region still requires that application threads be stopped, but G1 GC can focus on the regions that are mostly garbage and spend only a little bit of time emptying those regions. This approach, clearing out only the mostly garbage regions, is what gives G1 GC its name: garbage first. That doesn't apply to the regions in the young generation: during a young GC, the entire young generation is either freed or promoted (to a survior space or to the old generation). Still, the young generation is defined in terms of regions, in part because it makes resizing the generations much easier if the regions are predefined.
+
+G1 GC is called a *concurrent collector* because the marking of free objects within the old generation happens concurrently with the application threads. But it is not completely concurrent because the marking and compacting of the young generation requires stopping all application threads, and the compacting of the old generation also occurs while the application threads are stopped.
+
+G1 GC has four logical operations:
+
+*   a young collection
+*   a background, concurrent marking cycle
+*   a mixed collection
+*   if necessary, a full GC
+
+![G1-young-gc.png](../images/Java/java-performance-G1-young-GC.png)
+
+The G1 GC young collection is triggered when eden fills up. After the collection, eden is empty. At least one region is assigned to the survivor space, and some data has moved into the old generation.
+
+![G1-concurrent-cycle.png](../images/Java/java-performance-G1-concurrent-cycle.png)
+
+The G1 GC concurrent cycle has several phases, some of which stop the application threads, and some of which do not. Up to this point, all G1 GC has really done is to identify old regions that are mostly garbage and can be recliamed.
+
+![G1-mixed-gc.png](../images/Java/java-performance-G1-mixed-GC.png)
+
+Mixed collection are called *mixed* because they perform the normal young collection but also collect some of the marked regions from the background scan. This is how G1 GC compacts the old generation, moving the objects like this is essentially compacting the heap as G1 GC goes along.
+
+The mixed GC cycles will continue until (almost) all of the marked regions have been collected, at which point G1 GC will resume regular young GC cycles. Eventually, G1 GC will start another concurrent cycle to determine which regions in the old generation should be freed next.
+
+Sometimes, you will observe a full GC in the log, which is an indication that more tuning will benefit the application performance.
+
+## concurrent mode failure
+
+G1 GC starts a marking cycle, but the old generation fills up before the cycle is completed. 
+
+This failure means that heap size should be increased, the G1 GC background processing must begin sooner, or the cycle must be tuned to run more quickly (e.g., by using additional background threads).
+
+## promotion failure
+
+G1 GC has completed a marking cycle and has started performing mixed GCs to clean up the old regions. Before it can clean enough space, too many objects are promoted from the young generation, and so the old generation still runs out of space. 
+
+This failure means the mixed collections need to happen more quickly; each young collection needs to process more regions in the old generation.
+
+## tuning G1 GC
+
+Tuning to prevent a full collection is critical in JDK 8, because when G1 GC executes a full GC in JDK 8, it does so using a single thread. That creates a longer than usual pause time.
+
+>
+> -XX:MaxGCPauseMillis=*N*
+> 
+
+G1 GC is primarily tuned via **MaxGCPauseMillis**. When used with G1 GC, this flag has a default value of 200 ms. If pauses for any of the stop-the-world phases of G1 GC start to execeed that value, G1 GC will attempt to compensate: adjusting the young-to-old ratio, adjusting the heap size, starting the background processing sooner, changing the tenuring threshold, and processing more or fewer old generation regions during a mixed GC cycle.
+
+If setting a pause-time goal does not prevent the full GCs from happening, these acpects can be tuned individually:
+
+*   increase the size of the old generation either by increasing the heap space overall or by adjusting the ratio between the generations
+*   increase the number of background threads (assuming there is sufficient CPU)
+*   perform G1 GC background activities more frequently
+*   increase the amount of work done in mixed GC cycles
