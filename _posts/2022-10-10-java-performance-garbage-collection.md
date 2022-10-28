@@ -346,3 +346,33 @@ If setting a pause-time goal does not prevent the full GCs from happening, these
 *   increase the number of background threads (assuming there is sufficient CPU)
 *   perform G1 GC background activities more frequently
 *   increase the amount of work done in mixed GC cycles
+
+>
+> -XX:ParallelGCThreads=*N*
+> 
+> -XX:ConcGCThreads=*N*
+> 
+
+**ParallelGCThreads** affects the number of threads used for phases when application threads are stopped: young and mixed collections, and the phases of the concurrent remark cycle where threads must be stopped.
+
+**ConcGCThreads** affects the number of threads used for the root scanning phase.
+
+You can consider the concurrent marking of G1 GC to be in a race with the application threads: G1 GC must clear out the old generation faster than the application is promoting new data into it. To make that happen, try increasing the number of background marking threads (assuming sufficient CPU is available on the machine). Increasing the number of background scanning threads will make the concurrent cycle shorter, which should make it easier for G1 GC to finish freeing the old generation during the mixed GC cycles before other threads have filled it again. As always, this assumes that the CPU cycles are avaiable; otherwise, the scanning threads will take CPU away from the application and effectively introduce pauses in it.
+
+>
+> -XX:InitiatingHeapOccupancyPercent=*N*
+> 
+
+G1 GC can also win it race if it starts the background marking cycle earlier. That cycle begins when the heap hits the occupancy ratio specified by **InitiatingHeapOccupancyPercent**, which has a default value of 45. This percentage refers to the entire heap, not just the old generation.
+
+The **InitiatingHeapOccupancyPercent** value is constant; G1 GC never changes that number as it attempts to meet its pause-time goals. If that value is set too high, the application will end up performing full GCs because the concurrent phases don't have enough time to complete before the rest of the heap fills up. If that value is too small, the application will perform more background GC processing than it might otherwise. A significant penalty can result from running them too frequently, because more small pauses will occur for those concurrent phases that stop the application threads. Those pauses can add up quickly, so performing background sweeping too frequently for G1 GC should be avoided.
+
+>
+> -XX:G1MixedGCCountTarget=*N*
+>
+
+After a concurrent cycle, G1 GC cannot begin a new concurrent cycle until all previously marked regions in the old generation have been collected. So another way to make G1 GC starting a marking cycle earlier is to process more regions in a mixed GC cycle.
+
+**G1MixedGCCountTarget** specifies the maximum number of mixed GC cycles over which G1 GC will process thoses regions, which has a default value of 8. Reducing this value can help overcome promotion failures at the expense of longer pause times during the mixed GC cycle. On the other hand, if mixed GC pause times are too long, this value can be increased so that less work is done during the mixed GC. Just make sure that increasing this value does not delay the next G1 GC concurrent cycle too long, otherwise a concurrent mode failure may result.
+
+In addition，increasing the value of the **MaxGCPauseMillis** flag allows more old generation regions to be collected during each mixed GC, which in trun can allow G1 GC to begin the next concurrent cycle sooner.
