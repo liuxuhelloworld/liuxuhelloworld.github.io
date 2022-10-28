@@ -376,3 +376,33 @@ After a concurrent cycle, G1 GC cannot begin a new concurrent cycle until all pr
 **G1MixedGCCountTarget** specifies the maximum number of mixed GC cycles over which G1 GC will process thoses regions, which has a default value of 8. Reducing this value can help overcome promotion failures at the expense of longer pause times during the mixed GC cycle. On the other hand, if mixed GC pause times are too long, this value can be increased so that less work is done during the mixed GC. Just make sure that increasing this value does not delay the next G1 GC concurrent cycle too long, otherwise a concurrent mode failure may result.
 
 In addition，increasing the value of the **MaxGCPauseMillis** flag allows more old generation regions to be collected during each mixed GC, which in trun can allow G1 GC to begin the next concurrent cycle sooner.
+
+# Tenuring and Survivor Spaces
+
+The young generation is divided into eden and two survivor spaces. This setup allows objects to have additional chances to be collected while still in the young generation, rather than being promoted into (and filling up) the old generation.
+
+Objects are moved into the old generation in two circumstances. First, the survivor spaces are fairly small. When the target survivor space fills up during a young collection, any remaining live objects in eden are moved directly into the old generation. Second, there is a limit to the number of GC cycles during which an object can remain in the survivor spaces. That limit is called the *tenuring threshold*.
+
+> 
+> -XX:InitialSurvivorRatio=*N*
+> 
+> -XX:MinSurvivorRatio=*N*
+>
+
+**InitialSurvivorRatio** has a default value of 8, so each survivor space will occupy 10% of the young generation.
+
+**MinSurvivorRatio** has a default value of 3, meaning the maximum size of a survivor space will be 20% of the young generation.
+
+The JVM determines whether to increase or decrease the size of the survivor spaces (subject to the defined ratios) based on how full a survivor space is after a GC. The survivor spaces will be resized so that they are, by default, 50% full after a GC.
+
+> 
+> -XX:InitialTenuringThreshold=*N*
+> 
+> -XX:MaxTenuringThreshold=*N*
+> 
+> -XX:+PrintTenuringDistribution
+> 
+
+The JVM continually calculates what it thinks the best tenuring threshold is. The threshold starts at the value specified by the **InitialTenuringThreshold** flag (the default is 7 for the throughput and G1 GC collectors, and 6 for CMS). The JVM will untimately determine a threshold between 1 and the value specified by the **MaxTenuringThreshold** flag; for the throughput and G1 GC collectors, the default maximum threshold is 15, and for CMS it is 6.
+
+In JDK 8, the tenuring distribution can be added to the GC log by including the flag **-XX:+PrintTenuringDistribution**.
