@@ -377,6 +377,14 @@ After a concurrent cycle, G1 GC cannot begin a new concurrent cycle until all pr
 
 In addition，increasing the value of the **MaxGCPauseMillis** flag allows more old generation regions to be collected during each mixed GC, which in trun can allow G1 GC to begin the next concurrent cycle sooner.
 
+> 
+> -XX:G1HeapRegionSize=*N*
+> 
+
+The region size is not dynamic; it is determined at startup based on the minimum size of the heap. Select a value so that there will be close to 2048 regions at the expected heap size. 
+
+G1 GC defines a *humongous object* as one that is half of the region size. Humongous object is allocated directly in the old generation. Increasing the size of a G1 GC region can make G1 GC more efficient. This means having a G1 region size of twice the largest object's size plus 1 byte.
+
 # Tenuring and Survivor Spaces
 
 The young generation is divided into eden and two survivor spaces. This setup allows objects to have additional chances to be collected while still in the young generation, rather than being promoted into (and filling up) the old generation.
@@ -406,3 +414,29 @@ The JVM determines whether to increase or decrease the size of the survivor spac
 The JVM continually calculates what it thinks the best tenuring threshold is. The threshold starts at the value specified by the **InitialTenuringThreshold** flag (the default is 7 for the throughput and G1 GC collectors, and 6 for CMS). The JVM will untimately determine a threshold between 1 and the value specified by the **MaxTenuringThreshold** flag; for the throughput and G1 GC collectors, the default maximum threshold is 15, and for CMS it is 6.
 
 In JDK 8, the tenuring distribution can be added to the GC log by including the flag **-XX:+PrintTenuringDistribution**.
+
+# Allocating Large Objects
+
+It turned out that one reason allocation in eden is so fast is that each thread has a dedicated region where it allocates objects, a thread-local allocation buffer, or TLAB. When objects are allocated directly in a shared space such as eden, some synchronization is required to manage the free-space pointers within that space. By setting up each thread with its own dedicated allocation area, the thread needn't perform any synchronization when allocating objects.
+
+Usually, the use of TLABs is transparent to developers and end users: TLABs are enabled by default, and the JVM manages their sizes and how they are used. The important thing to realize about TLABs is that they have a small size, so large objects cannot be allocated within a TLAB. Large objects must be allocated directly from the heap, which requires extra time because of the synchronization.
+
+By default, the size of a TLAB is based on three factors: the number of threads in the application, the size of eden, and the allocation rate of threads.
+
+Since the calculation of the TLAB size is based in part on the allocation rate of the threads, it is impossible to definitely predict the best TLAB size for an application. Instead, if a significant number of allocations occur outside of TLABs, we have two choices: reduce the size of the object being allocated or adjust the TLAB sizing parameters.
+
+> 
+> -XX:+PrintTLAB
+> 
+> -XX:TLABSize=*N*
+> 
+> -XX:-ResizeTLAB
+> 
+> -XX:MinTLABSize=*N*
+> 
+> -XX:TLABWasteTargetPercent=*N*
+> 
+> -XX:TLABWasteIncrement=*N*
+>
+
+Objects that are allocated outsize a TLAB are still allocated within eden when possible. If the object cannot fit within eden, it must be allocated directly in the old generation. That prevents the normal GC lift cycle for that object, so if it is short-lived, GC is negatively affected. There's little to do in that case other than change the application so that it doesn't need those short-lived huge objects.
