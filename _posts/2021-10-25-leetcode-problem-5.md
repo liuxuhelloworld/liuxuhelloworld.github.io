@@ -86,3 +86,6 @@ https://leetcode-cn.com/problems/longest-palindromic-substring/
         return s.substring(i+1, j);
     }
 ```
+
+# 相似题目
+- [Problem9-Palindrome Number](2022-11-08-leetcode-problem-9.md)
