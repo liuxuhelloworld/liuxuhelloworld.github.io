@@ -89,3 +89,4 @@ https://leetcode-cn.com/problems/longest-palindromic-substring/
 
 # 相似题目
 - [Problem9-Palindrome Number](2022-11-08-leetcode-problem-9.md)
+- [Problem125-Valid Palindrome](2022-11-09-leetcode-problem-125.md)
