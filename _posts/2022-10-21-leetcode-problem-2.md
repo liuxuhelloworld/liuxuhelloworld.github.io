@@ -34,4 +34,4 @@ https://leetcode.cn/problems/add-two-numbers/description/
 ```
 
 # 相似题目
-- [Problem445-Two Sum](2022-10-27-leetcode-problem-445.md)
+- [Problem445-Add Two Numbers](2022-10-27-leetcode-problem-445.md)

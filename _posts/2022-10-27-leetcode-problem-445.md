@@ -67,4 +67,4 @@ https://leetcode.cn/problems/add-two-numbers-ii/
 ```
 
 # 相似题目
-- [Problem2-Two Sum](2022-10-21-leetcode-problem-2.md)
+- [Problem2-Add Two Numbers](2022-10-21-leetcode-problem-2.md)
