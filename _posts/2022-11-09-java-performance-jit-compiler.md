@@ -65,3 +65,25 @@ You can use the **-printcompilation** option to get information about the last m
 JIT compilation is an asynchronous process: when the JVM decides that a certain method should be compiled, that method is placed in a queue. Rather than wait for the compilation, the JVM then continues interpreting the method, and the next time the method is called, the JVM will execute the compiled version of the method.
 
 For a long-running loop, when the code for the loop has finished compiling, the JVM replaces the code (on stack), and the next iteration of the loop will execute the much faster compiled version of the code. This is OSR.
+
+# Deoptimization
+
+Deoptimization means that the compiler has to "undo" a previous compilation. The effect is that the performance of the application will be reduced, at least until the compiler can recompile the code in question. Deoptimization occurs in two cases: when code is **made not entrant** and when code is **made zombie**.
+
+Two things cause code to be made not entrant. One is due to the way classes and interfaces work, and one is an implementation detail of tiered compilation.
+
+When the compilation log reports that it has made zombie code, it is saying that it has reclaimed previous code that was made not entrant. For performance, this is a good thing. Recall that the compiled code is held in a fixed-size code cache; when zombie methods are identified, the code in question can be removed from the code cache, making room for other classes to be compiled.
+
+# Compilation Thresholds
+
+What triggers the compilation of code? The major factor is how often the code is executed; once it is executed a certain number of times, its compilation threshold is reached, and the compiler deems that it has enough information to compile the code.
+
+Compilation is based on two counters in the JVM: the number of times the method has been called, and the number of times any loops in the method have branched back. Branching back can effectively be thought as the number of times a loop has completed execution, either because it reached the end of the loop itself or because it executed a branching statement like **continue**. When the JVM executes a Java method, it checks the sume of those two counters and decides whether the method is eligible for compilation. If it is, the method is queued for compilation. Similarly, every time a loop completes an execution, the braching counter is incremented and inspected. If the branching counter has execeeded its individual threshold, the loop (and not the entire method) becomes eligible for compilation.
+
+> 
+> -XX:CompileThreshold=*N*
+> 
+> -XX:Tier3InvocationThreshold=*N*
+> 
+> -XX:Tier4InvocationThreshold=*N*
+> 
