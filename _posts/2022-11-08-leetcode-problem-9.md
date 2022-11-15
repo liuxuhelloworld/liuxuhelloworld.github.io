@@ -23,4 +23,5 @@ https://leetcode.cn/problems/palindrome-number/
 
 # 相似题目
 - [Problem5-Longest Palindromic Substring](2021-10-25-leetcode-problem-5.md)
+- [Problem7-Reverse Integer](2022-11-15-leetcode-problem-7.md)
 - [Problem125-Valid Palindrome](2022-11-09-leetcode-problem-125.md)
