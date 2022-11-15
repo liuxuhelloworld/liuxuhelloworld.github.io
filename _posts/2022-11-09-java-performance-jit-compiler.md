@@ -127,3 +127,17 @@ Inlining is enabled by default. It can be disabled using the **-XX:-Inline** fla
 The basic decision about whether to inline a method depends on how hot it is and its size. If a method is eligible for inlining because it is called frequently, it will be inlined only if its bytecode size is less than 325 bytes (or whatever is specified as the **-XX:MaxFreqInlineSize** flag). Otherwise, it is eligible for inlining only if it is smaller than 35 bytes (or whatever is specified as the **-XX:MaxInlineSize** flag).
 
 Inlining is the most beneficial optimization the compiler can make, particularly for object-oriented code where attributes are well encapsulated. Tuning the inlining flags is rarely needed, and recommendations to do so often fail to account for the relationship between normal inlining and frequent inlining.
+
+# Escape Analysis
+
+> 
+> -XX:+DoEscapeAnalysis
+>
+
+The C2 compiler performs aggressive optimizations if escape analysis is enabled. 
+
+Escape analysis is enabled by default. In rare cases, it will get things wrong. That is usually unlikely, and in current JVMs, it is rare indeed.
+
+# CPU-Specific Code
+
+The JIT compiler can emit code for different processors depending on where it was running. Normally, this feature isn't something you worry about; the JVM will detect the CPU that it is running on and select the appropriate instruction set.
