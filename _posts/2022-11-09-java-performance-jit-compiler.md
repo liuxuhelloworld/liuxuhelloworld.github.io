@@ -87,3 +87,43 @@ Compilation is based on two counters in the JVM: the number of times the method 
 > 
 > -XX:Tier4InvocationThreshold=*N*
 > 
+
+# Compilation Threads
+
+When a method (or loop) becomes eligible for compilation, it is queued for compilation. That queue is processed by one or more background threads. 
+
+The C1 and C2 compilers have different queues, each of which is processed by (potentially multiple) different threads. The default number of C1 and C2 compiler threads for tiered compilation is based on the number of CPUs.
+
+> 
+> -XX:CICompilerCount
+> 
+> -XX:BackgroundCompilation
+>
+
+The number of compiler threads can be adjusted by setting the **-XX:CICompilerCount** flag. The default value of **-XX:BackgroundCompilation** is true, this setting means that the queue is processed asynchronously.
+
+# Inlining
+
+One of the most important optimizations the compiler makes is to inline methods.
+
+```java
+Point p = getPoint();
+p.setX(p.getX() * 2);
+
+Point p = getPoint();
+p.x = p.x * 2;
+```
+
+> 
+> -XX:-Inline
+> 
+> -XX:MaxInlineSize
+> 
+> -XX:MaxFreqInlineSize
+> 
+
+Inlining is enabled by default. It can be disabled using the **-XX:-Inline** flag, though it is such an important performance boost that you would never actually do that.
+
+The basic decision about whether to inline a method depends on how hot it is and its size. If a method is eligible for inlining because it is called frequently, it will be inlined only if its bytecode size is less than 325 bytes (or whatever is specified as the **-XX:MaxFreqInlineSize** flag). Otherwise, it is eligible for inlining only if it is smaller than 35 bytes (or whatever is specified as the **-XX:MaxInlineSize** flag).
+
+Inlining is the most beneficial optimization the compiler can make, particularly for object-oriented code where attributes are well encapsulated. Tuning the inlining flags is rarely needed, and recommendations to do so often fail to account for the relationship between normal inlining and frequent inlining.
