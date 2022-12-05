@@ -1,0 +1,11 @@
+# Threading and Hardware
+
+Threading at the software level allows us to take advantage of a machine's multiple cores and hyper-threads. From a Java perspective, we will consider the hyper-threads as actual CPUs and tune our application running on a four-core, eight hyper-thread machine as if it had eight CPUs. But from a measurement perspective, we should be expecting only a five-to-six times improvement compared to a single core.
+
+# Thread Pool
+
+Java servers are typically build around the notion of one or more thread pools to handle requests: each call into the server is handled by a thread from the pool. All thread pools work in essentially the same way. Tasks are submitted to a queue. Then a certain number of threads picks up tasks from the queue and executes them. After finishing the task, the thread returns to the task queue to retrieve another job to execute (and if there are no more tasks to perform, the thread waits for a task).
+
+The key factor in using a thread pool is that tuning the size of the pool is crucial to getting the best performance. Thread pool performance varies depending on basic choices about thread pool size, and under certain circumstances an oversized thread pool will be detrimental to performance. 
+
+Thread pools have a minimum and maximum number of threads. The minimum number of threads is kept around, waiting for tasks to be assigned to them. Because creating a thread is a fairly expensive operation, this speeds up the overall operation when a task is submitted: it is expected that an already existing thread can pick it up. On the other hand, threads require system resources, including native memory for their stacks, and having too many idle threads can consume resources that could be used by othre processes. The maximum number of threads also serves as a necessary throttle, preventing too many tasks from executing at once.

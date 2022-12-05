@@ -25,6 +25,7 @@
 - [JIT Compiler](2022-11-09-java-performance-jit-compiler.md)
 - [Garbage Collection](2022-10-10-java-performance-garbage-collection.md)
 - [Heap Memory Best Practices](2022-11-03-java-performance-heap-memory-best-practices.md)
+- [Concurrency](2022-11-16-java-performance-concurrency.md)
 
 # Design Patterns
 - [Design Principles](2021-09-08-design-patterns-design-principles.md)
