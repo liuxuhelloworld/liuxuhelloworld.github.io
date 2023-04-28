@@ -1,11 +1,17 @@
 # Java
+- [Introduction](2022-04-14-java-introduction.md)
+- [Java Basics](2022-04-19-java-basics.md)
 - [Java Primitive Types](2021-09-26-java-primitive-types.md)
 - [Java Packaging](2021-08-12-java-packaging.md)
+- [Java Date and Time](2022-04-27-java-date-time.md)
+- [Java Reflection](2022-05-09-java-reflection.md)
+- [Java Tools](2022-04-19-java-tools.md)
 
 ## Concurrency
 - [Introduction](2021-12-29-java-concurrency-introduction.md)
 - [Building Blocks](2021-05-31-java-concurrency-building-blocks.md)
 - [Task Execution](2021-06-09-java-concurrency-task-execution.md)
+- [Thread Safety](2022-01-04-java-concurrency-thread-safety.md)
 
 ## Network Programming
 - [Introduction](2021-10-29-java-network-programming-introduction.md)
@@ -27,12 +33,22 @@
 - [Heap Memory Best Practices](2022-11-03-java-performance-heap-memory-best-practices.md)
 - [Concurrency](2022-11-16-java-performance-concurrency.md)
 
+# Java Language Specification
+- [Thread and Locks](2023-01-28-java-language-specification-threads-and-locks.md)
+
 # Design Patterns
 - [Design Principles](2021-09-08-design-patterns-design-principles.md)
 - [Strategy Pattern](2021-09-08-design-patterns-strategy-pattern.md)
 - [Observer Pattern](2021-09-09-design-patterns-observer-pattern.md)
 - [Decorator Pattern](2021-09-10-design-patterns-decorator-pattern.md)
 - [Factory Pattern](2021-09-13-design-patterns-factory-pattern.md)
+
+# Microservices Patterns
+- [Introduction](2023-01-29-microservices-patterns-introduction.md)
+- [Decomposition](2023-02-03-microservices-patterns-decomposition.md)
+- [IPC](2023-02-07-microservices-patterns-ipc.md)
+- [SAGA](2023-02-20-microservices-patterns-saga.md)
+- [Business Logic Patterns](2023-04-17-microservices-patterns-business-logic-patterns.md)
 
 # Spring
 - [Introduction](2021-06-08-spring-introduction.md)
@@ -67,7 +83,6 @@
 # Redis
 - [Redis Introduction](2021-11-18-redis-introduction.md)
 - [Redis Admin](2021-11-19-redis-admin.md)
-- [Redis Commands](2021-11-22-redis-commands.md)
 - [Redis Data Types](2021-11-22-redis-data-types.md)
 - [Redis Persistence](2021-11-24-redis-persistence.md)
 - [Redis Replication](2021-12-08-redis-replication.md)
@@ -75,7 +90,7 @@
 
 # Kafka
 - [Kafka Introduction](2021-11-25-kafka-introduction.md)
-- [Kafka Admin](2021-11-29-kafka-admin.md)
+- [Kafka Quickstart](2021-11-29-kafka-quickstart.md)
 - [Kafka Design](2021-12-06-kafka-design.md)
 
 # 高并发系统设计
@@ -96,12 +111,19 @@
 - [压力测试](2021-09-18-high-concurrent-system-design-stress-test.md)
 - [限流&熔断&降级](2021-10-12-high-concurrent-system-design-rate-limit-downgrade-circuit-breaker.md)
 
-# System Design
-- [Web API Design](2021-08-25-web-api-design.md)
+# CSAPP
+- [Introduction](2022-03-24-csapp-introduction.md)
 
-# System Admin
-- [Package Management](2021-09-15-linux-package-management.md)
+# Operating System Concepts
+- [Introduction](2022-03-10-operating-system-concepts-introduction.md)
+- [Processes](2022-11-14-operating-system-concepts-processes.md)
+
+# Computer Networking
+- [Introduction](2022-04-11-computer-networking-introduction.md)
 
 # Others
+- [Linux Package Management](2021-09-15-linux-package-management.md)
 - [Maven](2021-08-26-maven.md)
 - [Thymeleaf](2021-06-21-thymeleaf.md)
+- [Unicode](2022-04-21-unicode.md)
+- [Web API Design](2021-08-25-web-api-design.md)

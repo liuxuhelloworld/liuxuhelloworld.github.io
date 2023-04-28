@@ -1,6 +1,9 @@
 redis-server: the Redis Server itself
+
 redis-sentinel: Redis Sentinel executable (monitoring and failover)
+
 redis-cli: command line interface utility to talk with Redis
+
 redis-benchmark: used to check Redis performances
 
 # Starting Redis

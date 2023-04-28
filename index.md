@@ -1,4 +1,3 @@
-- [leetcode](_posts/2021-09-03-leetcode.md)
-- [CLRS solutions](_posts/2021-11-15-clrs-solutions.md)
+- [LeetCode](_posts/2021-09-03-leetcode.md)
 - [学习笔记](_posts/2021-09-03-learning-notes.md)
-- [个人文章](_posts/2021-09-03-personal-essays.md)
+- [个人随笔](_posts/2021-09-03-personal-essays.md)

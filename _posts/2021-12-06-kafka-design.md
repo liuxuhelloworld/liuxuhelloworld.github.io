@@ -1,7 +1,9 @@
 # Persistence
-Kafka relies heavily on the filesystem for storing and caching messages.
+Kafka relies heavily on the filesystem for storing and caching messages. There is a general perception that "disks are slow" which make people skeptical that a persistent structure can offer competitive performance. In fact disks are both much slower and much faster than people expect depending on how they are used; and a properly designed disk structure can often be as fast as the network.
 
 Rather than maintain as much as possible in-memory and flush it all out to the filesystem in a panic when we run out of space, we invert that. All data is immediately written to a persistent log on the filesystem without necessarily flushing to disk. In effect this just means that it is transfered into the kernel's pagecache.
+
+Having access to virtually unlimited disk space without any performance penalty means that we can provide some features not usually found in a messaging system. For example, in Kafka, instead of attempting to delete messages as soon as they are consumed, we can retain messages for a relatively long period. This leads to a great deal of flexibility for consumers.
 
 # Efficiency
 Once poor disk access patterns have been eliminated, there are two common causes of inefficiency in this type of system: too many small I/O operations, and excessive byte copying.

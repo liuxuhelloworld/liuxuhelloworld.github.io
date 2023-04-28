@@ -8,7 +8,6 @@
 ```bash
 mysql -h host -u user -p
 mysql -u xxxuser xxxdb
-mysql -h100.64.1.152 -P6800 -uwm_trade_r -p5JPeuhS7IwJZHQ1S waimai_trade -A
 ```
 
 最大连接数：

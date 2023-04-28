@@ -1,0 +1,1 @@
+A process is a program in execution. A process is the unit-of-work in a modern computing system. A system consists of a collection of processes, some executing user code, others executing operating system code. Potentially, all these processes can execute concurrently, with the CPU (or CPUs) multiplexed among them.

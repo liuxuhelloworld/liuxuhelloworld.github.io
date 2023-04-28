@@ -22,10 +22,8 @@ SELECT COUNT(*) FROM xxx;
 
 为什么InnoDB需要一行一行计数呢？因为由于多版本并发控制（MVCC），对于同一时刻的多个count(\*)查询，应当返回的结果可能是不同的。
 
-按效率粗略排序的话，
-$$
-count(字段) < count(主键) < count(1) \approx count(*)
-$$
+按效率粗略排序的话，count(字段) < count(主键) < count(1) or count(*)
+
 
 ## ORDER BY
 ```sql

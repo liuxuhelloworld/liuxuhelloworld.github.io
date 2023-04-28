@@ -163,5 +163,5 @@ Bean creation process:
 4. The **InitializingBean**’s **afterPropertiesSet** is executed right after the dependencies are injected. The **afterPropertiesSet()** method is invoked by a **BeanFactory** after it has set all the bean properties supplied and has satisfied **BeanFactoryAware** and **ApplicationContextAware**.
 5. The **init-method** attribute is executed last because this is the actual initialization method of the bean.
 
-![spring_beans_life_cycle](../images/spring/spring_beans_life_cycle.png)
+![spring_beans_life_cycle](../images/spring/spring-beans-life-cycle.png)
 

@@ -1,28 +1,33 @@
-# 什么是IoC?
-IoC is a technique that externalizes the creation and management of component dependencies.
+# Inversion of Control
+IoC is a technique that externalizes the creation and management of component dependencies. The core of the Spring Framework is based on the principle of IoC.
 
 At its core, IoC aims to offer a simpler mechanism for provisioning component dependencies and managing these dependencies throughout their life cycles.
 
-# IoC分类
 IoC可以分为两类：
 - dependency lookup
 - dependency injection
 
-## dependency lookup
+# Dependency Lookup
 Dependency lookup is a much more traditional approach, and it seems more familiar to Java programmers.
 
 Dependency lookup可以分为两类：
 - dependency pull: in dependency pull, dependencies are pulled from a registry as required
 - contextualized dependency lookup (CDL): in CDL, lookup is performed against the container that is managing the resource, not from some central registry, and it is usually performed at some set point
 
-## dependency injection
+# Dependency Injection
 Dependency injection appears counterintuitive at first, but it is actually much more flexible and usable than dependency lookup.
+
+In a Spring-based application, it is always preferable to use dependency injection. Wherever it is possible to use dependency injection with Spring, you should do so; otherwise, you can fall back on the dependency lookup capabilities.
+
+Spring's DI implementation is based on two core Java concepts: JavaBeans and interfaces. JavaBeans (POJOs) provide a standard mechanism for creating Java resources that are configurable in a number of ways, such as constructors and setter methods. Interfaces and DI are technologies that are mutually beneficial. By using DI, you reduce the amount of code you need to use an interface-based design in your application to almost zero. Likewise, by using interfaces, you can get the most out of DI because your beans can utilize any interface implementation to satisfy their dependency. The use of interfaces also allows Spring to utilize JDK dynamic proxy (the Proxy pattern) to provide powerful concepts such as AOP for crosscutting concerns.
+
+The popularity of DI was acknowledged when the Java Community Progress (JCP) adopted JSR-330 (Dependency Injection for Java) in 2009. In JEE 6, JSR-330 become one of the included specifications of the entire technology stack.
 
 Dependency injection可以分为两类：
 - constructor dependency injection
 - setter dependency injection
 
-### constructor dependency injection
+## constructor dependency injection
 Constructor dependency injection occurs when a component's dependencies are provided to it in its constructor.
 ```java
 public class ConstructorInjection {
@@ -34,7 +39,7 @@ public class ConstructorInjection {
 }
 ```
 
-### setter dependency injection
+## setter dependency injection
 In setter dependency injection, the IoC container injects a component's dependencies via JavaBean-style setter methods.
 ```java
 public class SetterInjection {
@@ -46,7 +51,7 @@ public class SetterInjection {
 }
 ```
 
-### setter injection vs constructor injection
+## setter injection vs constructor injection
 Constructor injection is particularly useful when you absolutely must have an instance of the dependency class before your component is used. Constructor injection also helps achieve the use of immutable objects.
 
 Setter injection allows dependencies to be declared on an interface, but this is an often-touted benefit. Unless you are absolutely sure that all implementations of a particular business interface require a particular dependency, let each implementation class define its own dependencies and keep the business interface for business methods. 
@@ -78,9 +83,6 @@ public interface NewsletterSender {
 		void send();
 }
 ```
-
-# IoC and DI in Spring
-In a Spring-based application, it is always preferable to use dependency injection. Wherever it is possible to use dependency injection with Spring, you should do so; otherwise, you can fall back on the dependency lookup capabilities.
 
 # BeanFactory
 The core of Spring's dependency injection container is the **BeanFactory** interface. **BeanFactory** is responsible for managing components, including their dependencies as well as their life cycles.

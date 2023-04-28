@@ -8,6 +8,4 @@
 # 双写方案
 ![双写方案示意图](https://static001.geekbang.org/resource/image/ad/30/ad9a4aa37afc39ebe0c91144d5ef7630.jpg)
 
-![双写方案示意图](https://static001.geekbang.org/resource/image/ad/30/ad9a4aa37afc39ebe0c91144d5ef7630.jpg)
-
 这种方案的优点是业务无损，缺点是时间周期比较长，业务有改造成本。
