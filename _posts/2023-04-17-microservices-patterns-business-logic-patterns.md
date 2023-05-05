@@ -47,3 +47,11 @@ Rule #3: one transaction creates or updates one aggregate
 
 Another rule that aggregates must obey is that a transaction can only create or update a single aggregate. This constraint is perfect for the microservice architecture. It ensures that a transaction is contained within a service. This constraint also matches the limited transaction model of most NoSQL databases. This rule makes it more complicated to implement operations that need to create or update multiple aggregates. But this is exactly the problem that sagas are designed to solve. Each step of the saga creates or updates exactly one aggregate.
 
+# Domain Events
+In the context of DDD, a domain event is something that has happened to an aggregate. It's represented by a class in the domain model. An event usually represents a state change.
+
+Domain Event Pattern: an aggregate publishes a domain event when it's created or undergoes some other signigicant change.
+
+Event consumers may need the details when processing an event. One approach kown as *event enrichment* is for events to contain information that consumers need. It simplifies event consumers because they no longer need to request data from the service that published the event. Although event enrichment simplifies consumers, the drawback is that it risks making the event class less stable. An event class potentially needs to change whenever the requirements of its consumers change. This can reduce maintainability because this kind of change can impact multiple parts of the application. Satisfying every consumer can also be a futile effort. Fortunately, in many situations it's fairly obvious which properties to include in an event.
+
+A service must use transactional messaging to publish events to ensure that they're published as part of the transaction that updates the aggregate in the database.
