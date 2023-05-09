@@ -25,6 +25,7 @@
 - [The Structure of JVM](2021-10-25-java-jvm-structure.md)
 
 # Effective Java
+- [Don't use raw types](2023-05-08-effective-java-generics-dont-use-raw-types.md)
 - [Synchronize access to shared mutable data](2022-10-08-effective-java-synchronize-access-to-shared-mutable-data.md)
 
 # Java Performance
