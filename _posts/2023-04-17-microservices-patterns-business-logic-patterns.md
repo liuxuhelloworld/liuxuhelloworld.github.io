@@ -55,3 +55,9 @@ Domain Event Pattern: an aggregate publishes a domain event when it's created or
 Event consumers may need the details when processing an event. One approach kown as *event enrichment* is for events to contain information that consumers need. It simplifies event consumers because they no longer need to request data from the service that published the event. Although event enrichment simplifies consumers, the drawback is that it risks making the event class less stable. An event class potentially needs to change whenever the requirements of its consumers change. This can reduce maintainability because this kind of change can impact multiple parts of the application. Satisfying every consumer can also be a futile effort. Fortunately, in many situations it's fairly obvious which properties to include in an event.
 
 A service must use transactional messaging to publish events to ensure that they're published as part of the transaction that updates the aggregate in the database.
+
+# Kitchen Service Example
+![kitchen service business logic example](../images/microservices_patterns/microservices-patterns-business-logic-kitchen-service-example.jpg)
+
+# Order Service Example
+![order service business logic example](../images/microservices_patterns/microservices-patterns-business-logic-order-service-example.jpg)
