@@ -1,0 +1,9 @@
+Arrays are *covariant*. If **Sub** is a subtype of **Super**, then the array type **Sub\[\]** is a subtype of the array type **Super\[\]**. Generics are *invariant*. For any two distinct types **Type1** and **Type2**, **List\<Type1\>** is neither a subtype nor a supertype of **List\<Type2\>**.
+
+Another major difference between arrays and generics is that arrays are *reified*. This means that arrays know and enforce their element type at runtime. Generics, by constrast, are implemented by *erasure*. This means that they enforce their type constraints only at compile time and discard their element type information at runtime.
+
+It is illegal to create an array of a generic type, a parameterized type or a type parameter. Therefore, none of these array creation expressions are legal: **new List\<E\>\[\]**, **new List\<String\>\[\]**, **new E\[\]**. All will result in *generic array creation* errors at compile time.
+
+Types such as **E**, **List\<E\>**, and **List\<String\>** are technically known as *nonreifiable* types. Intuitively speaking, a non-reifiable type is one whose runtime representation contains less information than its compile-time representation. Because of erasure, the only parameterized types that are reifiable are unbounded wildcard types such as **List\<?\>** and **Map\<?, ?\>**. It is legal, though rarely useful, to create arrays of unbounded wildcard types.
+
+In summary, arrays and generics have very different type rules. Arrays are covariant and reified; generics are invariant and erased. As a consequence, arrays provide runtime type safety but not compile-time type safety, and vice versa for generics. As a rule, arrays and generics don't mix well. If you find yourself mixing them and getting compile-time errors or warnings, you first impulse should be to replace the arrays with lists.

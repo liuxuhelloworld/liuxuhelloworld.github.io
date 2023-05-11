@@ -25,7 +25,12 @@
 - [The Structure of JVM](2021-10-25-java-jvm-structure.md)
 
 # Effective Java
+## generics
 - [Don't use raw types](2023-05-08-effective-java-generics-dont-use-raw-types.md)
+- [Eliminate unchecked warnings](2023-05-09-effective-java-generics-eliminate-unchecked-warnings.md)
+- [Prefer lists to arrays](2023-05-11-effective-java-generics-prefer-lists-to-arrays.md)
+
+## concurrency
 - [Synchronize access to shared mutable data](2022-10-08-effective-java-synchronize-access-to-shared-mutable-data.md)
 
 # Java Performance
