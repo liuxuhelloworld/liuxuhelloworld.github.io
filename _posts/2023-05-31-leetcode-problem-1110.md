@@ -77,3 +77,40 @@ https://leetcode.cn/problems/delete-nodes-and-return-forest/
 额，坦白讲，代码看起来是有一点凌乱有一点丑的，提交以后可以通过，但是效率也较差。
 
 看了下官方题解，好吧，还是我对递归的掌握不行，这个题目确实应当着手于深度优先遍历。
+
+## DFS
+参考官方题解写了下DFS版本，代码确实简洁许多，但是提交以后时间效率比上面的解法还差。。。
+
+```java
+	public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+		List<Integer> toDelete = new ArrayList<>();
+		Arrays.stream(to_delete).forEach(toDelete::add);
+
+		List<TreeNode> forest = new ArrayList<>();
+
+		dfs(root, true, toDelete, forest);
+
+		return forest;
+	}
+
+	private TreeNode dfs(TreeNode node, boolean isRoot, List<Integer> toDelete, List<TreeNode> forest) {
+		if (node == null) {
+			return null;
+		}
+
+		boolean deleted = toDelete.contains(node.val);
+
+		node.left = dfs(node.left, deleted, toDelete, forest);
+		node.right = dfs(node.right, deleted, toDelete, forest);
+
+		if (deleted) {
+			return null;
+		}
+
+		if (isRoot) {
+			forest.add(node);
+		}
+
+		return node;
+	}
+```
