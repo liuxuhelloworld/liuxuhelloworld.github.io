@@ -56,6 +56,7 @@
 - [SAGA](2023-02-20-microservices-patterns-saga.md)
 - [Business Logic Patterns](2023-04-17-microservices-patterns-business-logic-patterns.md)
 - [Query](2023-05-29-microservices-patterns-query.md)
+- [Security&Configurability&Observability](2023-09-15-microservices-patterns-security-configurability-observability.md)
 
 # Spring
 - [Introduction](2021-06-08-spring-introduction.md)
