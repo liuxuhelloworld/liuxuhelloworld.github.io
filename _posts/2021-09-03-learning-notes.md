@@ -1,7 +1,6 @@
 # Java
 - [Introduction](2022-04-14-java-introduction.md)
 - [Java Basics](2022-04-19-java-basics.md)
-- [Java Primitive Types](2021-09-26-java-primitive-types.md)
 - [Java Packaging](2021-08-12-java-packaging.md)
 - [Java Date and Time](2022-04-27-java-date-time.md)
 - [Java Reflection](2022-05-09-java-reflection.md)
@@ -100,6 +99,9 @@
 - [Kafka Introduction](2021-11-25-kafka-introduction.md)
 - [Kafka Quickstart](2021-11-29-kafka-quickstart.md)
 - [Kafka Design](2021-12-06-kafka-design.md)
+
+# Kafka: The Definitive Guide
+- [Introduction](2023-09-12-kafka-the-definitive-guide-introduction.md)
 
 # 高并发系统设计
 - [通用原则](2021-07-16-high-concurrent-system-design-general-principles.md)
