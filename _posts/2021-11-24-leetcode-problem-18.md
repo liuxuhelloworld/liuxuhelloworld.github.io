@@ -2,7 +2,7 @@
 https://leetcode-cn.com/problems/4sum/
 
 # 解答过程
-和Problem15三数之和差不多，就强记吧。
+这个题目和Problem15非常像了，那么类似的，解题的思路也是一致的，只不过比Problem15多一层循环。就像在Problem15的题解里写的，如果基于Problem1 --> Problem167 --> Problem15 --> Problem18这样一个顺序来层层递进，那么解题的思路是有脉络可循的。但是如果上来就是直接写这样一个题目，我感觉会比较懵，不容易有清晰的思路。
 
 ```java
 	public List<List<Integer>> fourSum(int[] nums, int target) {
@@ -52,3 +52,9 @@ https://leetcode-cn.com/problems/4sum/
 		return ret;
 	}
 ```
+
+# 相似题目
+- [Problem1-Two Sum](2022-10-12-leetcode-problem-1.md)
+- [Problem167-Two Sum](2021-08-06-leetcode-problem-167.md)
+- [Problem15-Three Sum](2021-11-22-leetcode-problem-15.md)
+- [Problem16-Three Sum Closest](2021-11-23-leetcode-problem-16.md)
