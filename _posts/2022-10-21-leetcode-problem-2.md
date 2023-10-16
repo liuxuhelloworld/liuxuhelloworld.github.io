@@ -2,7 +2,7 @@
 https://leetcode.cn/problems/add-two-numbers/description/
 
 # 解答过程
-这个题目本身难度不大，主要考察的是基本的链表操作能力，与合并两个有序链表有一定相似之处。有两个值得注意的点，一个是dummy head，一个是**while (l1 != null || l2 != null)**这种遍历方式。
+这个题目本身难度不大，主要考察的是基本的链表操作能力，与合并两个有序链表有一定相似之处。
 
 ```java
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -35,3 +35,5 @@ https://leetcode.cn/problems/add-two-numbers/description/
 
 # 相似题目
 - [Problem445-Add Two Numbers](2022-10-27-leetcode-problem-445.md)
+- [Problem415-Add Strings](2023-07-17-leetcode-problem-415.md)
+- [Problem43-Multiply Strings](2023-10-16-leetcode-problem-43.md)

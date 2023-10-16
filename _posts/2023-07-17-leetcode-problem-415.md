@@ -4,6 +4,8 @@ https://leetcode.cn/problems/add-strings/
 # 解答过程
 这个题目主要考察基本的字符串操作能力，比较简单了，从题目要求以及参数限制来看，显然转换为整数再相加是行不通的，况且，不使用库函数的话，字符串转整数比这个题目本身还要难一些。这个题目就是逆序遍历字符串，挨个位置相加，注意处理进位即可。
 
+这个题目和Problem2、Problem445相比，最大的不同之处就在于字符串是可以随机存取的，无论顺序遍历还是逆序遍历，都好处理。而链表就只方便正序遍历，不方便逆序遍历，这也是Problem2和Problem445的最大区别。
+
 ```java
 	public String addStrings(String num1, String num2) {
 		StringBuilder builder = new StringBuilder();
@@ -36,3 +38,8 @@ https://leetcode.cn/problems/add-strings/
 		return builder.reverse().toString();
 	}
 ```
+
+# 相似题目
+- [Problem2-Add Two Numbers](2022-10-21-leetcode-problem-2.md)
+- [Problem445-Two Sum](2022-10-27-leetcode-problem-445.md)
+- [Problem43-Multiply Strings](2023-10-16-leetcode-problem-43.md)
