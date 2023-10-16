@@ -105,6 +105,7 @@
 
 # Kafka: The Definitive Guide
 - [Introduction](2023-09-12-kafka-the-definitive-guide-introduction.md)
+- [Producer](2023-10-11-kafka-the-definitive-guide-producer.md)
 
 # 高并发系统设计
 - [通用原则](2021-07-16-high-concurrent-system-design-general-principles.md)
