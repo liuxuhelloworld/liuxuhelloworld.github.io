@@ -44,6 +44,7 @@ https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 
 ## 滑动窗口
 我觉得滑动窗口的解法可以从暴力解法的思路中得到启发。比如说使用暴力解法，我们遍历n次，每次以s[i]为起点开始遍历直到碰到了重复字符s[j]，本次遍历结束，然后开始以s[i+1]为起点开始下一轮遍历。这样操作的问题在哪呢？就在于下一轮遍历以s[i+1]为起点，这样就太笨了。因为s[i]到s[j-1]是确定没有重复字符的，假设s[j]和s[i]到s[j-1]中的某个s[k]是重复的，那么至少应该从s[k+1]开始下一轮遍历，这样就减少了很多重复计算。
+
 ```java
     public int lengthOfLongestSubstringWithoutRepeatingCharacters(String s) {
         int len = s.length();
@@ -67,3 +68,6 @@ https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
         return max;
     }
 ```
+
+# 相似题目
+- [Problem5-Longest Palindromic Substring](2021-10-25-leetcode-problem-5.md)

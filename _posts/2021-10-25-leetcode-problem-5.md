@@ -3,7 +3,7 @@ https://leetcode-cn.com/problems/longest-palindromic-substring/
 
 # 解答过程
 ## 动态规划
-比较典型的动态规划问题，应该不难想出状态转移方程吧，挺早以前写的题了，记不清当时写得是不是顺利。
+这种最优类问题，我总是先从动态规划的角度入手，这个题目算是比较典型的动态规划问题了吧。使用动态规划的关键是确定状态转移方程，即如何从小规模问题的解得到大一点规模问题的解，或者换句话说，如何把大一点规模的问题拆分为更小规模的问题。对于这个题目，s[i..j]是不是一个回文子串，可以拆分为首先判断s[i]是否等于s[j]，继而判断s[i+1..j-1]是不是一个回文子串，这样，我们就把一个大一点规模的问题拆分成了更小规模的问题，反过来，也就是我们可以从小规模问题的解，比较方便快捷地得到大一点规模问题的解。
 
 ```java
     public String longestPalindromeSubstring(String s) {
@@ -88,5 +88,7 @@ https://leetcode-cn.com/problems/longest-palindromic-substring/
 ```
 
 # 相似题目
+- [Problem3-Longest Substring Without Repeating Characters](2021-08-16-leetcode-problem-3.md)
 - [Problem9-Palindrome Number](2022-11-08-leetcode-problem-9.md)
 - [Problem125-Valid Palindrome](2022-11-09-leetcode-problem-125.md)
+- [Problem409-Longest Palindrome](2021-12-24-leetcode-problem-409.md)
