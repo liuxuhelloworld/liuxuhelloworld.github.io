@@ -56,3 +56,9 @@ https://leetcode.cn/problems/median-of-two-sorted-arrays/
 		}
 	}
 ```
+
+# 相似题目
+- [Problem33-Search in Rotated Sorted Array](2022-01-04-leetcode-problem-33.md)
+- [Problem81-Search in Rotated Sorted Array](2023-11-09-leetcode-problem-81.md)
+- [Problem153-Find Minimum in Rotated Sorted Array](2021-12-09-leetcode-problem-153.md)
+- [Problem34-Find First and Last Position of Elements in Sorted Array](2021-11-25-leetcode-problem-34.md)
