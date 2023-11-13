@@ -1,29 +1,5 @@
-Java is case sensitive.
-
-Everything in a Java program must be inside a class.
-
-You need to make the file name for the source code the same as the name of the public class, with the extension .java appended.
-
-In Java, as in C/C++, braces delineate the parts (usually called blocks) in your program.
-
-The **main** method in Java is always static.
-
-In Java, every statement must end with a semicolon.
-
 # Data Types
 Java is a **strongly typed language**, this means that every variable must have a declared type.
-
-## integer types
-byte, short, int, long
-
-123L, 0xCAFE, 010, 0b1001, 0b1111_0100_0010_0100_0000
-
-## floating-point types
-float, double
-
-3.14F, 3.14, 0x1.0p-3
-
-Floating-point numbers are not suitable for financial calculations in which roundoff errors cannot be tolerated. If you need precise numerical computations without roundoff errors, use the **BigDecimal** class.
 
 ## char
 Literal values of type **char** are enclosed in single quotes.

@@ -1,29 +1,4 @@
-All information in a system is represented as a bunch of bits. The only thing that distinguishes different data objects is the context in which we view them.
-
-# Compilation System
-- preprocessing phase
-```
-hello.c --> hello.i
-```
-
-- compilation phase
-```
-hello.i --> hello.s
-```
-
-Assembly language is useful because it provides a common output language for different compilers for different high-level languages.
-
-- assembly phase
-```
-hello.s --> hello.o
-```
-The assembler translates **hello.s** into machine-language instructions, packages them in a form known as a *relocatable object program*, and stores the result in the object file **hello.o**. 
-
-- linking phase
-```
-hello.o --> hello
-```
-The **printf** function resides in a separate precompiled object file called **printf.o**, which must somehow be merged with our **hello.o** program. The linker handles this merging. The result is an executable object file that is ready to be loaded into memory and executed by the system.
+All information in a system, including disk files, programs stored in memory, user data stored in memory, and data transferred across a network, is represented as a bunch of bits. The only thing that distinguishes different data objects is the context in which we view them.
 
 # Hardware Organization of a System
 ![hardware_organization_of_a_system](../images/csapp/csapp-hardware-organization-of-a-typical-system.png)

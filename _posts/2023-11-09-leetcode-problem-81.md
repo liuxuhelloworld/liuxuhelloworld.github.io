@@ -50,4 +50,3 @@ https://leetcode.cn/problems/search-in-rotated-sorted-array-ii/
 - [Problem4-Median of Two Sorted Arrays](2022-11-07-leetcode-problem-4.md)
 - [Problem33-Search in Rotated Sorted Array](2022-01-04-leetcode-problem-33.md)
 - [Problem153-Find Minimum in Rotated Sorted Array](2021-12-09-leetcode-problem-153.md)
-- [Problem34-Find First and Last Position of Elements in Sorted Array](2021-11-25-leetcode-problem-34.md)
