@@ -35,4 +35,4 @@ https://leetcode.cn/problems/reverse-integer/
 ```
 
 # 相似题目
-- [Problem9-Palindrome Number](2022-11-08-leetcode-problem-9.md)
+- [Problem8-String to Integer](2021-11-02-leetcode-problem-8.md)
