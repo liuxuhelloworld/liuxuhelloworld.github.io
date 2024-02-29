@@ -36,7 +36,7 @@ Network latency is an ever-present concern in a distributed system. You might di
 
 One obstacle to decomposition is that synchronous communication between services reduces availability. Using asynchronous messaging, which eliminates tight coupling and improves avaiability, is often a better choice.
 
-One obstacle to decomposition is the requirement to maintain data consistency across services. The traditional solution is to use a two-phase, commit-based, distributed transaction management mechanism. But you'll see that this is not a good choice for modern applications, and you must use a very different approach to transaction management: a saga. A *saga* is a sequence of local transactions that are coordinated using messaging. Sagas are more complex than traditional ACID transactions but they work well in many situations.
+One obstacle to decomposition is the requirement to maintain data consistency across services. The traditional solution is to use a two-phase, commit-based, distributed transaction management mechanism. But you'll see that this is not a good choice for modern applications, and you must use a very different approach to transaction management: a saga. A *saga* is a sequence of local transactions that are coordinated using messaging. Sagas are more complex than traditional ACID transactions but they work well in many situations. One limitation of sagas is that they are eventually consistent.
 
 One obstacle to decomposition is the inability to obtain a truly consistent view of data across multiple databases. In a microservice architecture, even though each service's database is consistent, you can't obtain a globally consistent view of the data.
 
