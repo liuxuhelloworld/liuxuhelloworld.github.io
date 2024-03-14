@@ -52,7 +52,7 @@
 - [Introduction](2023-01-29-microservices-patterns-introduction.md)
 - [Decomposition](2023-02-03-microservices-patterns-decomposition.md)
 - [IPC](2023-02-07-microservices-patterns-ipc.md)
-- [SAGA](2023-02-20-microservices-patterns-saga.md)
+- [Transaction](2023-02-20-microservices-patterns-transaction.md)
 - [Business Logic Patterns](2023-04-17-microservices-patterns-business-logic-patterns.md)
 - [Query](2023-05-29-microservices-patterns-query.md)
 - [API Gateway](2023-07-10-microservices-patterns-external-api-patterns.md)
