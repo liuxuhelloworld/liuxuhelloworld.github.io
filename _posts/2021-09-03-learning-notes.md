@@ -57,7 +57,7 @@
 - [Query](2023-05-29-microservices-patterns-query.md)
 - [API Gateway](2023-07-10-microservices-patterns-external-api-patterns.md)
 - [Testing](2023-09-05-microservices-patterns-testing.md)
-- [Security&Configurability&Observability](2023-09-15-microservices-patterns-security-configurability-observability.md)
+- [Security, Configurability, Observability](2023-09-15-microservices-patterns-security-configurability-observability.md)
 - [Deploying](2023-10-07-microservices-patterns-deploying.md)
 
 # Spring
