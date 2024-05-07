@@ -31,7 +31,7 @@ The client controls which partition it publishes messages to. This can be done a
 
 Batching is one of the big drivers of efficiency, and to enable batching the Kafka producer will attempt to accumulate data in memory and to send out larger batches in a single request. The batching can be configured to accumulate no more than a fixed number of messages and to wait no longer than some fixed latency bound (say 64k or 10ms). This allows the accumulation of more bytes to send, and fewer larger I/O operations on the servers.
 
-# Consumer
+# The Consumer
 The Kafka consumer works by issuing "fetch" requests to the brokers leading the partitions it wants to consume. The consumer specifies its offset in the log with each request and receives back a chunk of log beginning from that position. The consumer thus has significant control over this position and can rewind it to re-consume data if need be.
 
 ## push vs. pull
