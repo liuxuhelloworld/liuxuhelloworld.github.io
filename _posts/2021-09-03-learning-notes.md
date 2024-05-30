@@ -59,6 +59,7 @@
 - [Testing](2023-09-05-microservices-patterns-testing.md)
 - [Security, Configurability, Observability](2023-09-15-microservices-patterns-security-configurability-observability.md)
 - [Deploying](2023-10-07-microservices-patterns-deploying.md)
+- [Monolith to Microservice](2024-04-24-microservices-patterns-refactoring-to-microservices.md)
 
 # Spring
 - [Introduction](2021-06-08-spring-introduction.md)
