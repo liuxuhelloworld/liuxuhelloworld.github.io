@@ -5,7 +5,7 @@ The term *crosscutting concerns* refers to logic in an application that cannot b
 It is important to understand that AOP complements OOP, rather than competing with it.
 
 # AOP Concepts
-**Joinpoints**: A joinpoint is a well-defined point during the execution of your application. Typical examples of joinpoints include a call to a method, the method invocation itself, class initialization,  and object instantiation. Joinpoints are a core concept of AOP and define the points in your application at which you can insert additional logic using AOP.
+**Joinpoints**: A joinpoint is a well-defined point during the execution of your application. Typical examples of joinpoints include a call to a method, the method invocation itself, class initialization, and object instantiation. Joinpoints are a core concept of AOP and define the points in your application at which you can insert additional logic using AOP.
 
 **Advice**: The code that is executed at a particular joinpoint is the advice, defined by a method in your class. There are many types of advice, such as before, which executes before the joinpoint, and after, which executes after it.
 
@@ -20,20 +20,14 @@ It is important to understand that AOP complements OOP, rather than competing wi
 **Introduction**: This is the process by which you can modify the structure of an object by introducing additional methods or fields to it.
 
 # AOP分类
-## static AOP
-weaving发生在build阶段，weaving的结果体现在字节码中。
-
-AspectJ的compile-time weaving是static AOP的典型实现。
-## dynamic AOP
-weaving发生在runtime阶段。
-
-Spring AOP就是dynamic AOP.
+- static AOP: weaving发生在build阶段，weaving的结果体现在字节码中。AspectJ的compile-time weaving是static AOP的典型实现
+- dynamic AOP: weaving发生在runtime阶段。Spring AOP就是dynamic AOP.
 
 # Spring AOP
 Spring AOP主要包含两部分内容：第一部分是AOP core，也称为Spring AOP API；第二部分是一组framework services that make AOP easier to use in your applications.
 
 ## 简单示例
-```
+```java
 public class AgentDecorator implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -134,8 +128,8 @@ When determining whether a Pointcut applies to a particular method, Spring first
 Spring支持两种MethodMatcher，static和dynamic，通过MethodMatcher的isRuntime()可以判断是哪种类型。
 
 Spring首先通过isRuntime()判断MethodMatcher的类型。然后：
-- for a static pointcut, Spring calls the matches(Method, Class<T>) method once for every method on the target, caching the return value for subsequent invocations of those methods.
-- for dynamic pointcuts, 除了类似static pointcut调用matches(Method, Class<T>)外，还要在每次invocation时再调用一次matches(Method, Class<T>, Object[] args)进一步校验
+- for a static pointcut, Spring calls the **matches(Method, Class<T>)** method once for every method on the target, caching the return value for subsequent invocations of those methods.
+- for dynamic pointcuts, 除了类似static pointcut调用**matches(Method, Class<T>)**外，还要在每次invocation时再调用一次matches(Method, Class<T>, Object[] args)进一步校验
 
 static的执行效率更高，因为不用每次invocation都附加一次校验；dynamic更灵活。一般的，尽量使用static.
 
@@ -206,8 +200,7 @@ The ComposablePointcut class is used to compose two or more pointcuts together w
 The AspectJExpressionPointcut uses an AspectJ weaver to evaluate a pointcut expression in AspectJ syntax.
 
 #### ControlFlowPointcut
-ControlFlowPointcut is a special case pointcut
-that matches all methods within the control flow of another method, that is, any method that is invoked either directly or indirectly as the result of another method being invoked.
+ControlFlowPointcut is a special case pointcut that matches all methods within the control flow of another method, that is, any method that is invoked either directly or indirectly as the result of another method being invoked.
 
 Control flow pointcuts can be extremely useful, allowing you to advise on an object selectively only when it is executed in the context of another.
 

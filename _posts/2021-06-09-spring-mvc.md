@@ -10,7 +10,7 @@ A controller's primary job is to handle HTTP requests and either hand a request 
 A viewer's job is to render the data into HTML that will be displayed in the browser.
 
 Spring支持多种定义view的方式:
-- JSP (JavaServer Pages): the servlet container itself (Tomcat by default) implements the JSP specification. Java servlet containers usually look for JSPs somewhere under /WEB-INF. JSP is only an option if you're building your application as a WAR file and deploying it in a traditional servlet container
+- JSP (JavaServer Pages): the servlet container itself (Tomcat by default) implements the JSP specification. Java servlet containers usually look for JSPs somewhere under /WEB-INF. JSP is only option if you're building your application as a WAR file and deploying it in a traditional servlet container
 - Thymeleaf: spring-boot-starter-thymeleaf
 - FreeMarker: spring-boot-starter-freemarker
 - Mustache: spring-boot-starter-mustache

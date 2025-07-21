@@ -36,17 +36,14 @@ JPA is a complete and powerful ORM data access standard, and with the help of th
 - getByZipAndCreatedAtBetween(String zip, Date start, Date end)
 - findByStateAndCityAllIgnoresCase(String state, String city)
 - findByCityOrderByState(String city)
-
-	需要实现这个方法吗？不需要，when generating the repository implementation, Spring Data examines any methods in the repository interface, parses the method name, and attempts to understand the method's purpose in the context of the persisted object.
-
+需要实现这些方法吗？不需要，when generating the repository implementation, Spring Data examines any methods in the repository interface, parses the method name, and attempts to understand the method's purpose in the context of the persisted object.
 5. 对于更复杂的情形，name the method anything you want and annotate it with @Query to explicitly specify the query to be performed when the method is called.
-@Query("Order o where o.city = 'Seattle'") List\<Order\> readOrdersDeliveredInSeattle
 
 ## EntityManager and EntityManagerFactory
 EntityManager是JPA的核心概念，the main job of EntityManager is to maintain a persistence context, in which all the entity instances managed by it will be stored.
 
 ## JPA配置示例
-```
+```java
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -80,7 +77,7 @@ EntityManager是JPA的核心概念，the main job of EntityManager is to maintai
 ```
 
 ## JPA Mapping示例
-```
+```java
 @Entity
 @Table(name = "singer")
 @NamedQueries({
@@ -203,7 +200,7 @@ public class Singer implements Serializable {
 ```
 
 ## JPA增删改查示例
-```
+```java
 @Service("jpaSingerService")
 @Repository
 @Transactional

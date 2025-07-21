@@ -94,8 +94,3 @@ https://leetcode-cn.com/problems/jump-game-ii/
 		return jump;
 	}
 ```
-
-# 相似题目
-- [Problem11-Container With Most Water](2021-11-03-leetcode-problem-11.md)
-- [Problem55-Jump Game](2022-05-09-leetcode-problem-55.md)
-- [Problem2178-Maximum Split of Positive Even Integers](2023-07-10-leetcode-problem-2178.md)

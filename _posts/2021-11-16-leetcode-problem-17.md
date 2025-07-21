@@ -2,51 +2,7 @@
 https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
 
 # 解答过程
-## Recursion
-从递归的角度考虑，还是比较容易提取出子问题的，不赘述。
-
-```java
-	private static final Map<Character, String> PHONE_NUMBER_TO_CHARACTERS = new HashMap<Character, String>()
-	{{
-		put('2', "abc");
-		put('3', "def");
-		put('4', "ghi");
-		put('5', "jkl");
-		put('6', "mno");
-		put('7', "pqrs");
-		put('8', "tuv");
-		put('9', "wxyz");
-	}};
-
-	public List<String> letterCombinations(String digits) {
-		return letterCombinationRecur(digits, 0, digits.length()-1);
-	}
-
-	private List<String> letterCombinationRecur(String digits, int start, int end) {
-		if (start > end) {
-			return Collections.emptyList();
-		}
-
-		char digit = digits.charAt(start);
-		String chars = PHONE_NUMBER_TO_CHARACTERS.get(digit);
-		List<String> tails = letterCombinationRecur(digits, start + 1, end);
-		List<String> combinations = new ArrayList<>();
-		for (char ch : chars.toCharArray()) {
-			if (tails.size() > 0) {
-				for (String tail : tails) {
-					combinations.add(ch + tail);
-				}
-			} else {
-				combinations.add(ch + "");
-			}
-		}
-
-		return combinations;
-	}
-```
-
-## Backtracking
-从backtracking的角度考虑，从代码来看也不难理解。我觉得这种backtracking方法的declaration具备一定的普遍性，即一个结果集、一个当前维护中的结果、回溯的对象、回溯进度标识。
+这个题目从最简单的思路入手，我们进行N重循环就可以嘛，每次循环从当前数字对应的可选字符集合里挑一个出来，这样就得到了所有可能的组合。那么怎么写一个N重循环呢，N是runtime时确认的值。典型的写法是通过递归来实现N重循环。这种通过递归来遍历所有可能的方法称为回溯法（backtrack）。
 
 ```java
 	private static final Map<Character, String> PHONE_NUMBER_TO_CHARACTERS = new HashMap<Character, String>()

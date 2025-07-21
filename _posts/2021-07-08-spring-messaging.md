@@ -19,10 +19,10 @@ JMS is a Java standard that defines a common API for working with message broker
 
 ## Spring JMS配置
 添加Apache ActiveMQ Artemis dependency:
-```properties
+```xml
 <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-artemis</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-artemis</artifactId>
 </dependency>
 ```
 
@@ -107,14 +107,14 @@ The simplest forms of exchanges are **default** and **fanout**, as these roughly
 
 The most important thing to understand is that messages are sent to exchanges with routing keys and they are consumed from queues. How they get from an exchange to a queue depends on the binding definitions and what best suits your use cases.
 
-Which exchange type you use and how you define the bindings from exchanges to queues has little bearing on how.messages are sent and received in your Spring application.
+Which exchange type you use and how you define the bindings from exchanges to queues has little bearing on how messages are sent and received in your Spring application.
 
 ## Spring RabbitMQ配置
 添加Spring Boot AMQP starter dependency:
-```properties
+```xml
 <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-amqp</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
 </dependency>
 ```
 Adding the AMQP starter to your build will trigger autoconfiguration that will create a AMQP connection factory and RabbitTemplate beans, as well as other supporting components. Simply adding this dependency is all you need to do to start sending and receiving messages from a RabbitMQ broker with Spring.
@@ -190,10 +190,10 @@ public class RabbitmqOrderListener {
 # Kafka
 ## Spring Kafka配置
 添加Kafka dependency:
-```properties
+```xml
 <dependency>
-<groupId>org.springframework.kafka</groupId>
-<artifactId>spring-kafka</artifactId>
+    <groupId>org.springframework.kafka</groupId>
+    <artifactId>spring-kafka</artifactId>
 </dependency>
 ```
 This will trigger Spring Boot autoconfiguration for Kafka that will arrange for a KafkaTemplate in the Spring application context.

@@ -2,44 +2,7 @@
 https://leetcode-cn.com/problems/generate-parentheses/
 
 # 解答过程
-## 动态规划
-这个题目从动态规划的角度来考虑，我觉得不容易。从代码来看，还是挺好理解的，但是我觉得，如果没有相关经验，并不容易想出状态转移方程。每一个合法的括号序列可以表示为**(a)b**，递归的a和b都是合法的括号序列（可以为空）。
-
-```java
-	public List<String> generateParenthesis(int n) {
-		if (n <= 0) {
-			return Collections.singletonList("");
-		}
-
-		if (n == 1) {
-			return Collections.singletonList("()");
-		}
-
-		List<String>[] dp = new List[n+1];
-		dp[0] = Collections.singletonList("");
-		dp[1] = Collections.singletonList("()");
-		for (int i = 2; i < dp.length; i++) {
-			List<String> all = new ArrayList<>();
-			for (int j = 0; j < i; j++) {
-				List<String> parts1 = dp[j];
-				List<String> parts2 = dp[i-1-j];
-
-				for (String part1 : parts1) {
-					for (String part2 : parts2) {
-						all.add("(" + part1 + ")" + part2);
-					}
-				}
-			}
-
-			dp[i] = all;
-		}
-
-		return dp[n];
-	}
-```
-
-## 回溯法
-这个题目从回溯法的角度来考虑，从代码来看，倒是简洁很多。思路有一点讨巧，但是很好理解，很好的体现了回溯的思想。
+这个题目需要计算n组括号组成的字符串中，满足括号开闭语法规则的字符串。最简单直接的做法就是遍历所有可能组成的字符串，并判断每个字符串是否满足开闭语法规则。这种遍历所有可能，并过滤合法解，已经是使用回溯法的强暗示。从代码来看，非常简洁，通过判断开闭括号剩余数的关系完成剪枝，通过控制开闭括号的添加顺序保证满足语法规则。思路有一点讨巧，但是很好理解，同时很好地体现了回溯的思想。
 
 ```java
 	public List<String> generateParenthesis(int n) {

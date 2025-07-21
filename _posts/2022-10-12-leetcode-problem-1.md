@@ -20,9 +20,3 @@ https://leetcode.cn/problems/two-sum/
 		return new int[0];
 	}
 ```
-
-# 相似题目
-- [Problem167-Two Sum](2021-08-06-leetcode-problem-167.md)
-- [Problem15-Three Sum](2021-11-22-leetcode-problem-15.md)
-- [Problem18-Four Sum](2021-11-24-leetcode-problem-18.md)
-- [Problem16-Three Sum Closest](2021-11-23-leetcode-problem-16.md)

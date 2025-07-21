@@ -1,39 +1,37 @@
 We have two conflicting goals here. The first general rule is to create objects sparingly and to discard them as quickly as possible. Using less memory is the best way to improve the efficiency of the garbage collector. On the other hand, frequently recreating some kinds of objects can lead to worse overall performance (even if GC performance improves). If those objects are instead reused, programs can see substantial performance gains. Objects can be reused in a variety of ways, including thread-local variables, special object references, and object pools. Reusing objects means they will be long-lived and impact the garbage collector, but when they are reused judiciously, overall performance will improve.
 
 # Heap Analysis
+```bash
+jcmd pid GC.class_histogram
 
-> 
-> jcmd *pid* GC.class_histogram
-> 
-> jmap -histo:live *pid*
-> 
+jmap -histo:live pid
+```
 
 Histograms are a quick way to look at the number of objects within an application without doing a full heap dump (since heap dumps can take a while to analyze, and they consume a large amount of disk space).
 
-> 
-> jcmd *pid* GC.heap_dump /xxx/xxx/heap_dump.hprof
-> 
-> jmap -dump:live,file=/xxx/xxx/heap_dump.hprof *pid*
->
+```bash
+jcmd pid GC.heap_dump /xxx/xxx/heap_dump.hprof
+
+jmap -dump:live,file=/xxx/xxx/heap_dump.hprof pid
+```
 
 The first-pass analysis of a heap generally involves retained memory. The retained memory of an object is the amount of memory that would be freed if the object itself were eligible to be collected.
 
 Two other useful terms for memory analysis are *shallow* and *deep*. The *shallow size* of an object is the size of the object itself. If the object contains a reference to another object, the 4 or 8 bytes of the reference is included, but the size of the target object is not included. The *deep size* of an object includes the size of the object it referenes. The difference between the deep size of an object and the retained memory of an object lies in objects that are otherwise shared.
 
-> 
-> -XX:+HeapDumpOnOutOfMemoryError
-> 
-> -XX:HeapDumpPath=*path*
-> 
-> -XX:+HeapDumpAfterFullGC
-> 
-> -XX:+HeapDumpBeforeFullGC
-> 
+```bash
+-XX:+HeapDumpOnOutOfMemoryError
+
+-XX:HeapDumpPath=path
+
+-XX:+HeapDumpAfterFullGC
+
+-XX:+HeapDumpBeforeFullGC
+```
 
 Out-of-memory errors can occur unpredictably, making it difficult to know when to get a heap dump. The above flags can help.
 
 # Out-of-Memory Errors
-
 The JVM throws an *out-of-memory* error under these circumstances:
 - no native memory is available for the JVM
 - the metaspace is out of memory

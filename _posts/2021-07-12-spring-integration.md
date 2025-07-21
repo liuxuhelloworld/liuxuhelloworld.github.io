@@ -1,4 +1,4 @@
-# 什么是Spring Integration?
+# What is Spring Integration?
 Spring Integration is a ready-to-use implementation of many of the integration patterns that are catalogued in Enterprise Integration Patterns. Each pattern is implemented as a component through which messages ferry data in a pipeline. Using Spring configuration, you can assemble these components into a pipeline through which data flows. 
 
 Spring Integration enables the creation of integration flows through which an application can receive or send data to some resource external to the application itself.
@@ -6,7 +6,7 @@ Spring Integration enables the creation of integration flows through which an ap
 # 如何使用Spring Integration?
 添加Spring Boot starter for Spring Integration以及对应的Spring Integration endpoint module，Spring Integration提供了很多针对不同对象的endpoint module.
 
-```properties
+```xml
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-integration</artifactId>

@@ -2,7 +2,8 @@
 https://leetcode-cn.com/problems/reverse-linked-list-ii/
 
 # 解答过程
-这个题给我的第一感觉就是简单，应该很好写的样子，但是第一次尝试确没能在半小时内写出来，原因我觉得是在没有一个清晰的思路前就着急下笔，导致写的很乱，也算是给自己上了一课。后面静下心来，先确定好一个思路，然后再动手：
+这个题目其实难度不大，主要考察链表操作的编码能力。我们只需要遍历链表，在遍历到目标区间时维护一个逆序的子链表，并且把逆序子链表和前后节点连接起来即可。在遍历过程中，通过使用dummy节点可以很方便地完成这些操作。
+
 ```java
 	public ListNode reverseBetween(ListNode head, int left, int right) {
 		assert head != null;
@@ -35,5 +36,3 @@ https://leetcode-cn.com/problems/reverse-linked-list-ii/
 		return dummy.next;
 	}
 ```
-
-我用的方法没有什么复杂的算法，就是简单直接的遍历，解答的正确性也非常依赖入参的合法性，代码看起来比较丑......

@@ -91,7 +91,7 @@ Flux<String> mergedFlux = characterFlux.mergeWith(foodFlux);
 
 **zip** example:
 ```java
-lux<String> characterFlux = Flux.just("Garfield", "Kojak", "Barbossa");
+Flux<String> characterFlux = Flux.just("Garfield", "Kojak", "Barbossa");
 Flux<String> foodFlux = Flux.just("Lasagna", "Lollipops", "Apples");
 
 Flux<Tuple2<String, String>> zippedFlux = Flux.zip(characterFlux, foodFlux);

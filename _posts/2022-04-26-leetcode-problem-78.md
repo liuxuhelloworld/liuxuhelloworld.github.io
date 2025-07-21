@@ -2,7 +2,7 @@
 https://leetcode-cn.com/problems/subsets/
 
 # 解答过程
-这个题目和Problem39很相似，Problem39是计算元素之和等于tagert的子集，Problem78是计算所有子集，回溯的思路是一致的，回溯到某个元素时，要么选中这个元素并继续回溯，要么不选这个元素并继续回溯。
+这个题目和Problem77、Problem39、Problem46这些题目都有一定关联性。Problem77是计算n个元素的所有k元组，即所有包含k个元素的子集，Problem78是计算所有子集。Problem39是计算元素之和等于tagert的子集，Problem78是计算所有子集。Problem46是计算n个元素的所有全排列，Problem78是计算所有子集。以上这些题目回溯的思路和代码都颇有相似之处，可以比较并体会。
 
 ```java
 	public List<List<Integer>> subsets(int[] nums) {
@@ -29,5 +29,3 @@ https://leetcode-cn.com/problems/subsets/
 		subset.remove(subset.size() - 1);
 	}
 ```
-
-看了下官方题解，通过二进制位取子集的迭代法也蛮有意思，有时间再写下。

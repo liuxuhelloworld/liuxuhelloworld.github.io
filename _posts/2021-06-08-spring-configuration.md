@@ -2,8 +2,8 @@
 早期Spring通过XML文件描述components and their relationship to other components. 
 ```xml
 <bean id="inventoryService" class="com.example.InventoryService" />
-<bean id="productService" class="com.example.ProductService"
-		<constructor-arg ref="inventoryService">
+<bean id="productService" class="com.example.ProductService">
+	<constructor-arg ref="inventoryService">
 </bean>
 ```
 
@@ -11,15 +11,15 @@
 ```java
 @Configuration
 public class ServiceConfiguration {
-		@Bean
-		public InventoryService inventoryService() {
-				return new InventoryService();
-		}
+	@Bean
+	public InventoryService inventoryService() {
+		return new InventoryService();
+	}
 
-		@Bean 
-		public ProductService productService() { 
-				return new ProductService(inventoryService()); 
-		}
+	@Bean 
+	public ProductService productService() { 
+		return new ProductService(inventoryService()); 
+	}
 }
 ```
 
@@ -50,7 +50,7 @@ bean wiring: configuration that declares application components to be created as
 但是，问题来了，如果除了schema.sql和data.sql，你还想执行其他的sql文件怎么办呢？所以我们需要configuration properties, configuration properties are nothing more than properties on beans in the Spring application context that can be set from one of several property sources, including JVM system properties, command-line arguments, and environment variables.
 
 # Spring Environment Abstraction
-The Spring environment abstraction is a one-stop shop for configuration properties. 也就是说，Spring environment从各个property source拿到properties，so that beans needing those properties can onsume them from Spring itself. property source包括：
+The Spring environment abstraction is a one-stop shop for configuration properties. 也就是说，Spring environment从各个property source拿到properties，so that beans needing those properties can consume them from Spring itself. property source包括：
 - JVM system properties
 - operating system environment variables
 - command-line arguments

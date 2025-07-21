@@ -1,0 +1,8 @@
+# How is Redis different from other key-value stores?
+- Redis has a different evolution path in the key-value DBs where values can contain more complex data types, with atomic operations defined on those data types. Redis data types are closely related to fundamental data structures and are exposed to the programmer as such, without additional abstraction layers.
+- Redis is an im-memory but persistent on disk database, so it represents a different trade off where very high write and read speed is achieved with the limitation of data sets that can't be larger than memory. Another advantage of in-memory databases is that the memory representation of complex data structures is much simpler to manipulate compared to the same data structures on disk, so Redis can do a lot with little internal complexity. At the same time the two on-disk storage formats (RDB and AOF) don't need to be suitable for random access, so they are compact and always generated in an append-only fashion. However this design also involves different challenges compared to traditional on-disk stores. Being the main data representation on memory, Redis operations must be carefully handled to make sure there is always an updated version of the data set on disk.
+
+# What happens if Redis runs out of memory?
+Redis has built-in protections allowing the users to set a max limit on memory usage, using the **maxmemory** option in the configuration file to put a limit on the memory Redis can use. If this limit is reached, Redis will start to reply with an error to write commands, but will continue to accept read-only commands.
+
+You can also configure Redis to evit keys when the max memory limit is reached.

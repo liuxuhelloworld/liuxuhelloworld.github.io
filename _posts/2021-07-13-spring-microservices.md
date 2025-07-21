@@ -1,7 +1,7 @@
-# 什么是microservice？
+# What is microservice?
 Microservice is small, independent applications that work together to provide the functionality of a compelte application. It is a way of factoring an application into small-scale, miniature applications that are independently developed and deployed.
 
-# 为什么要microservice?
+# Why need microservice?
 与microservice对应的叫monolithic application: 
 - monoliths are difficult to reason about
 - monoliths are more difficult to test
@@ -88,9 +88,9 @@ Deciding where to declare circuit breakers in your code is a matter of identifyi
 - methods that perform database queries
 - methods that are potentially slow
 
-## 如何使用Hystrix?
+## how to use Hystrix?
 Before you can declare circuit breakers, you'll need to add the Spring Cloud Netflix Hystrix starter to the build specification of each of the services.
-```properties
+```xml
 <dependency>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
@@ -192,7 +192,7 @@ Spring Cloud Config Server supports the ability to refresh configuration propert
 - automatice: a commit hook in the Git repository can trigger a refresh on all services that are clients of the Config Server. This involves another Spring Cloud project called Spring Cloud Bus for communicating between the Config Server and its clients
 
 ### manually refreshing configuration properties
-```properties
+```xml
 <dependency>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-starter-config</artifactId>
@@ -214,7 +214,7 @@ Config Server can automatically notify all clients of changes to configuration b
 A webhook is created on the configuration Git repository to notify Config Server of any changes to the Git repository.
 
 2. handling webhook updates in Config Server
-```properties
+```xml
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-monitor</artifactId>
@@ -232,7 +232,7 @@ The /monitor endpoint uses Spring Cloud Stream to publish notification messages 
 Each Git implementation has its own take on what the webhook **POST** request should look like. This makes it important for the /monitor endpoint to be able to understand different data formats when handling webhook **POST** requests. Out of the box, Config Server comes with support for several popular Git implementations, such as GitHub and GitLab. If you are using one of these Git implementations, nothing special is required. Otherwise, you need to provide a specific notification extractor for your Git implementation.
 
 3. enabling auto-refresh in Config Server clients
-```properties
+```xml
 <dependency>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-starter-bus-amqp</artifactId>
@@ -246,6 +246,3 @@ Each Git implementation has its own take on what the webhook **POST** request sh
 With the appropriate Spring Cloud Bus starter in place, autoconfiguration will kick in as the application starts up and will automatically bind itself to a RabbitMQ broker or Kafka cluster running locally. 
 
 Config Server client applications subscribed to the notifications react to the notification messages by refreshing their environments with new property values from the Config Server.
-
-# Spring Cloud Stream
-

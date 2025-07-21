@@ -3,7 +3,7 @@ You should decouple the *task* that is to be run in parallel from the *mechanism
 
 Do not call the **run** method of the **Thread** class or the **Runnable** object. Calling the **run** method directly merely executes the task in the same thread, no new thread is started. Instead, call the **Thread.start** method. It creates a new thread that executes the **run** method.
 
-# Thread States
+## thread states
 Threads can be in one of six states:
 - New
 - Runnable
@@ -22,14 +22,16 @@ When the thread tries to acquire an intrinsic object lock (but not a **Lock** in
 
 When the thread waits for another thread to notify the scheduler of a condition, it enters the *waiting* state. This happens by calling the **Object.wait** or **Thread.join** method, or by waiting for a **Lock** or **Condition** in the **java.util.concurrent** library. In practice, the difference between the blocked and waiting state is not significant.
 
+Several methods have a timeout parameter. Calling them causes the thread to enter the *timed waiting* state. This state persists either until the timeout expires or the appropriate notification has been received.
+
 A thread is terminated for one of two reasons:
 - it dies a natural death because the **run** method exists normally
 - it dies abruptly because an uncaught exception terminates the **run** method
   
-# Interrupting Threads
+## interrupting threads
 The **interrupt** method can be used to request termination of a thread. When the **interrupt** method is called on a thread, the *interrupted status* of the thread is set. This is a boolean flag that is present in every thread. Each thread should occasionally check whether it has been interrupted.
 
-When the **interrupt** method is called on a thread that blocks on a call such as **sleep** or **wait**, the blocking call is terminated by an **InterruptedException**.
+If a thread is blocked, it cannot check the interrupted status. This is where the **InterruptedException** comes in. When the **interrupt** method is called on a thread that blocks on a call such as **sleep** or **wait**, the blocking call is terminated by an **InterruptedException**.
 
 There is no language requirement that a thread which is interrupted should terminate. Interrupting a thread simply grabs its attention. The interrupted thread can decide how to react to the interruption.
 

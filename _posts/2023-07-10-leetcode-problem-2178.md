@@ -82,8 +82,3 @@ https://leetcode.cn/problems/maximum-split-of-positive-even-integers/
 		return split;
 	}
 ```
-
-# 相似题目
-- [Problem11-Container With Most Water](2021-11-03-leetcode-problem-11.md)
-- [Problem45-Jump Game](2022-05-07-leetcode-problem-45.md)
-- [Problem55-Jump Game](2022-05-09-leetcode-problem-55.md)

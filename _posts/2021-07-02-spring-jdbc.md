@@ -20,7 +20,7 @@ Spring可以帮你管理database connection，你只需要实现javax.sql.DataSo
 最简单的DataSource实现，不支持connection pooling.
 
 ### XML配置示例
-```
+```xml
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
         <property name="url" value="${jdbc.url}" />
@@ -32,7 +32,7 @@ Spring可以帮你管理database connection，你只需要实现javax.sql.DataSo
 ```
 
 ### Java Configuration示例
-```
+```java
 @Configuration
 @PropertySource("jdbc2.properties")
 public class DbConfig {
@@ -67,7 +67,7 @@ public class DbConfig {
 ```
 
 ## dbcp2.BasicDataSource
-```
+```xml
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
         <property name="url" value="${jdbc.url}" />
@@ -79,7 +79,7 @@ public class DbConfig {
 ```
 
 ## HikariDataSource
-```
+```xml
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="jdbcUrl" value="${jdbcUrl}" />
         <property name="username" value="${username}" />
@@ -106,7 +106,7 @@ public class DbConfig {
 ## Spring embedded database
 从Spring 3.0开始，Spring开始支持embedded database.
 
-```
+```xml
     <jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:db/schema.sql" />
         <jdbc:script location="classpath:db/test-data.sql" />
@@ -127,7 +127,7 @@ JdbcTemplate是Spring JDBC的核心，JdbcTemplate provides a means by which dev
 MappingSqlQuery提供了一种更object-oriented的方式来做sql查询。
 
 ## 代码示例
-```
+```java
 public class SelectAllSingers extends MappingSqlQuery<Singer> {
 	private static final String SQL_SELECT_ALL_SINGERS = "select id, first_name, last_name, birth_date from singer";
 
@@ -152,7 +152,7 @@ public class SelectAllSingers extends MappingSqlQuery<Singer> {
 SqlUpdate提供了一种更object-oriented的方式来做sql更新。
 
 ## 代码示例
-```
+```java
 public class UpdateSinger extends SqlUpdate {
 	private static final String SQL_UPDATE_SINGER = "update singer set first_name = :first_name, " +
 		"last_name = :last_name, birth_date = :birth_date where id = :id";
@@ -168,7 +168,7 @@ public class UpdateSinger extends SqlUpdate {
 ```
 
 # KeyHolder
-```
+```java
 	public void insert(Singer singer) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("first_name", singer.getFirstName());
