@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘旭的个人网站</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #1a2530;
+            --accent-color: #3498db;
+            --text-color: #ecf0f1;
+            --card-bg: #34495e;
+            --card-hover: #3d566e;
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .site-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .site-description {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--card-hover);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .category-description {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: var(--secondary-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="site-title">我的个人网站</h1>
+            <p class="site-description">记录成长，分享知识</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="intro">
+            <h2>欢迎来到我的个人网站</h2>
+            <p>这里记录了我的读书笔记、算法解题以及生活随笔</p>
+        </section>
+        
+        <section class="categories">
+            <div class="category-card">
+                <div class="category-icon">📚</div>
+                <h3 class="category-title">读书笔记</h3>
+                <p class="category-description">主要记录技术类书籍的摘抄总结，包括编程语言、框架组件、系统设计等领域。</p>
+                <a href="notes/index.md" class="btn">查看所有笔记</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">💻</div>
+                <h3 class="category-title">算法题解</h3>
+                <p class="category-description">主要分享LeetCode的解题思路和代码实现。</p>
+                <a href="solutions/index.md" class="btn">查看所有题解</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">✍️</div>
+                <h3 class="category-title">生活随笔</h3>
+                <p class="category-description">偶尔的生活感悟。</p>
+                <a href="essays/index.md" class="btn">阅读更多随笔</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 我的个人网站 · 使用 GitHub Pages 和 Jekyll 构建</p>
+        </div>
+    </footer>
+</body>
+</html>

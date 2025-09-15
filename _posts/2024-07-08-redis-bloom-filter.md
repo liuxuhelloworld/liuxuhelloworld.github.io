@@ -1,1 +1,0 @@
-Bloom filters are a probabilistic data structure that checks for presence of an element in a set.
