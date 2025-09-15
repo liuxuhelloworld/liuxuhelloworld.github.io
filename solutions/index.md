@@ -1,3 +1,7 @@
+---
+title: 我的算法题解
+---
+
 [字符串](../_posts/solutions/2024-11-06-leetcode-string.md)
 
 [链表](../_posts/solutions/2024-06-12-leetcode-linked-list.md)

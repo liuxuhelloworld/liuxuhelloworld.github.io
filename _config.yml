@@ -12,6 +12,5 @@ include:
   - CONTRIBUTING.md
   - ISSUE_TEMPLATE.md
   - PULL_REQUEST_TEMPLATE.md
-  - essays/index.md
-title: liuxuhelloworld's notebook
+title: 刘旭的个人网站
 theme: jekyll-theme-slate

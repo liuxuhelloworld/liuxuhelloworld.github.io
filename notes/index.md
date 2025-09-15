@@ -1,3 +1,7 @@
+---
+title: 我的读书笔记
+---
+
 # Java Performance
 - [JIT Compiler](../_posts/notes/java_performance/2022-11-09-java-performance-jit-compiler.md)
 - [Garbage Collection](../_posts/notes/java_performance/2022-10-10-java-performance-garbage-collection.md)
