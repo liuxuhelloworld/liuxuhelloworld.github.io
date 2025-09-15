@@ -12,5 +12,6 @@ include:
   - CONTRIBUTING.md
   - ISSUE_TEMPLATE.md
   - PULL_REQUEST_TEMPLATE.md
+  - essays/index.md
 title: liuxuhelloworld's notebook
 theme: jekyll-theme-slate
