@@ -2,6 +2,6 @@
 title: 我的生活随笔
 ---
 
-- [For Kobe](./2020-02-01-for-kobe.md)
-- [换工作](./2025-07-19-alpenliebe.md)
-- [上海迪士尼之旅](./2025-07-28-butterfinger.md)
+- [For Kobe](/_posts/essays/2020-02-01-for-kobe.md)
+- [换工作](/_posts/essays/2025-07-19-alpenliebe.md)
+- [上海迪士尼之旅](/_posts/essays/2025-07-28-butterfinger.md)

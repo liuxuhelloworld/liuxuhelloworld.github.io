@@ -21,7 +21,7 @@
 
 ## 📬 联系我
 
-如果您有任何建议或想法，欢迎通过以下方式联系我：
+如果你有任何建议或想法，欢迎通过以下方式联系我：
 
 - **邮箱**：[liuxuhelloworld@126.com](mailto:liuxuhelloworld@126.com)
 - **GitHub**: [GitHub Issues](https://github.com/liuxuhelloworld/liuxuhelloworld.github.io/issues)
