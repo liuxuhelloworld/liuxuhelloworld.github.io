@@ -1,3 +1,9 @@
+---
+title: 高并发系统设计
+---
+
+笔记内容主要来源于极客时间的《高并发系统设计40问》，有改动。
+
 # 横向扩展（Scale-out）
 即分而治之，采用分布式集群的方式把流量分流开，让每个服务器承担一部分并发和流量。
 
@@ -20,11 +26,7 @@
 # 异步
 与异步相对的是同步，那么什么是同步，什么是异步呢？
 
-与同步和异步容易混淆在一起的概念是阻塞和非阻塞。
-
-同步和异步指的是how the server will deal with incoming requests，阻塞和非阻塞指的是how the client will handle the results (waits or do something else)。
-
-一种常见的误解是阻塞等价于同步，非阻塞等价于异步，但其实同步异步和阻塞非阻塞没有直接关系。
+与同步和异步容易混淆在一起的概念是阻塞和非阻塞。一种常见的误解是同步等价于阻塞，异步等价于非阻塞，但其实同步异步和阻塞非阻塞没有直接关系。
 
 同步和异步描述的是通信机制(communication mechanism)：
 - synchronous is, when we started a function call, the call will not return anything until it gets the result, the function needs to finish everything before it can give anything to us
