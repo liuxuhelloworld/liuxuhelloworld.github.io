@@ -53,7 +53,7 @@ title: 高并发系统设计
 如何进行分层设计？分层设计的关键是合理地界定不同层级的边界，当你觉得不同层级间逻辑混杂时，那可能就需要考虑增加新的层级了。
 
 分层示例：
-![分层示例](/assets/images/high-concurrency-system-design-geekbang-course-layering-example.png)
+![分层示例](/assets/images/high_concurrency_system_design/layering-example.png)
 
 # 高并发系统设计三大目标
 - 高性能
@@ -145,13 +145,13 @@ title: 高并发系统设计
 - 池子中的对象需要在使用之前预先初始化完成，这叫做池子的预热，比方说使用线程池时就需要预先初始化所有的核心线程。如果池子未经过预热可能会导致系统重启后产生比较多的慢请求
 - 池化技术核心是一种空间换时间优化方法的实践，所以要关注空间占用情况，避免出现空间过度使用出现内存泄露或者频繁垃圾回收等问题
 
-# MySQL主从读写分离
+# MySQL
+## 主从复制
 将一个数据库的数据拷贝为多份，原始的数据库称为主库，主要负责数据的写入，拷贝的数据库称为从库，主要负责数据的查询。
 
-## 主从复制
 Mysql主从复制流程：主库会创建一个log dump线程来发送binlog给从库。从库在连接到主库时会创建一个IO线程，用来请求主库更新的binlog，并且把接收到的binlog信息写入一个叫做relay log的日志文件中。同时，从库还会创建一个sql线程读取relay log，并且在从库中回放，实现主从复制。
 
-![image](https://static001.geekbang.org/resource/image/57/4d/575ef1a6dc6463e4c5a60a3752d8554d.jpg)
+![MySQL主从同步](/assets/images/high_concurrency_system_design/mysql-master-replica-sync.png)
 
 是不是可以无限增加从库呢？不是的，一般一个主库最多挂3～5个从库。
 
@@ -160,25 +160,24 @@ Mysql主从复制流程：主库会创建一个log dump线程来发送binlog给�
 
 主从延迟时间应当作为重点监控指标，一般主从延迟是毫秒级的。
 
-# 分库分表
+## 分库分表
 分库分表是常用的数据分片方式之一。
 
 将单一数据表根据某种规则拆分到多个数据库和多个数据表中，比如，根据id字段做哈希拆分、根据时间字段做区间拆分。
 
 分库分表以后，任何操作都强依赖分区键。另外，不能做多表join、count操作也比较麻烦。
 
-# 为什么需要发号器？
-因为数据库分库分表后，简单的使用自增id不能满足全局唯一性。
+为什么需要发号器？因为数据库分库分表后，简单的使用自增id不能满足全局唯一性。
 
 为什么不使用UUID？
 - UUID占用的空间较大
 - 我们希望生成的id具有单调递增性，一方面写入性能更好，另一方面业务可以根据ID排序
 - 我们希望生成的id可以具备业务含义，这样通过反解ID可以排查问题
 
-# Snowflake算法
+## Snowflake算法
 Snowflake算法的核心思想是将64bit的二进制数字分成若干部分，每一部分存储有特定含义的数据，由此生成全局唯一的有序id：
 
-![Snowflake算法示意图](https://static001.geekbang.org/resource/image/2d/8d/2dee7e8e227a339f8f3cb6e7b47c0c8d.jpg)
+![Snowflake算法示意图](/assets/images/high_concurrency_system_design/snowflake-example.png)
 
 一般的，你可以根据需要调整Snowflake算法，定制自己的发号器实现。
 
