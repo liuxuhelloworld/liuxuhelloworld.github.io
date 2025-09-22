@@ -4,57 +4,6 @@ title: 高并发系统设计
 
 笔记内容主要来源于极客时间的《高并发系统设计40问》，有改动。
 
-# 横向扩展（Scale-out）
-即分而治之，采用分布式集群的方式把流量分流开，让每个服务器承担一部分并发和流量。
-
-与横向扩展对应的是纵向扩展（Scale-up），纵向扩展通过提高硬件配置来提升系统的并发处理能力。
-
-比如，一个4核4G的系统现在能处理200QPS的流量，如果流量增大到400QPS呢？纵向扩展的思路是换一个8核8G性能更好的机器，横向扩展的思路是增加一台4核4G的机器组成一个集群来处理。
-
-纵向扩展的问题在于受限于单机处理能力的极限。
-
-横向扩展可以突破单机极限，但同时引入了一些复杂问题，比如：
-- 不同节点信息的一致性
-- 某些节点故障时整体的可用性
-- 如何无感知的增加或删除节点
-
-# 缓存
-为什么使用缓存可以提高系统的并发处理能力呢？因为不同存储介质的访问速度差异非常大，缓存就是避免存取访问速度慢的存储介质。
-
-可以参考[Latency Numbers Every Programmer Should Know](https://gist.github.com/jboner/2841832)
-
-# 异步
-与异步相对的是同步，那么什么是同步，什么是异步呢？
-
-与同步和异步容易混淆在一起的概念是阻塞和非阻塞。一种常见的误解是同步等价于阻塞，异步等价于非阻塞，但其实同步异步和阻塞非阻塞没有直接关系。
-
-同步和异步描述的是通信机制(communication mechanism)：
-- synchronous is, when we started a function call, the call will not return anything until it gets the result, the function needs to finish everything before it can give anything to us
-- asynchronous does not need to wait for the function completes its operation, once we call it, it returns immediately without any result, the function uses callback function (or other notification method) to notify us to get the value after it completes the execution
-
-阻塞和非阻塞描述的是the status of the program while waiting for the result from the function call:
-- a blocking operation hangs up current thread before it gets the result, in other words, a blocking operation will let the current thread wait for the result returns, even if the target function will use a callback function to notify client side to fetch the result, the thread on the client side will still be blocked until it gets the returned result
-- a non-blocking operation will not hang up the current thread if no result returned immediately
-
-一个简单的例子说明同步异步、阻塞非阻塞概念，假设你打电话到一个酒店预定房间：
-- 拨通电话以后，酒店前台查看是否能满足你的预定，并告知你结果，这就是同步
-- 拨通电话以后，酒店前台确认收到你的预定申请了，等确认是否能预定有结果时回电告知你结果，这就是异步
-- 在得到酒店前台的确认结果前，你就坐在电话旁等待，这就是阻塞
-- 在告知酒店前台你的预定请求后，你就开始忙其他事情，这就是非阻塞
-
-# 分层
-为什么要分层？
-- 分层可以简化系统设计，每一层做好自己的事
-- 分层可以提高复用性
-- 分层便于横向扩展
-
-常见的分层设计：MVC模型，OSI七层模型，TCP/IP四层模型，Linux文件系统等。
-
-如何进行分层设计？分层设计的关键是合理地界定不同层级的边界，当你觉得不同层级间逻辑混杂时，那可能就需要考虑增加新的层级了。
-
-分层示例：
-![分层示例](/assets/images/high_concurrency_system_design/layering-example.png)
-
 # 高并发系统设计三大目标
 - 高性能
 - 高可用
@@ -112,6 +61,52 @@ title: 高并发系统设计
 
 ## 易扩展
 为什么不容易实现易扩展呢？因为扩展并不仅仅是业务服务器的扩展，还涉及到数据库、缓存、第三方服务等上下游全链路的各种服务。
+
+# 横向扩展（Scale-out）
+即分而治之，采用分布式集群的方式把流量分流开，让每个服务器承担一部分并发和流量。
+
+与横向扩展对应的是纵向扩展（Scale-up），纵向扩展通过提高硬件配置来提升系统的并发处理能力。
+
+比如，一个4核4G的系统现在能处理200QPS的流量，如果流量增大到400QPS呢？纵向扩展的思路是换一个8核8G性能更好的机器，横向扩展的思路是增加一台4核4G的机器组成一个集群来处理。
+
+纵向扩展的问题在于受限于单机处理能力的极限。
+
+横向扩展可以突破单机极限，但同时引入了一些复杂问题，比如：
+- 不同节点信息的一致性
+- 某些节点故障时整体的可用性
+- 如何无感知的增加或删除节点
+
+# 分层
+为什么要分层？
+- 分层可以简化系统设计，每一层做好自己的事
+- 分层可以提高复用性
+- 分层便于横向扩展
+
+常见的分层设计：MVC模型，OSI七层模型，TCP/IP四层模型，Linux文件系统等。
+
+如何进行分层设计？分层设计的关键是合理地界定不同层级的边界，当你觉得不同层级间逻辑混杂时，那可能就需要考虑增加新的层级了。
+
+分层示例：
+![分层示例](/assets/images/high_concurrency_system_design/layering-example.png)
+
+# 异步
+与异步相对的是同步，那么什么是同步，什么是异步呢？
+
+与同步和异步容易混淆在一起的概念是阻塞和非阻塞。一种常见的误解是同步等价于阻塞，异步等价于非阻塞，但其实同步异步和阻塞非阻塞没有直接关系。
+
+同步和异步描述的是通信机制(communication mechanism)：
+- synchronous is, when we started a function call, the call will not return anything until it gets the result, the function needs to finish everything before it can give anything to us
+- asynchronous does not need to wait for the function completes its operation, once we call it, it returns immediately without any result, the function uses callback function (or other notification method) to notify us to get the value after it completes the execution
+
+阻塞和非阻塞描述的是the status of the program while waiting for the result from the function call:
+- a blocking operation hangs up current thread before it gets the result, in other words, a blocking operation will let the current thread wait for the result returns, even if the target function will use a callback function to notify client side to fetch the result, the thread on the client side will still be blocked until it gets the returned result
+- a non-blocking operation will not hang up the current thread if no result returned immediately
+
+一个简单的例子说明同步异步、阻塞非阻塞概念，假设你打电话到一个酒店预定房间：
+- 拨通电话以后，酒店前台查看是否能满足你的预定，并告知你结果，这就是同步
+- 拨通电话以后，酒店前台确认收到你的预定申请了，等确认是否能预定有结果时回电告知你结果，这就是异步
+- 在得到酒店前台的确认结果前，你就坐在电话旁等待，这就是阻塞
+- 在告知酒店前台你的预定请求后，你就开始忙其他事情，这就是非阻塞
 
 # 池化技术
 池化技术的核心思想是空间换时间，期望使用预先创建好的对象来减少频繁创建对象的开销，同时可以对对象进行统一的管理，降低了对象的使用成本。
@@ -181,10 +176,10 @@ Snowflake算法的核心思想是将64bit的二进制数字分成若干部分，
 
 一般的，你可以根据需要调整Snowflake算法，定制自己的发号器实现。
 
-# 什么是NoSQL?
+# NoSQL
 NoSQL指的是不同于传统的关系型数据库的其他数据库系统的统称。
 
-# 为什么需要NoSQL？
+为什么需要NoSQL?
 - 关系型数据库存储的是行记录，不能存储数据结构
 - 关系型数据库的schema不方便扩展
 - 关系型数据库在大数据场景下IO太高
@@ -192,29 +187,18 @@ NoSQL指的是不同于传统的关系型数据库的其他数据库系统的统
 
 NoSQL可以作为关系型数据库的补充，弥补关系型数据库在某些场景下性能和扩展性的不足。
 
-# 常见的NoSQL数据库
-## K-V存储
-解决关系型数据库不能存储数据结构的问题，以Redis为代表。
+常见的NoSQL数据库
+- K-V存储，解决关系型数据库不能存储数据结构的问题，以Redis为代表。
+- 文档数据库，解决关系型数据库schema不方便扩展的问题，以MongoDB为代表。文档数据库最大的特点就是no-schema，可以存储和读取任意的数据，目前大多数文档数据库以JSON格式存储数据。
+- 列式数据库，解决关系型数据库大数据场景下的IO问题，以HBase为代表。按照列来存储数据，一般应用在离线的大数据分析和统计场景中。
+- 全文搜索引擎，解决关系型数据库的全文搜索问题，以Elasticsearch为代表。全文搜索引擎基于倒排索引，倒排索引适用于根据关键词来查询文档数据。如何将关系型数据转换为文档数据？目前常用的转换方式是将关系型数据按照对象的形式转换为JSON文档，然后将JSON文档输入全文搜索引擎进行索引。
 
-## 文档数据库
-解决关系型数据库schema不方便扩展的问题，以MongoDB为代表。
-
-文档数据库最大的特点就是no-schema，可以存储和读取任意的数据，目前大多数文档数据库以JSON格式存储数据。
-
-## 列式数据库
-解决关系型数据库大数据场景下的IO问题，以HBase为代表。
-
-按照列来存储数据，一般应用在离线的大数据分析和统计场景中。
-
-## 全文搜索引擎
-解决关系型数据库的全文搜索问题，以Elasticsearch为代表。
-
-全文搜索引擎基于倒排索引，倒排索引适用于根据关键词来查询文档数据。
-
-如何将关系型数据转换为文档数据？目前常用的转换方式是将关系型数据按照对象的形式转换为JSON文档，然后将JSON文档输入全文搜索引擎进行索引。
-
-# 什么是缓存？
+# 缓存
 广义上讲，凡是位于不同速度存储设备之间，用于协调存取速度差异的，都可以称为缓存。另外，存储复杂计算的结果以避免重复计算也是一种缓存。
+
+为什么使用缓存可以提高系统的并发处理能力呢？因为不同存储介质的访问速度差异非常大，缓存就是避免存取访问速度慢的存储介质。
+
+可以参考[Latency Numbers Every Programmer Should Know](https://gist.github.com/jboner/2841831)
 
 缓存分类：
 - 静态缓存：用于缓存静态数据，减少后台服务器的压力
@@ -225,7 +209,6 @@ NoSQL可以作为关系型数据库的补充，弥补关系型数据库在某些
 - 缓存适合用于读多写少，并且带有一定热点属性的场景
 - 注意数据一致性、缓存容量评估、缓存命中率等问题。一般的，核心缓存的命中率应当在99%以上，非核心缓存的命中率应当在90%以上
 
-# 缓存读写策略
 ## 旁路缓存策略(Cache Aside)
 读策略：
 1. 从缓存中读取数据；
@@ -264,8 +247,7 @@ NoSQL可以作为关系型数据库的补充，弥补关系型数据库在某些
 4. 标记缓存块不为脏；
 5. 返回数据。
 
-# 缓存如何高可用？
-## 客户端方案
+## 缓存高可用-客户端
 在客户端配置多个缓存节点来提高缓存的可用性。一般的，4～6个节点。
 
 写入数据：写入数据时需要做数据分片。一般的，我们使用一致性哈希算法，因为一致性哈希算法可以很好地解决增加或减少节点时缓存命中率下降的问题。
@@ -276,31 +258,29 @@ NoSQL可以作为关系型数据库的补充，弥补关系型数据库在某些
 - 缓存节点分布不均匀：可以引入虚拟节点，即将一个缓存节点计算多个Hash值，对应圆环上多个位置，这样就避免了缓存节点分布不均匀的问题
 - 脏数据问题：注意设置缓存过期时间
 
-## 中间代理层方案
+## 缓存高可用-中间代理层
 客户端方案的劣势是通用性较差，不方便复用，把客户端方案的高可用逻辑单独抽离出来，就是中间代理层方案。
 
 在应用程序和缓存节点之间增加代理层，客户端的写入和读取请求都通过代理层，代理层内置高可用策略。
 
 中间代理层方案中所有的缓存读写请求都要经过中间代理层，代理层是无状态的，主要负责读写请求的路由功能，并且内嵌了高可用逻辑。
 
-## 服务端方案
+## 缓存高可用-服务端
 Redis在2.4版本后提出了Redis Sentinel模式来解决主从Redis部署时的高可用问题。
 
 Redis Sentinel也是集群部署的，Sentinel集群节点会监控主节点的状态，当主节点在一定时间内无响应，集群内部仲裁是否进行主从切换，主从切换则将某个从节点提升为主节点，并且把所有其他的从节点作为新主节点的从节点。
 
-![Redis Sentinel示意图](https://static001.geekbang.org/resource/image/94/e1/94ae214f840d2844b7b43751aab6d8e1.jpg)
+![Redis Sentinel示意图](/assets/images/high_concurrency_system_design/redis-sentinel.png)
 
-# 缓存穿透
+## 缓存穿透
 缓存穿透是指未命中缓存而查询数据库。少量的缓存穿透是正常的，但是大量的缓存穿透就可能导致系统崩溃。
 
 缓存穿透有两种典型的解决方案：
 - 回种空值
 - 布隆过滤器
 
-## 回种空值
 回种空值并设置一个较短的过期时间，这种方案最简单，需要注意的是空值缓存占用缓存容量问题。
 
-## 布隆过滤器
 布隆过滤器基于一个二进制数组和一个哈希算法，可以高效地判断一个元素是否在一个集合中。
 
 使用布隆过滤器需要注意以下两点：
