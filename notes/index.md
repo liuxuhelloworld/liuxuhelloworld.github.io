@@ -61,5 +61,5 @@ title: 我的读书笔记
 
 # Others
 - [Unicode](../_posts/notes/2022-04-21-unicode.md)
-- [Web API Design](../_posts/notes/2021-08-25-web-api-design.md)
+- [What Is REST](../_posts/notes/2021-08-25-what-is-rest.md)
 - [高并发系统设计](../_posts//notes/2021-07-16-high-concurrency-system-design-geekbang-course.md)
