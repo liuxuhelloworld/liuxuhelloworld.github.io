@@ -1,9 +1,13 @@
+---
+title: Introduction
+---
+
 # Software Architecture
 The software architecture of a computing system is the set of structures needed to reason about the system, which comprise software elements, relations among them, and properties of both.
 
 More concretely, an application's architecture can be viewd from multiple perspectives, in the same way that a building's architecture can be viewed from structural, plumbing, electrical, and other perspectives.
 
-Architecure is important because it enables an application to satisfy the second category of requirements: its *quality of service* requirements. There are also known as *quality attributes*. The quality of service requirements define the runtime qualities such as scalability and reliability. They also define development time qualities including maintainability, testability, and deployability. The architecture you choose for your application determines how well it meets these quality requirements.
+Architecure is important because it enables an application to satisfy the second category of requirements: its *quality of service* requirements. They are also known as *quality attributes*. The quality of service requirements define the runtime qualities such as scalability and reliability. They also define development time qualities including maintainability, testability, and deployability. The architecture you choose for your application determines how well it meets these quality requirements.
 
 # Architectural Style
 An *architectural style* defines a family of such systems in terms of a pattern of structural organization. More specifically, an architecture style determines the vocabulary of components and connectors that can be used in instances of that style, together with a set of constraints on how they can be combined.
@@ -25,7 +29,7 @@ The business logic has one or more ports. A *port* defines a set of operations a
 
 Hexagonal architecture is also known as *ports and adapters architecture*.
 
-![hexagonal architecture](/assets/images/microservices_patterns/microservices-patterns-hexagonal-architecture.jpeg)
+![hexagonal architecture](/assets/images/microservices_patterns/hexagonal-architecture.jpeg)
 
 An important benefit of the hexagonal architectural style is that it decouples the business logic from the presentation and data access logic in the adapters. The business logic doesn't depend on either the presentation logic or the data access logic. Another benefit is that it more accurately reflects the architecture of a modern application.
 
@@ -58,4 +62,4 @@ One reason why patterns are valuable is because a pattern must describe the cont
 - Related patterns: predecessor, successor, alternative, generalization, specialization
 
 # Microservice vs SOA
-![compare-microservice-and-soa](/assets/images/microservices_patterns/microservices-patterns-compare-microservice-and-soa.jpg)
+![compare-microservice-and-soa](/assets/images/microservices_patterns/compare-microservice-and-soa.jpg)
