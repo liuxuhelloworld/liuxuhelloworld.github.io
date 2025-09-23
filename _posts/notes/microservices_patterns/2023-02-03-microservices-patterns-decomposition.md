@@ -1,3 +1,7 @@
+---
+title: Decomposition
+---
+
 A three-step process for decomposition:
 - Identify system operations
 - Identify services
@@ -6,7 +10,7 @@ A three-step process for decomposition:
 # Identify system operations
 A two-step process: The first step creates the high-level domain model consisting of the key classes that provide a vocabulary with which to describe the system operations. The second step identifies the system operations and describes each one's behavior in terms of the domain model.
 
-![identify system operations](/assets/images/microservices_patterns/microservices-patterns-identify-system-operations.jpg)
+![identify system operations](/assets/images/microservices_patterns/identify-system-operations.jpg)
 
 The domain model is derived primarily from the nouns of the user stories, and the system operations are derived mostly from the verbs. A system operation can create, update or delete domain objects, as well as create or destroy relationships between them.
 
