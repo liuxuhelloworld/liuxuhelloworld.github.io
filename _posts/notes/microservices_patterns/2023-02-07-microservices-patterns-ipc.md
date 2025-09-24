@@ -161,8 +161,8 @@ There are a few different ways to reduce the amount of synchronous communication
 
 One way to minimize synchronous requests during request processing is to replicate data. A service maintains a replica of the data that it needs when processing requests. It keeps the replica up-to-date by subscribing to events published by the services that own the data. One drawback of replication is that it can sometimes require the replication of large amounts of data, which is inefficient. Another drawback of replication is that it doesn't solve the problem of how a service updates data owned by other services.
 
-![reduce synchronous request by replicate data](/assets/images/microservices_patterns/microservices-patterns-ipc-reduce-synchronous-request-by-replicate-data.jpeg)
+![reduce synchronous request by replicate data](/assets/images/microservices_patterns/ipc-reduce-synchronous-request-by-replicate-data.jpeg)
 
 Another way to solve the problem is for a service to delay interacting with other services until after it responds to its client. While handling a request, the service doesn't synchronously interact with any other services. Instead, it asynchronously sends messages to other services. A drawback of a service responding before fully processing a request is that it makes the client more complex.
 
-![reduce synchronous request by asynchronous message](/assets/images/microservices_patterns/microservices-patterns-ipc-reduce-synchronous-request-by-asynchronous-message.jpeg)
+![reduce synchronous request by asynchronous message](/assets/images/microservices_patterns/ipc-reduce-synchronous-request-by-asynchronous-message.jpeg)
