@@ -1,3 +1,7 @@
+---
+title: Transaction
+---
+
 The traditional approach to maintaining data consistency across multiple services, databases, or message brokers is to use distributed transactions. The de facto standard for distributed transaction management is the X/Open Distributed Transaction Processing (DTP) Model, X/Open XA. XA uses *two-phase commit* (2PC) to ensure that all participants in a transaction either commit or rollback. An XA-compliant technology stack consists of XA-compliant databases and message brokers, database drivers, and messaging APIs, and an interprocess communication mechanism that propagates the XA global transaction ID. Most SQL databases are XA compliant, as are some message brokers.
 
 As simple as this sounds, there are a variety of problems with distributed transactions. One problem is that many modern technologies, including NoSQL databases such as MongoDB and Cassandra, don't support them. Also, distributed transactions aren't supported by modern message brokers such as RabbitMQ and Apache Kafka. Another problem with distributed transactions is that they are a form of synchronous IPC, which reduces availability. In order for a distributed transaction to commit, all the participanting services must be available. There is even Eric Brewer's CAP theorem, which states that a system can only have two of the following three properties: consistency, availability, and partition tolerance. Today, architects prefer to have a system that's available rather than one that's consistent.
@@ -7,16 +11,16 @@ To solve the more complex problem of maintaining data consistency in a microserv
 # Saga
 Instead of an ACID transactions, an operation that spans services must use what's known as a *saga*, a message-driven sequence of local transactions, to maintain data consistency. 
 
-Saga: maintain data consistency across services using a sequence of local transactions that are coordinated using asynchronous messaging.
+**Saga**: maintain data consistency across services using a sequence of local transactions that are coordinated using asynchronous messaging.
 
-![Saga example](/assets/images/microservices_patterns/microservices-patterns-transaction-saga-example.jpeg)
+![Saga example](/assets/images/microservices_patterns/transaction-saga-example.jpeg)
 
 A saga consists of three types of transactions:
 - compensatable transactions, transactions that can potentially be rolled back using a compensating transaction
 - pivot transaction, the go/no-go point in a saga. If the pivot transaction commits, the saga will run until completion. A pivot transaction can be a transaction that's neither compensatable nor retriable. Alternatively, it can be the last compensatable transaction or the first retriable transaction
 - retriable transactions, transactions that follow the pivot transaction and are guaranteed to succeed
 
-![saga transaction types](/assets/images/microservices_patterns/microservices-patterns-transaction-saga-transaction-types.jpeg)
+![saga transaction types](/assets/images/microservices_patterns/transaction-saga-transaction-types.jpeg)
 
 Sagas differ from ACID transactions in a couple of important ways. They lack the isolation property of ACID transactions. Also, because each local transaction commits its changes, a sage must be rolled back using compensating transactions.
 
@@ -28,14 +32,14 @@ There are mainly two ways to structure a saga's coordination logic:
 ## choreography-based sagas
 When using choreography, there's no central coordinator telling the saga participants what to do. Instead, the saga participants subscribe to each other's events and respond accordingly.
 
-![choreogrphy based saga](/assets/images/microservices_patterns/microservices-patterns-transaction-saga-choreography.jpeg)
+![choreogrphy based saga](/assets/images/microservices_patterns/transaction-saga-choreography.png)
 
 Choreography can work well for simpla sagas, it is often better for more complex sagas to use orchestration.
 
 ## orchestration-based sagas
 When using orchestration, you define an orchestrator class whose sole responsibility is to tell the saga participants what to do. The saga orchestrator communicates with the participants using command/async-reply style interaction. To execute a saga step, it sends a command message to a participant telling it what operation to perform. After the saga participant has performed the operation, it sends a reply message to the orchestrator. The orchestrator then processes the message and determines which saga step to perform next.
 
-![orchestration based saga](/assets/images/microservices_patterns/microservices-patterns-transaction-saga-orchestration.jpeg)
+![orchestration based saga](/assets/images/microservices_patterns/transaction-saga-orchestration.jpeg)
 
 A good way to model a saga orchestrator is as a state machine. A *state machine* consists of a set of states and a set of transitions between states that are triggered by events. Each transition can have an action, which for a saga is the invocation of a saga participant. The transitions between states are triggered by the completion of a local transaction performed by a saga participant. The current state and the specific outcome of the local transaction determine the state transition and what action, if any, to perform. There are also effective testing strategies for state machines. As a result, using a state machine model makes designing, implementing, and testing sagas easier.
 
@@ -83,5 +87,5 @@ The *reread value* countermeasure prevents lost updates. A saga that uses this c
 ## version file
 The *version file* countermeasure is so named because it records the operations that are performed on a record so that it can reorder them. It is a way to trun noncommutative operations into commutative operations.
 
-# Saga example
-![create order saga](/assets/images/microservices_patterns/microservices-patterns-transaction-create-order-saga.jpeg)
+# Create Order Saga Example
+![create order saga](/assets/images/microservices_patterns/transaction-create-order-saga.jpeg)
