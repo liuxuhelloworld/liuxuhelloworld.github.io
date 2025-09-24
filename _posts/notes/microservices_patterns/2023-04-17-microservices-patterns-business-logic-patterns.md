@@ -1,9 +1,13 @@
+---
+title: Business Logic Patterns
+---
+
 Developing complex business logic is always challenging. Developing complex business logic is even more challenging in a microservice architecture where the business logic is spread over multiple services.
 
 # Procedural Transaction Script Pattern
 Organize the business logic as a collection of procedural transaction scripts, one for each type of request.
 
-![transaction script pattern example](/assets/images/microservices_patterns/microservices-patterns-business-logic-transaction-script-pattern.jpg)
+![transaction script pattern example](/assets/images/microservices_patterns/business-logic-transaction-script-pattern.jpg)
 
 In a typical transaction script-based design, one set of classes implements behavior and another set stores state. The transaction scripts are organized into classes that typically have no state. The scripts use data classes, which typically have no behavior.
 
@@ -12,7 +16,7 @@ This style of design is highly procedural and relies on few of the capabilities 
 # Domain Model Pattern
 Organize the business logic as an object model consisting of classes that have state and behavior.
 
-![domain model pattern example](/assets/images/microservices_patterns/microservices-patterns-business-logic-domain-model-pattern.jpg)
+![domain model pattern example](/assets/images/microservices_patterns/business-logic-domain-model-pattern.jpg)
 
 In an object-oriented design, the business logic consists of an object model, a network of relatively small classes. These classes typically correspond directly to concepts from the problem domain. In such a design some classes have only either state or behavior, but many contain both, which is the hallmark of a well-designed class.
 
@@ -28,14 +32,14 @@ DDD has some tactical patterns that are building blocks for domain models. Each 
 - Repository, an object that provides access to persistent entities and encapsulates the mechanism for accessing the database
 - Service, an object that implements business logic that doesn't belong in an entity or a value object
 
-![domain model pattern example](/assets/images/microservices_patterns/microservices-patterns-business-logic-domain-model-pattern-example.jpeg)
+![domain model pattern example](/assets/images/microservices_patterns/business-logic-domain-model-pattern-example.jpeg)
 
 A traditional domain model is a web of interconnected classes. It doesn't explictly specify the boundaries of business objects, such as **Consumer** and **Order**.
 
 # DDD Aggregates
 Organize a domain model as a collection of aggregates, each of which is a graph of objects that can be treated as a unit.
 
-![domain model aggregates example](/assets/images/microservices_patterns/microservices-patterns-business-logic-domain-model-aggregates.jpg)
+![domain model aggregates example](/assets/images/microservices_patterns/business-logic-domain-model-aggregates.jpg)
 
 An aggregate is a cluster of domain objects within a boundary that can be treated as a unit. It consists of a root entity and possibly one or more other entities and value objects.
 
@@ -57,10 +61,10 @@ Rule #3: one transaction creates or updates one aggregate
 Another rule that aggregates must obey is that a transaction can only create or update a single aggregate. This constraint is perfect for the microservice architecture. It ensures that a transaction is contained within a service. This constraint also matches the limited transaction model of most NoSQL databases. This rule makes it more complicated to implement operations that need to create or update multiple aggregates. But this is exactly the problem that sagas are designed to solve. Each step of the saga creates or updates exactly one aggregate.
 
 ## order service example
-![order service business logic example](/assets/images/microservices_patterns/microservices-patterns-business-logic-order-service-example.jpg)
+![order service business logic example](/assets/images/microservices_patterns/business-logic-order-service-example.jpg)
 
 ## kitchen service example
-![kitchen service business logic example](/assets/images/microservices_patterns/microservices-patterns-business-logic-kitchen-service-example.jpg)
+![kitchen service business logic example](/assets/images/microservices_patterns/business-logic-kitchen-service-example.jpg)
 
 # Domain Events
 An aggregate publishes a domain event when it's created or undergoes some other signigicant change.
