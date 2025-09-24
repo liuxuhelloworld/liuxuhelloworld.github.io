@@ -1,3 +1,7 @@
+---
+title: Query
+---
+
 Writing queries in a microservice architecture is challenging. Queries often need to retrieve data that's scattered among the databases owned by multiple services.
 
 There are two different patterns for implementing query operations in a microservice architecture:
@@ -7,11 +11,11 @@ There are two different patterns for implementing query operations in a microser
 # API Composition Pattern
 Implement a query that retrieves data from several services by querying each service via its API and combining the results.
 
-![API composition](/assets/images/microservices_patterns/microservices-patterns-query-api-composition.jpeg)
+![API composition](/assets/images/microservices_patterns/query-api-composition.jpeg)
 
 Whether you can use this pattern to implement a particular query operation depends on several factors, including how the data is partitioned, the capabilities of the APIs exposed by the services that own the data, and the capabilities of the databases used by the services.
 
-who plays the role of the API composer?
+Who plays the role of the API composer?
 - one option is for a client of the services to be the API composer. This option is probably not pratical for clients that are outside of the firewall and access services via a slower network.
 - the second option is for an API gateway, which implements the application's external API, to play the role of an API composer for a query operation. This approach enables a client, such as a mobile device, that's running outside of the firewall to efficiently retrieve data from numerous services with a single API call.
 - the third option is to implement an API composer as a standalone service. You should use this option for a query operation that's used internally by multiple services. This operation can also be used for externally accessible query operations whose aggregation logic is too complex to be part of an API gateway.
@@ -36,7 +40,7 @@ The solution to all three of these problems is to use the CQRS pattern.
 # CQRS Pattern
 Implement a query that needs data from several services by using events to maintain a read-only view that replicates data from the services.
 
-![CQRS](/assets/images/microservices_patterns/microservices-patterns-query-cqrs.jpeg)
+![CQRS](/assets/images/microservices_patterns/query-cqrs.jpeg)
 
 CQRS pattern has two parts: the command side and the query side. The command side modules and data model implement create, update, and delete operations. The query side modules and data model implement queries. The query side keeps its data model synchronized with the command side data model by subscribing to the events published by the command side.
 
@@ -53,7 +57,7 @@ The drawbacks of CQRS:
 - dealing with the replication lag
 
 ## design CQRS views
-![CQRS view module](/assets/images/microservices_patterns/microservices-patterns-query-cqrs-view-module.jpeg)
+![CQRS view module](/assets/images/microservices_patterns/query-cqrs-view-module.jpeg)
 
 You must make some important design decisions when developing a CQRS view:
 - you must choose a database and design the schema
@@ -80,5 +84,5 @@ An event handler is idempotent if handling duplicate events results in the corre
 ### adding and updating CQRS views
 Adding and updating views is conceptually quite simple but in fact it is not. One problem is that message brokers can't store messages indefinitely. As a result, a view can't be build by only reading all the needed events from the message broker. Instead, an application must also read older events that have been archived. Another problem with view creation is that the time and resources required to process all events keep growing over time. Eventually, view creation will become too slow and expensive. The solution is to use a twp-step incremental algorithm. The first step periodically computes a snapshot of each aggregate instance based on its previous snapshot and events that have occurred since that snapshot was created. The second step creates a view using the snapshots and any subsequent events.
 
-## CQRS example
-![CQRS example](/assets/images/microservices_patterns/microservices-patterns-query-cqrs-example.jpeg)
+## A CQRS example
+![CQRS example](/assets/images/microservices_patterns/query-cqrs-example.jpeg)
