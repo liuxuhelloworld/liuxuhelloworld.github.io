@@ -1,3 +1,7 @@
+---
+title: Testing
+---
+
 The goal of a test is to verify the behavior of the System Under Test (SUT). An SUT might be as small as a class or as large as an entire application.
 
 # The Challenge of Testing Microservices
@@ -7,7 +11,7 @@ What is *consumer-driven contract testing*? The team that develops the consumer 
 
 Spring Cloud Contract is a consumer contract testing framework for Spring applications. It provides a Groovy domain-specific language (DSL) for writing contracts. Each contract is a concrete example of an interaction between a consumer and a provider, such as an HTTP request and response. Spring Cloud Contract code generates contract tests for the provider. It also configures mocks, such as a mock HTTP server, for consumer integration tests. 
 
-![contract test](/assets/images/microservices_patterns/microservices-patterns-testing-contract-test.jpeg)
+![contract test](/assets/images/microservices_patterns/testing-contract-test.jpeg)
 
 Spring Cloud Contract also provides support for testing messaging-based interactions. The structure of a contract and how it's used by the tests depend on the type of interaction. A contract for domain event publishing consists of an example domain event. A provider test causes the provider to emit an event and verifies that it matches the contract's event. A consumer test verifies that the consumer can handle that event. A contract for an asynchronous request/response interaction is similar to an HTTP request. It consists of a request message and a response message. A provider test invokes the API with the contract's request message and verifies that the response matches the contract's response. A consumer test uses the contract to configure a stub subscriber, which listens for the contract's request message and replies with the specified response.
 
@@ -22,7 +26,7 @@ An automated test consists of four phases:
 
 An SUT often has dependencies. The trouble with dependencies is that they can complicate and slow down tests. The solution is to replace the SUT's dependencies with test doubles. A *test double* is an object that simulates the behavior of the dependency. 
 
-![test double](/assets/images/microservices_patterns/microservices-patterns-testing-test-double.jpeg)
+![test double](/assets/images/microservices_patterns/testing-test-double.jpeg)
 
 There are two types of test doubles: stubs and mocks. A *stub* is a test double that returns values to the SUT. A *mock* is a test double that a test uses to verify that the SUT correctly invokes a dependency. Mockito is a popular mock object framework for Java.
 
@@ -34,10 +38,10 @@ There are two types of test doubles: stubs and mocks. A *stub* is a test double 
 
 At the base of the pyramid are the fast, simple, and reliable unit tests. At the top of the pyramid are the slow, complex, and brittle end-to-end tests. The key idea of the test pyramid is that as we move up the pyramid we should write fewer and fewer tests. We should write lots of unit tests and very few end-to-end tests.
 
+![test pyramid](/assets/images/microservices_patterns/testing-test-pyramid.jpeg)
+
 # Unit Test
 A unit test verifies that a *unit*, which is a very small part of a service, works correctly. A unit is typically a class, so the goal of unit testing is to verify that it behaves as expected.
-
-![unit test types](/assets/images/microservices_patterns/microservices-patterns-testing-unit-test-types.jpeg)
 
 There are two types of unit tests:
 - solitary unit test: tests a class in isolation using mock objects for the class's dependencies
