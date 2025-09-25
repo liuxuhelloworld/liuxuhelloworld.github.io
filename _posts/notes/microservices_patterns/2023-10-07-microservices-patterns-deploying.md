@@ -1,19 +1,21 @@
-Deployment is a combination of two interrelated concepts: process and architecture. The deployment process consists of the steps that must be performed by people, developers and operations, in order to get software into production. The deploment architecture defines the structure of the environment in which that software runs.
+---
+title: Deployment
+---
 
-![deployment history](/assets/images/microservices_patterns/microservices-patterns-deployment-history.jpeg)
+Deployment is a combination of two interrelated concepts: process and architecture. The deployment process consists of the steps that must be performed by people, developers and operations, in order to get software into production. The deployment architecture defines the structure of the environment in which that software runs.
 
-![production environment](/assets/images/microservices_patterns/microservices-patterns-deployment-production-environment.jpeg)
+![deployment history](/assets/images/microservices_patterns/deployment-history.jpeg)
+
+![production environment](/assets/images/microservices_patterns/deployment-production-environment.jpeg)
 
 A production environment must implement four key capabilities:
 - service management interface, enables developers to create, update, and configure services. Usually, this interface is a REST API invoked by command-line and GUI deployment tools
-- runtime service management, apptempts to ensure that the desired number of service instances is running at all times. If a service instance crashes or is somehow unable to handle requests, the production environment must restart it. If a machine crashes, the production environment must restart those service instances on a different machine
+- runtime service management, attempts to ensure that the desired number of service instances is running at all times. If a service instance crashes or is somehow unable to handle requests, the production environment must restart it. If a machine crashes, the production environment must restart those service instances on a different machine
 - monitoring, provides developers with insight into what their services are doing, including log files and metrics. If there are problems, the production environment must alert the developers.
 - request routing, route requests from users to the services
 
-# Deploying Services using the Language-specific Packaging Pattern
-Deploy a language-specific package into production.
-
-![language-specific packaging](/assets/images/microservices_patterns/microservices-patterns-deployment-language-specific-packaging-pattern.jpeg)
+# Language-specific Packaging Pattern
+![language-specific packaging](/assets/images/microservices_patterns/deployment-language-specific-packaging-pattern.jpeg)
 
 Benefits:
 - fast deployment
@@ -27,10 +29,10 @@ Drawbacks:
 
 The service as a language-specific package pattern has some significant drawbacks. You should rarely use this approach, except perhaps when efficiency outweighs all other concerns.
 
-# Deploying Services using the Service as a Virtual Machine Pattern
+# Service as a Virtual Machine Pattern
 Deploy services packaged as VM images into production. Each service instance is a VM.
 
-![service as virtual machine](/assets/images/microservices_patterns/microservices-patterns-deployment-service-as-virtual-machine-pattern.jpeg)
+![service as virtual machine](/assets/images/microservices_patterns/deployment-service-as-virtual-machine-pattern.jpeg)
 
 The deployment pipeline packages a service as a virtual machine image containing everything required to run the service, including the language runtime. At runtime, each service instance is a VM, instantiated from that image.
 
@@ -44,10 +46,10 @@ Drawbacks:
 - relatively slow deployments
 - system administration overhead
 
-# Deploying Services using the Service as a Container Pattern
+# Service as a Container Pattern
 Deploy services packaged as container images into production. Each service instance is a container.
 
-![container](/assets/images/microservices_patterns/microservices-patterns-deployment-container.jpeg)
+![container](/assets/images/microservices_patterns/deployment-container-pattern.jpeg)
 
 From the perspective of a process running in a container, it's as if it's running on its own machine. It typically has its own IP address, which eliminates port conflicts. All Java processes can, for example, listen on port 8080. Each container has its own root filesystem. The container runtime uses operating system mechanisms to isolate the containers from each other. 
 
@@ -55,7 +57,7 @@ The most popular example of a container runtime is Docker, and Kubernetes is a D
 
 When you create a container, you can specify its CPU, memory resources, and depending on the container implementation, perhaps the I/O resources. The container runtime enforeces these limits and prevents from hogging the resources of its machine. When using a Docker orchestration framework such as Kubernetes, it's specially important to specify a container's resources. That's because the orchestration framework uses a container's requested resources to select the machine to run the container and thereby ensure that machines aren't overloaded.
 
-![service as container](/assets/images/microservices_patterns/microservices-patterns-deployment-service-as-container.jpeg)
+![service as container](/assets/images/microservices_patterns/deployment-service-as-container.jpeg)
 
 At build-time, the deployment pipeline uses a container image-building tool, which reads the service's code and a description of the image, to create the container image and stores it in a registry. At runtime, the container image is pulled from the registry and used to create containers.
 
@@ -85,7 +87,7 @@ A Docker orchestration framework treats a set of machines running Docker as a po
 - scheduling, selects the machine to run your container. By default, scheduling considers the resource requirements of the container and each node's avaiable resources
 - service management, implements the concept of named and versioned services that map directly to services in the microservice architecture. The orchestration framework ensures that the desired number of healthy instances is running at all times. It load balances requests across them. The orchestration framework performs rolling upgrades of services and lets you roll back to an old version
 
-![Kubernetes](/assets/images/microservices_patterns/microservices-patterns-deployment-kubernetes.jpeg)
+![Kubernetes](/assets/images/microservices_patterns/deployment-kubernetes.jpeg)
 
 Kubernetes runs on a cluster of machines. Each machine in a Kubernetes cluster is either a master or a node. A master machine is responsible for managing the cluster. A node is a worker that runs one or more pods. 
 
