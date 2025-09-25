@@ -1,3 +1,7 @@
+---
+title: API Gateway
+---
+
 One approach to API design is for clients to invoke the services directly. But this approach is rarely used in a microservice architecture because of the following drawbacks:
 - the fine-grained service APIs require clients to make multiple requests to retrieve the data they need, which is inefficient and can result in a poor user experience
 - the lack of encapsulation caused by clients knowing about each service and its API makes it difficult to change the architecture and the APIs
@@ -6,22 +10,22 @@ One approach to API design is for clients to invoke the services directly. But t
 # API Gateway Pattern
 Implement a service that's the entry point into the microservice-based applications from external API clients.
 
-![API Gateway](/assets/images/microservices_patterns/microservices-patterns-api-gateway.jpeg)
+![API Gateway](/assets/images/microservices_patterns/api-gateway.jpeg)
 
 An API gateway is a service that's the entry point into the application from the outside world. It's responsible for request routing, API composition, protocol translation, and other functions, such as authentication, monitoring, and rate limiting.
 
-![API Gateway Architecture](/assets/images/microservices_patterns/microservices-patterns-api-gateway-architecture.jpeg)
+![API Gateway Architecture](/assets/images/microservices_patterns/api-gateway-architecture.jpeg)
 
 An API gateway could provide a single one-size-fits-all API. The problem with a single API is that different clients often have different requirements. A better approach is for the API gateway to provide each client with its own API.
 
 An important question that you must answer is who is responsible for the development of the API gateway and its operation? A good approach is for the client teams to own the API module that exposes their API. An API gateway team is responsible for developing the common module and for the operational aspects of the gateway.
 
-## backends for frontends (BFF) Pattern
+## backends for frontends (BFF) pattern
 Implement a separate API gateway for each type of client.
 
 The backends for frontends pattern defines a separate API gateway for each client. Each client team owns their API gateway. An API gateway team owns the common layer.
 
-![Backends for Frontends](/assets/images/microservices_patterns/microservices-patterns-api-gateway-bff.jpeg)
+![Backends for Frontends](/assets/images/microservices_patterns/api-gateway-bff.jpeg)
 
 ## synchronous vs asynchronous I/O
 A key design decision that affects performance and scalability is whether the API gateway should use synchronous or asynchronous I/O.
@@ -44,11 +48,11 @@ A much better approach is to write API composition code in a declarative style u
 Using one of these reactive abstractions will enable you to write concurrent code that's simple and easy to understand.
 
 ## reliability
-As well as being scalable, an API gateway must also be reliable. One way to achieve reliability is to run multiple instances of the gateway behind a load balancer. If one instance fails, the load balancer will route requests to the other instances. Another way to ensure that an API gateway is reliable is to properly handle failed requests and requests that have unacceptable high latency. The solution is for an API gateway to use the Circuit breaker pattern when invoking services.
+As well as being scalable, an API gateway must also be reliable. One way to achieve reliability is to run multiple instances of the gateway behind a load balancer. If one instance fails, the load balancer will route requests to the other instances. Another way to ensure that an API gateway is reliable is to properly handle failed requests and requests that have unacceptable high latency. The solution is for an API gateway to use the circuit breaker pattern when invoking services.
 
 ## developing your own API gateway
 A good starting point for developing an API gateway is to use a framework designed for that purpose. Its built-in functionality significantly reduces the amount of code you need to write.
 
 Spring Cloud Gateway is an API gateway framework built on top of several frameworks, including Spring Framework 5, Spring Boot 2, and Spring WebFlux, which is a reactive web framework that's part of Spring Framework 5 and built on Project Reactor. Project Reactor is an NIO-based reactive framework for the JVM that provides the Mono abstraction.
 
-![Spring Cloud Gateway](/assets/images/microservices_patterns/microservices-patterns-api-gateway-spring-cloud-gateway.jpeg)
+![Spring Cloud Gateway](/assets/images/microservices_patterns/api-gateway-spring-cloud-gateway.jpeg)
