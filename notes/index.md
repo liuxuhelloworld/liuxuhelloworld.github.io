@@ -68,6 +68,9 @@ title: 我的读书笔记
 - [Kafka Replication](../_posts/notes/kafka/2024-09-05-kafka-replication.md)
 - [Kafka Log Compaction](../_posts/notes/kafka/2024-10-10-kafka-log-compaction.md)
 
+# CSAPP
+- [A Tour of Computer Systems](../_posts/notes/csapp/2022-03-24-csapp-a-tour-of-computer-systems.md)
+
 # Others
 - [Unicode](../_posts/notes/2022-04-21-unicode.md)
 - [What Is REST](../_posts/notes/2021-08-25-what-is-rest.md)
