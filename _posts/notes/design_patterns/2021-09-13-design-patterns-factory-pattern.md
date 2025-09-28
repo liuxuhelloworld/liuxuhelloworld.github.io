@@ -1,3 +1,7 @@
+---
+title: Factory Pattern
+---
+
 为什么需要factory pattern？There is more to making objects than just using the **new** operator. Instantiation is an activity that shouldn't always be done in public and can often lead to coupling problems. Factory patterns can help save you from embarrasing dependencies.
 
 ```java
@@ -33,4 +37,4 @@ public class SimplePizzaFactory {
 }
 ```
 
-这种方法我们称为factory method,  factory method不是design pattern，只是一种编程规范，by encapsulating the pizza creation in one class, we now have only one place to make modifications when the implementation changes.
+这种方法我们称为factory method, factory method不是design pattern, 只是一种编程规范，by encapsulating the pizza creation in one class, we now have only one place to make modifications when the implementation changes.

@@ -33,6 +33,12 @@ title: 我的读书笔记
 - [Spring Microservices](../_posts/notes/spring/2021-07-13-spring-microservices.md)
 - [Spring WebFlux](../_posts/notes/spring/2021-08-13-spring-webflux.md)
 
+# Design Patterns
+- [Design Principles](../_posts/notes/design_patterns/2021-09-08-design-patterns-design-principles.md)
+- [Strategy Pattern](../_posts/notes/design_patterns/2021-09-08-design-patterns-strategy-pattern.md)
+- [Observer Pattern](../_posts/notes/design_patterns/2021-09-09-design-patterns-observer-pattern.md)
+- [Decorator Pattern](../_posts/notes/design_patterns/2021-09-10-design-patterns-decorator-pattern.md)
+
 # Microservices Patterns
 - [Introduction](../_posts/notes/microservices_patterns/2023-01-29-microservices-patterns-introduction.md)
 - [Decomposition](../_posts/notes/microservices_patterns/2023-02-03-microservices-patterns-decomposition.md)

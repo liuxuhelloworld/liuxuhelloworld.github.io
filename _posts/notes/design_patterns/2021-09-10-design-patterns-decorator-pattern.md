@@ -1,3 +1,7 @@
+---
+title: Decorator Pattern
+---
+
 The decorator pattern attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
 
 ![decorator-1](/assets/images/design_patterns/decorator-1.jpg)

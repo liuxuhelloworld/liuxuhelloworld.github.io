@@ -1,3 +1,7 @@
+---
+title: Strategy Pattern
+---
+
 The strategy pattern defines a family of algorithms, encapsulate each one, and makes them interchangeable. The strategy pattern lets the algorithm vary independently from clients that use it.
 
 一个有quack()、swim()、display()、fly()的父类duck，所有子类duck继承自它，并且依据各自的特性override这几个方法，有什么问题吗？The problem is that not all of the subclasses should have flying or quacking behavior, 你需要在所有不具有fly()能力的子类duck中重载这个方法，so inheritance isn't the right answer.
