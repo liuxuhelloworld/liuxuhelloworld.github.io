@@ -1,3 +1,7 @@
+---
+title: LLM Introduction
+---
+
 A large language model is a type of artificial intelligence system that is capable of generating human-like text based on the patterns and relationships it learns from vast amounts of data. Large language models use a machine learning technique called deep learning to analyze and process large sets of data, such as books, articles, and web pages.
 
 Large language models (LLMs) are deep learning algorithms that can recognize, extract, summarize, predict, and generate text based on knowledge gained during traning on very large datasets.

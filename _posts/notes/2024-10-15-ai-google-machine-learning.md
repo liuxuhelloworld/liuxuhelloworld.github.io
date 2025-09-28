@@ -1,3 +1,7 @@
+---
+title: Machine Learning
+---
+
 In basic terms, ML is the process of training a piece of software, called a model, to make useful predictions or generate content from data.
 
 ML systems fall into one or more of the following categories based on how they learn to make predictions or generate content:
