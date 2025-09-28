@@ -1,3 +1,7 @@
+---
+title: Intruduction
+---
+
 # What is AI?
 human vs rational? thought vs behavior?
 - acting humanly, the Turing test approach
