@@ -1,7 +1,11 @@
+---
+title: A Tour of Computer Systems
+---
+
 All information in a system, including disk files, programs stored in memory, user data stored in memory, and data transferred across a network, is represented as a bunch of bits. The only thing that distinguishes different data objects is the context in which we view them.
 
 # Hardware Organization of a System
-![hardware_organization_of_a_system](/assets/images/csapp/csapp-hardware-organization-of-a-typical-system.png)
+![hardware_organization_of_a_system](/assets/images/csapp/hardware-organization-of-a-typical-system.png)
 
 Running throughout the system is a collection of electrical conduits called *buses* that carry bytes of information back and forth between the components. Buses are typically designed to transfer fixed-size chunks of bytes known as *words*.
 
