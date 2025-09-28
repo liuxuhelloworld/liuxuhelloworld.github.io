@@ -1,3 +1,7 @@
+---
+title: Introduction
+---
+
 # The Dartmouth Summer
 Most people in articifial intelligence trace the field's official founding to a small workshop in 1956 at Dartmouth College organized by a young mathematician named John McCarthy. The term artificial intelligence was McCarthy's invention.
 
@@ -18,7 +22,7 @@ By the mid-1980s, expert systems, symbolic AI approaches that rely on humans to 
 # Subsymbolic AI
 Subsymbolic approaches to AI took inspiration from neuroscience and sought to capture the sometimes-unconscious thought processes underlying what some have called fast perception, such as recognizing faces or identifying spoken words. Subsymbolic AI programs do not contain the kind of human-understandable language. Instead, a subsymbolic program is essentially a stack of equations, a thicket of often hard-to-interpret operations on numbers.
 
-An early example of a subsymbolic, brain-inspired AI program was the perceptron, invented in the late 1950s by the psychologist Frank Rosenblatt. The perceptron was an important milestone in AI and was the influential great-grandparent of modern AI's most successful tool, deep neural networks.
+An early example of a subsymbolic, brain-inspired AI program was the perceptron, invented in the late 1950s by the psychologist Frank Rosenblatt. The perceptron was an important milestone in AI and was the influential great-grandparent of modern AI's most successful tool, **deep neural networks**.
 
 Rosenblatt's invention of perceptrons was inspired by the way in which neurons process information. A neuron is a cell in the brain that receives electrical or chemical input from other neurons that connect to it. Roughly speaking, a neuron sums up all the inputs it receives from other neurons, and if the total sum reaches a certain threshold level, the neuron fires. Importantly, different connections from other neurons to a given neuron have different strengths; in calculating the sum of its inputs, the given neuron gives more weight to inputs from stronger connections than inputs from weaker connections. Neuroscientists believe that adjustments to the strength of connections between neurons is a key part of how learning takes place in the brain.
 
@@ -46,7 +50,7 @@ Unlike in a perceptron, a unit here doesn't simply "fire" or "not fire" (that is
 
 In general, it's hard to know ahead of time how many layers of hidden units are needed, or how many hidden units should be included in a layer, for a network to perform well on a given task. Most neural network researchers use a form of trial and error to find the best settings.
 
-There is a general learning algorithm for multilayer neural networks, which is called back-propagation. As its name implies, back-propagation is a way to take an error observed at the output units and to "propagate" the blame for that error backward so as to assign proper blame to each of the weights in the network. This allows back-propagation to determine how much to change each weight in order to reduce the error. Learning in neural networks simply consists of gradually modifying the weights on connections so that each output's error gets as close to 0 as possible on all training examples.
+There is a general learning algorithm for multilayer neural networks, which is called **back-propagation**. As its name implies, back-propagation is a way to take an error observed at the output units and to "propagate" the blame for that error backward so as to assign proper blame to each of the weights in the network. This allows back-propagation to determine how much to change each weight in order to reduce the error. Learning in neural networks simply consists of gradually modifying the weights on connections so that each output's error gets as close to 0 as possible on all training examples.
 
 Back-propagation will work (in principle at least) no matter how many inputs, hidden units, or output units your neural network has. While there is no mathematical guarantee that back-propagation will settle on the correct weights for a network, in practice it has worked very well on many tasks that are too hard for simple peceptrons.
 

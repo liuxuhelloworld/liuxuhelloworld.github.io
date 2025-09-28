@@ -1,5 +1,9 @@
+---
+title: Learning to Play
+---
+
 # Reinforcement Learning
-Operant conditioning inspired an important machine-learning approach called reinforcement learning. Reinforcement learning contrasts with the supervised-learning method: in its purest form, reinforcement learning requires no labeled training examples. Instead, an agent, the learning program, performs actions in an environment (usually a computer simulation) and occasionally receives rewards from the environment. These intermittent rewards are the only feedback the agent uses for learning.
+Operant conditioning inspired an important machine-learning approach called **reinforcement learning**. Reinforcement learning contrasts with the supervised-learning method: in its purest form, reinforcement learning requires no labeled training examples. Instead, an agent, the learning program, performs actions in an environment (usually a computer simulation) and occasionally receives rewards from the environment. These intermittent rewards are the only feedback the agent uses for learning.
 
 While reinforcement learning has been part of the AI toolbox for decades, it has long been overshadowed by neural networks and other supervised-learning methods. This changed in 2016 when reinforcement learning played a central role in a stunning and momentous achievement in AI: a program that learned to beat the best humans at the complex game of Go.
 

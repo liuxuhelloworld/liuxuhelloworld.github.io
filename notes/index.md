@@ -2,6 +2,11 @@
 title: 我的读书笔记
 ---
 
+# Artificial Intelligence, A Guide for Thinking Humans
+- [Introduction](../_posts/notes/ai_a_guide_for_thinking_humans/2024-10-21-ai-guide-for-thinking-humans-introduction.md)
+- [Looking and Seeing](../_posts/notes/ai_a_guide_for_thinking_humans/2024-11-19-ai-guide-for-thinking-humans-looking-and-seeing.md)
+- [Learning to Play](../_posts/notes/ai_a_guide_for_thinking_humans/2025-01-02-ai-guide-for-thinking-humans-learning-to-play.md)
+
 # Java Performance
 - [JIT Compiler](../_posts/notes/java_performance/2022-11-09-java-performance-jit-compiler.md)
 - [Garbage Collection](../_posts/notes/java_performance/2022-10-10-java-performance-garbage-collection.md)

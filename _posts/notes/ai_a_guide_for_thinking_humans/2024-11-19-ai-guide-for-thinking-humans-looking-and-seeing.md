@@ -1,3 +1,7 @@
+---
+title: Looking and Seeing
+---
+
 Vision, both looking and seeing, turns out to be one of the hardest of all "easy" things.
 
 Convolutional neural networks (ConvNets) are the driving force behind today's deep-learning revolution in computer vision, and in other areas as well.
@@ -38,7 +42,7 @@ In the 2012 ImageNet competition, the winning entry achived an amazing 85 percen
 
 At almost the same time, Geoffery Hinton's group was also demonstrating that deep neural networks, trained on huge amounts of labeled data, were significantly better than the current state of the art in speech recognition.
 
-The annual ImageNet competition began to see wider coverage in the media, and it quickly morphed from a friendly academic contest into a high-profile sparring match for tech companies commercializing computer vision. Winning at ImageNet would guarantee coveted respect from the vision community, along with free publicity, which might translate into product sales and higher stock prices. The pressure to produce programs that outperformed competitors was notably manifest in 2015 cheating incident involving the giant Chinese internet company Baidu. The cheating involved a subtle example of what people in machine learning called data snooping. A cardinal rule in machine learning is "Don't train on the test data." It seems obvious: If you include test data in any part of training your program, you won't get a good measure of the program's generalization abilities.
+The annual ImageNet competition began to see wider coverage in the media, and it quickly morphed from a friendly academic contest into a high-profile sparring match for tech companies commercializing computer vision. Winning at ImageNet would guarantee coveted respect from the vision community, along with free publicity, which might translate into product sales and higher stock prices. The pressure to produce programs that outperformed competitors was notably manifest in 2015 cheating incident involving the giant Chinese internet company Baidu. The cheating involved a subtle example of what people in machine learning called **data snooping**. A cardinal rule in machine learning is "Don't train on the test data." It seems obvious: If you include test data in any part of training your program, you won't get a good measure of the program's generalization abilities.
 
 What was it that enabled ConvNets, which seemed to be at a dead end in the 1990s, to suddenly dominate the ImageNet competition, and subsequently most of computer vision in the last half a decade? It turns out that the recent success of deep learning is due less to new breakthroughs in AI than to the availability of huge amounts of data and very fast parallel computer hardware. These factors, along with improvements in training methods, allow hundred-plue-layer networks to be trained on millions of images in just a few days.
 
@@ -125,4 +129,3 @@ These laws have become famous, but in truth, Asimov's purpose was to show how su
 The value alignment problem in AI: the challenge for AI programmers to ensure that their systems' values align with those of humans. But what are the values of humans? Does it even make sense to assume that there are universal values that society shares? Before we can put our values into machines, we have to figure out how to make our values clear and consistent. This seems to be harder than we might have thought.
 
 Progress on giving computers moral intelligence cannot be separated from progress on other kinds of intelligence: the true challenge is to create machines that can actually understand the situations that they confront. Reasoning about morality requires one to recognize cause-and-effect relationships, to imagine different possible futures, to have a sense of the beliefs and goals of others, and to predict the likely outcomes of one's actions in whatever situation one finds one self. In other words, a prerequisite to trustworthy moral reasoning is general common sense, which, as we've seen, is missing in even the best of today's AI systems.
-
