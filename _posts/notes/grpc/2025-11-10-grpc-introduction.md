@@ -19,7 +19,7 @@ gRPC lets you define four kinds of service methods:
 - Client streaming RPCs where the client writes a sequence of messages and sends them to the server, again using a provided stream. Once the client has finished writing the messages, it waits for the server to read them and return its response. Again gRPC guarantees message ordering within an individual RPC call
 - Bidirectional streaming RPCs where both sides send a sequence of messages using a read-write stream. The two streams operate independently, so clients and servers can read and write in whatever order they like. The order of messages in each stream is preserved
 
-# RPC Lift Cycle
+# RPC Life Cycle
 For unary RPC:
 1. Once the client calls a stub method, the server is notified that the RPC has been invoked with the client's metadata for this call, the method name, and the specified deadline if applicable.
 2. The server can then either send back its own initial metadata (which must be sent before any response) straight away, or wait for the client's request message. Which happens first, is application-specific.
@@ -48,11 +48,14 @@ User-defined metadata is not used by gRPC, which allows the client to provide in
 # Channels
 A gRPC channel provides a connection to a gRPC server on a specified host and port. It is used when creating a client stub. Clients can specify channel arguments to modify gRPC's default behavior. A channel has state, including **connected** and **idle**.
 
-# gRPC vs binary blob over HTTP/2
-This is largely what gRPC is on the wire. However gRPC is also a set of libraries that will provide higher-level features consistently across platforms that common HTTP libraries typically do not. Examples of such features include:
-- interaction with flow-control at the application layer
-- cascading call-cancellation
-- load balancing & failover
+# FAQ
+1. gRPC vs binary blob over HTTP/2
+    
+    This is largely what gRPC is on the wire. However gRPC is also a set of libraries that will provide higher-level features consistently across platforms that common HTTP libraries typically do not. Examples of such features include:
+    - interaction with flow-control at the application layer
+    - cascading call-cancellation
+    - load balancing & failover
 
-# gRPC vs REST
-gRPC largely follows HTTP semantics over HTTP/2 but we explicitly allow for full-duplex streaming. We diverge from typical REST conventions as we use static paths for performance reasons during call dispatch as parsing call parameters from paths, query parameters and payload body adds latency and complexity. We have also formalized a set of errors that we believe are more directly applicable to API use cases than the HTTP status codes.
+2. gRPC vs REST
+    
+    gRPC largely follows HTTP semantics over HTTP/2 but we explicitly allow for full-duplex streaming. We diverge from typical REST conventions as we use static paths for performance reasons during call dispatch as parsing call parameters from paths, query parameters and payload body adds latency and complexity. We have also formalized a set of errors that we believe are more directly applicable to API use cases than the HTTP status codes.
